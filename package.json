@@ -1,0 +1,29 @@
+{
+  "name": "arben-home-v2",
+  "version": "1.0.0",
+  "description": "Home linen ecommerce website",
+  "main": "index.js",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "author": "Anas Arif",
+  "license": "ISC",
+  "dependencies": {
+    "@sanity/client": "^3.4.1",
+    "@sanity/image-url": "^1.0.1",
+    "next": "^13.0.3",
+    "react": "^18.2.0",
+    "react-burger-menu": "^3.0.8",
+    "react-dom": "^18.2.0",
+    "react-hot-toast": "^2.4.0",
+    "react-icons": "^4.6.0",
+    "swiper": "^8.4.4"
+  },
+  "devDependencies": {
+    "eslint": "8.27.0",
+    "eslint-config-next": "13.0.3"
+  }
+}
