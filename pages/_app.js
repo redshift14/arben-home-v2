@@ -1,8 +1,12 @@
 import '../style/globals.css'
+import Navbar from '../components/Navbar/Navbar'
 
 const MyApp = ({ Component, pageProps }) => {
   return (
-    <Component {...pageProps} />
+    <>
+      <Navbar />    
+      <Component {...pageProps} />
+    </>
   )
 }
 

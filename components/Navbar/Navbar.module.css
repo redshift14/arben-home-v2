@@ -1,0 +1,10 @@
+.main {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 30px;
+}
+.logo_container img {
+  height: 60px;
+  width: auto;
+}
