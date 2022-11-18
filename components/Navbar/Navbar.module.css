@@ -2,9 +2,26 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 20px 30px;
+  padding: 0 60px;
+  height: 110px;
+  background-color: white;
+}
+.nav {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 50px;
+}
+.logo_container {
+  flex: 1;
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
 }
 .logo_container img {
   height: 60px;
   width: auto;
+}
+.select_container {
+  flex: 1;
 }

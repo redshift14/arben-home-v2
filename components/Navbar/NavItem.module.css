@@ -1,0 +1,57 @@
+.wrapper {
+  position: relative;
+  height: 110px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.wrapper::after {
+  position: absolute;
+  content: '';
+  left: -5px;
+  top: 100%;
+  width: 0;
+  height: 1.5px;
+  background: var(--gray-1);
+  transition: width .3s;
+  z-index: 11;
+}
+.wrapper:hover::after {
+  width: 100%;
+}
+.link {
+  border: none;
+  outline: none;
+  background-color: transparent;
+  font-size: 18px;
+  color: var(--gray-5);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  font-weight: 400;
+}
+.chevron {
+  font-size: 20px;
+  color: var(--gray-1);
+  transition: transform 300ms;
+}
+.wrapper:hover .chevron {
+  transform: rotate(-180deg);
+}
+.menu {
+  position: absolute;
+  width: 300px;
+  left: 0;
+  top: 100%;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(15%);
+  transition: transform 300ms;
+  z-index: 10;
+}
+.wrapper:hover .menu {
+  opacity: 1;
+  pointer-events: all;
+  transform: translateY(0);
+}

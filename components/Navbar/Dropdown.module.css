@@ -1,0 +1,14 @@
+.main {
+  padding: 20px 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  background-color: var(--gray-0);
+}
+.link {
+  border: none;
+  outline: none;
+  background-color: transparent;
+  font-size: 17px;
+  cursor: pointer;
+}
