@@ -7,46 +7,9 @@ import Logo from '../../public/assets/logoSmall.webp'
 import NavItem from './NavItem'
 import Dropdown from './Dropdown'
 
-const shopLinks = [
-  {
+import { aboutLinks } from './links'
 
-  }
-]
-
-const aboutLinks = [
-  {
-    name: {
-      en: 'Who we are?',
-      fr: 'Qui nous sommes?',
-      ar: 'من نحن؟'
-    },
-    to: '/'
-  },
-  {
-    name: {
-      en: 'Contact us',
-      fr: 'Contactez-nous',
-      ar: 'تواصلوا معنا'
-    },
-    to: '/'
-  },
-  {
-    name: {
-      en: 'FAQs',
-      fr: 'FAQs',
-      ar: 'الأسئلة الشائعة'
-    },
-    to: '/'
-  },
-  {
-    name: {
-      en: 'Terms & conditions',
-      fr: 'Termes et conditions',
-      ar: 'الشروط والأحكام'
-    },
-    to: '/'
-  }
-]
+import LanguageSelect from './LanguageSelect'
 
 const Navbar = () => {
   return (
@@ -68,6 +31,7 @@ const Navbar = () => {
       </div>
 
       <div className={classes.select_container}>
+        <LanguageSelect />
       </div>
     </div>
   )

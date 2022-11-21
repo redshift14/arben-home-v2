@@ -4,15 +4,16 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  cursor: pointer;
 }
 .wrapper::after {
   position: absolute;
   content: '';
-  left: -5px;
+  left: 0;
   top: 100%;
   width: 0;
   height: 1.5px;
-  background: var(--gray-1);
+  background: var(--gray-5);
   transition: width .3s;
   z-index: 11;
 }
@@ -24,7 +25,7 @@
   outline: none;
   background-color: transparent;
   font-size: 18px;
-  color: var(--gray-5);
+  color: var(--gray-9);
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -33,7 +34,7 @@
 }
 .chevron {
   font-size: 20px;
-  color: var(--gray-1);
+  color: var(--gray-5);
   transition: transform 300ms;
 }
 .wrapper:hover .chevron {
@@ -41,7 +42,7 @@
 }
 .menu {
   position: absolute;
-  width: 300px;
+  width: max-content;
   left: 0;
   top: 100%;
   opacity: 0;

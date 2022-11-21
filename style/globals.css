@@ -1,19 +1,26 @@
-@import url('https://fonts.googleapis.com/css2?family=Dosis:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Dosis:wght@300;400;500;600;700&family=IBM+Plex+Sans+Arabic:wght@300;400;500;700&display=swap');
 
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Dosis', sans-serif;
+  font-family: 'Dosis', 'IBM Plex Sans Arabic', sans-serif;
 }
 :root {
-  --gray-0: #f5f5f5;
-  --gray-1: #999999;
-  --gray-2: #777777;
-  --gray-3: #555555;
-  --gray-4: #333333;
-  --gray-5: #111111;
+  --gray-0: #fafafa;
+  --gray-1: #f5f5f5;
+  --gray-2: #ececec;
+  --gray-3: #dedede;
+  --gray-4: #d4d4d4;
+  --gray-5: #999999;
+  --gray-6: #777777;
+  --gray-7: #555555;
+  --gray-8: #333333;
+  --gray-9: #111111;
 }
 a {
   text-decoration: none;
+}
+ul {
+  list-style: none;
 }

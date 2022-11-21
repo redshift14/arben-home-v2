@@ -1,11 +1,10 @@
-import Link from 'next/link'
-
 import { VscChevronDown } from 'react-icons/vsc'
 import classes from './NavItem.module.css'
+import classesSidebar from './SidebarItem.module.css' 
 
-const NavItem = ({ children, linkName, withDropDown }) => {
+const NavItem = ({ children, linkName, withDropDown, sidebar }) => {
   return (
-    <Link href={'/'} className={classes.wrapper}>
+    <div className={classes.wrapper}>
       <div className={classes.main}>
         <button className={classes.link}>
           { linkName }
@@ -15,7 +14,7 @@ const NavItem = ({ children, linkName, withDropDown }) => {
           { children }
         </div>
       </div>
-    </Link>
+    </div>
   )
 }
 
