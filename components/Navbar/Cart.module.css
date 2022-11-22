@@ -1,0 +1,48 @@
+.burger_icon {
+  position: fixed;
+  right: 30px;
+  top: 40px;
+  bottom: auto;
+  font-size: 26px;
+  color: var(--gray-8);
+}
+.burger_icon:hover {
+  color: var(--gray-7);
+}
+.close_icon {
+  top: 34px !important;
+  right: 15px !important;
+  height: auto !important;
+  width: auto !important;
+  font-size: 25px;
+  color: var(--gray-7);
+}
+.close_icon:hover {
+  color: var(--gray-5);
+}
+.menu {
+  background: white;
+}
+.overlay {
+  background: rgba(0, 0, 0, 0.3);
+}
+
+@media only screen and (max-width: 1000px) {
+  .burger_icon {
+    right: 20px;
+  }
+}
+@media only screen and (max-width: 650px) {
+  .burger_icon {
+    right: 10px;
+  }
+}
+@media only screen and (max-width: 500px) {
+  .burger_icon {
+    top: auto;
+    bottom: 8px;
+    right: 15px;
+    color: var(--gray-9);
+    font-size: 22px;
+  }
+}

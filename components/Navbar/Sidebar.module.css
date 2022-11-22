@@ -2,6 +2,7 @@
   position: fixed;
   left: 30px;
   top: 34px;
+  bottom: auto;
   font-size: 32px;
   color: var(--gray-9);
 }
@@ -14,10 +15,10 @@
   height: auto !important;
   width: auto !important;
   font-size: 25px;
-  color: var(--gray-9);
+  color: var(--gray-7);
 }
 .close_icon:hover {
-  color: var(--gray-7);
+  color: var(--gray-5);
 }
 .menu {
   background: white;
@@ -36,17 +37,49 @@
   padding: 20px;
   border-bottom: 1px solid var(--gray-3);
 }
+.main {
+  display: flex;
+  flex-direction: column;
+  padding: 30px 20px;
+  gap: 20px;
+}
 .icons {
   position: fixed;
   bottom: 0;
   width: 400px;
-  background-color: aqua;
+  border-top: 1px solid var(--gray-3);
+  padding: 20px;
   align-self: flex-end;
-  height: 20px;
+  height: max-content;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+.icon {
+  color: var(--gray-7);
+  font-size: 18px;
+  cursor: pointer;
+}
+.icon:hover {
+  color: var(--gray-9);
 }
 
 @media only screen and (min-width: 1001px) {
   .burger_icon {
     display: none;
+  }
+}
+@media only screen and (max-width: 650px) {
+  .burger_icon {
+    left: 10px;
+  }
+}
+@media only screen and (max-width: 500px) {
+  .burger_icon {
+    top: auto;
+    bottom: 2px;
+    left: 15px;
+    font-size: 28px;
   }
 }

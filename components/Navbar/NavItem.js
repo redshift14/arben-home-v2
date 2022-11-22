@@ -1,16 +1,30 @@
+import { useState } from 'react'
+
 import { VscChevronDown } from 'react-icons/vsc'
-import classes from './NavItem.module.css'
-import classesSidebar from './SidebarItem.module.css' 
+
+import navClasses from './NavItem.module.css'
+import sideClasses from './NavItemSidebar.module.css'
 
 const NavItem = ({ children, linkName, withDropDown, sidebar }) => {
+
+  const { wrapper, main, link, chevron, menu, hidden, rotated } = sidebar ? sideClasses : navClasses
+
+  const [openMenuSidebar, setOpenMenuSidebar] = useState(false)
+
+  const handleOpenMenuSidebar = () => {
+    if (sidebar) {
+      setOpenMenuSidebar(value => value = !value)
+    }
+  }
+
   return (
-    <div className={classes.wrapper}>
-      <div className={classes.main}>
-        <button className={classes.link}>
+    <div className={wrapper}>
+      <div className={main}>
+        <button className={link} onClick={handleOpenMenuSidebar}>
           { linkName }
-          { withDropDown && <VscChevronDown className={classes.chevron} /> }
+          { withDropDown && <VscChevronDown className={openMenuSidebar  ? `${chevron} ${rotated}` : chevron } /> }
         </button>
-        <div className={classes.menu}>
+        <div className={openMenuSidebar ? menu : `${menu} ${hidden}`}>
           { children }
         </div>
       </div>

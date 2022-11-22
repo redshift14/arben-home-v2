@@ -1,0 +1,38 @@
+.wrapper {
+  background-color: white;
+  position: relative;
+}
+.main {
+
+} 
+.link {
+  border: none;
+  outline: none;
+  background-color: transparent;
+  font-size: 18px;
+  color: var(--gray-9);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2px;
+  font-weight: 400;
+  width: 100%;
+} 
+.link:hover {
+  color: var(--gray-6);
+}
+.chevron {
+  font-size: 20px;
+  color: var(--gray-7);
+} 
+.rotated {
+  transform: rotate(-180deg);
+}
+.menu {
+  display: flex;
+  width: max-content;
+}
+.hidden {
+  display: none;
+}

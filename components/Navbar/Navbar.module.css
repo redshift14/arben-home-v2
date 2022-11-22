@@ -26,6 +26,7 @@
   flex: 1;
   display: flex;
   justify-content: flex-end;
+  padding-right: 30px;
 }
 
 @media only screen and (max-width: 1000px) {
@@ -40,3 +41,35 @@
     justify-content: flex-start;
   }
 }
+@media only screen and (max-width: 650px) {
+  .main {
+    padding: 0 20px;
+  }
+  .logo_container {
+    padding-left: 35px;
+  }
+}
+@media only screen and (max-width: 500px) {
+  .main {
+    padding: 0 10px;
+  }
+  .logo_container {
+    padding-left: 0;
+  }
+  .logo_container img {
+    height: 50px;
+    width: auto;
+  }
+  .select_container {
+    padding-right: 0;
+  }
+}
+@media only screen and (max-width: 330px) {
+  .main {
+    padding: 0 5px;
+  }
+  .logo_container img {
+    height: 45px;
+    width: auto;
+  }
+} 

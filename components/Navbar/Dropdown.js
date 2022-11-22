@@ -1,13 +1,17 @@
 import Link from 'next/link'
-import classes from './Dropdown.module.css'
+import navClasses from './Dropdown.module.css'
+import sideClasses from './DropdownSidebar.module.css'
 
-const Dropdown = ({ links }) => {
+const Dropdown = ({ links, sidebar }) => {
+
+  const { main, link_container, link } = sidebar ? sideClasses : navClasses
+
   return (
-    <div className={classes.main}>
+    <div className={main}>
       {
-        links.map((link, index) => (
-          <Link href={'/'} key={index} className={classes.link_container}>
-            <button className={classes.link}>{link.name.en}</button>
+        links.map((l, index) => (
+          <Link href={'/'} key={index} className={link_container}>
+            <button className={link}>{l.name.en}</button>
           </Link>
         ))
       }

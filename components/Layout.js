@@ -1,6 +1,9 @@
 import Head from 'next/head'
+
+import Cart from './Navbar/Cart'
 import Navbar from './Navbar/Navbar'
 import Sidebar from './Navbar/Sidebar'
+import Bottombar from './Navbar/Bottombar'
 
 const Layout = ({ children }) => {
   return (
@@ -9,8 +12,10 @@ const Layout = ({ children }) => {
         <title>Arben Home</title>
       </Head>
       <header>
-        <Sidebar  />
+        <Cart />
+        <Sidebar />
         <Navbar />
+        <Bottombar />
       </header>
       <main>
         { children }
