@@ -4,6 +4,7 @@ import Cart from './Navbar/Cart'
 import Navbar from './Navbar/Navbar'
 import Sidebar from './Navbar/Sidebar'
 import Bottombar from './Navbar/Bottombar'
+import Footer from './Footer/Footer'
 
 const Layout = ({ children }) => {
   return (
@@ -21,7 +22,7 @@ const Layout = ({ children }) => {
         { children }
       </main>
       <footer>
-        Footer
+        <Footer />
       </footer>
     </div>
   )

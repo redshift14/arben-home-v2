@@ -9,7 +9,7 @@ import Link from 'next/link'
 import NavItem from './NavItem'
 import Dropdown from './Dropdown'
 import Logo from '../../public/assets/logoSmall.webp'
-import { aboutLinks } from './links'
+import { aboutLinks } from './navLinks'
 import classes from './Sidebar.module.css'
 
 export default () => {
@@ -22,7 +22,6 @@ export default () => {
       crossButtonClassName={classes.close_icon}
       morphShapeClassName={classes.morph_shape}
       overlayClassName={classes.overlay}
-      width={400}
     >
       <div className={classes.content}>
         <div className={classes.head}>

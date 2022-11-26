@@ -1,7 +1,7 @@
 .burger_icon {
   position: fixed;
   right: 30px;
-  top: 40px;
+  top: 30px;
   bottom: auto;
   font-size: 26px;
   color: var(--gray-8);

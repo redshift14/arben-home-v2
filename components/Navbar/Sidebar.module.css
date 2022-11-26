@@ -1,7 +1,7 @@
 .burger_icon {
   position: fixed;
   left: 30px;
-  top: 34px;
+  top: 28px;
   bottom: auto;
   font-size: 32px;
   color: var(--gray-9);
@@ -22,6 +22,8 @@
 }
 .menu {
   background: white;
+  width: 400px !important;
+  max-width: 100%;
 }
 .overlay {
   background: rgba(0, 0, 0, 0.3);
@@ -47,6 +49,7 @@
   position: fixed;
   bottom: 0;
   width: 400px;
+  max-width: 100%;
   border-top: 1px solid var(--gray-3);
   padding: 20px;
   align-self: flex-end;

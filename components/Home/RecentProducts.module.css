@@ -1,0 +1,46 @@
+.main {
+  display: flex;
+  flex-direction: column;
+  gap: 60px;
+  padding: 0 20px 50px 20px;
+}
+.main h2 {
+  text-align: center;
+  font-size: 32px;
+}
+.cards {
+  display: grid;
+  grid-template-columns: auto auto auto auto auto;
+  gap: 20px;
+}
+
+@media only screen and (min-width: 2149px) {
+  .cards {
+    grid-template-columns: auto auto auto auto auto auto;
+  }
+}
+@media only screen and (max-width: 1550px) {
+  .cards {
+    grid-template-columns: auto auto auto auto;
+  }
+}
+@media only screen and (max-width: 1000px) {
+  .cards {
+    grid-template-columns: auto auto auto;
+  }
+}
+@media only screen and (max-width: 780px) {
+  .cards {
+    grid-template-columns: auto auto;
+  }
+}
+@media only screen and (max-width: 500px) {
+  .cards {
+    grid-template-columns: auto;
+  }
+}
+@media only screen and (max-width: 400px) {
+  .main h2 {
+    font-size: 28px;
+  }
+}

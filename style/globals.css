@@ -16,11 +16,37 @@
   --gray-6: #777777;
   --gray-7: #555555;
   --gray-8: #333333;
-  --gray-9: #111111;
+  --gray-9: #111111; 
+  --nav-height: 90px;
 }
 a {
   text-decoration: none;
+  color: inherit;
 }
 ul {
   list-style: none;
+}
+/* scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--gray-0); 
+}
+ ::-webkit-scrollbar-thumb {
+  background: var(--gray-5); 
+  border-radius: 5px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--gray-6); 
+} 
+
+/* swiper */
+.swiper-pagination-bullet-active {
+  background-color: var(--gray-8) !important;
+}
+
+/* burger menu */ 
+.bm-menu-wrap {
+  top: 0;
 }

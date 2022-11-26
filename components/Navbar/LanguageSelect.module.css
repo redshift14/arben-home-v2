@@ -55,7 +55,7 @@
 }
 .list {
   position: absolute;
-  width: 170px;
+  width: 160px;
   top: calc(100% + 5px);
   display: flex;
   flex-direction: column;
@@ -63,6 +63,8 @@
   padding: 10px 0;
   border-radius: 5px;
   border: 1px solid var(--gray-4);
+  z-index: 10;
+  background-color: white;
 }
 .item {
   padding: 10px;

@@ -1,4 +1,4 @@
- const shopLink = [
+ export const shopLink = [
   {
     name: {
       en: 'Who we are?',

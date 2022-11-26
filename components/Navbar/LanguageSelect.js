@@ -1,13 +1,17 @@
 import classes from './LanguageSelect.module.css'
 import Image from 'next/image'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import { useRouter } from 'next/router'
 
 import enFlag from '../../public/assets/icons/united.svg'
 import frFlag from '../../public/assets/icons/france.svg'
 import arFlag from '../../public/assets/icons/algeria.svg'
 
 const LanguageSelect = () => {
+
+  const router = useRouter()
+  const { locale, locales, pathname, asPath, query } = router
 
   const [showList, setShowList] = useState(false)
 
@@ -30,6 +34,8 @@ const LanguageSelect = () => {
               setSelectedLang('English - EN')
               setSelectedFlag(enFlag)
               setShowList(false)
+              localStorage.setItem('lang', 'test')
+              router.push({ pathname, query }, asPath, { locale: 'en-US' })
             }}>
               <Image src={enFlag} alt='enFlag' width={28} height={18}  />
               <p>English - EN</p>
@@ -38,6 +44,7 @@ const LanguageSelect = () => {
               setSelectedLang('Français - FR')
               setSelectedFlag(frFlag)
               setShowList(false)
+              router.push({ pathname, query }, asPath, { locale: 'fr-FR' })
             }}>
               <Image src={frFlag} alt='frFlag' width={28} height={18}  />
               <p>Français - FR</p>
@@ -46,6 +53,7 @@ const LanguageSelect = () => {
               setSelectedLang('العربية - AR')
               setSelectedFlag(arFlag)
               setShowList(false)
+              router.push({ pathname, query }, asPath, { locale: 'ar-DZ' })
             }}>
               <Image src={arFlag} alt='arFlag' width={28} height={18}  />
               <p>العربية - AR</p>

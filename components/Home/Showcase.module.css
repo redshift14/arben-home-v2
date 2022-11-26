@@ -1,0 +1,32 @@
+.swiperWrapper {
+  margin-top: var(--nav-height);
+}
+.swiperNavPrev, 
+.swiperNavNext {
+  top: 50%;
+  position: absolute;
+  transform: translateY(-50%);
+  width: 50px;
+  height: 50px;
+  z-index: 1;
+  cursor: pointer;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  opacity: 0;
+  transition: opacity 300ms;
+}
+.swiperWrapper:hover .swiperNavNext {
+  opacity: 1;
+}
+.swiperWrapper:hover .swiperNavPrev {
+  opacity: 1;
+}
+.swiperNavPrev {
+  left: 0;
+  transform: rotate(90deg);
+}
+.swiperNavNext {
+  right: 0;
+  transform: rotate(-90deg);
+}

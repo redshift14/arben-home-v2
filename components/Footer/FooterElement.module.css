@@ -1,0 +1,31 @@
+.main {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.main h5 {
+  font-size: 20px;
+  font-weight: 500;
+  color: var(--gray-9);
+}
+.links {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.link {
+  font-size: 18px;
+  color: var(--gray-9);
+}
+.link:hover {
+  color: var(--gray-7);
+}
+
+@media only screen and (max-width: 650px) {
+  .main h5 {
+    font-size: 16px;
+  }
+  .link {
+    font-size: 15px;
+  }
+}
