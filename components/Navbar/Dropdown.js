@@ -1,8 +1,12 @@
 import Link from 'next/link'
+import { useRouter } from 'next/router'
+
 import navClasses from './Dropdown.module.css'
 import sideClasses from './DropdownSidebar.module.css'
 
 const Dropdown = ({ links, sidebar }) => {
+
+  const { locale } = useRouter()
 
   const { main, link_container, link } = sidebar ? sideClasses : navClasses
 
@@ -11,7 +15,11 @@ const Dropdown = ({ links, sidebar }) => {
       {
         links.map((l, index) => (
           <Link href={'/'} key={index} className={link_container}>
-            <button className={link}>{l.name.en}</button>
+            <button className={link}>
+              {
+                locale == 'fr-FR' ? l.name.fr : locale == 'ar-DZ' ? l.name.ar : l.name.en
+              }
+            </button>
           </Link>
         ))
       }

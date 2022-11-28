@@ -10,6 +10,7 @@
 .main, .image {
   border-top-left-radius: 8px;
   border-top-right-radius: 8px;
+  object-fit: cover;
 }
 .content {
   background-color: white;

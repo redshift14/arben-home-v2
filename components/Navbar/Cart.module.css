@@ -6,6 +6,10 @@
   font-size: 26px;
   color: var(--gray-8);
 }
+.burger_icon_ar {
+  left: 30px;
+  right: auto;
+}
 .burger_icon:hover {
   color: var(--gray-7);
 }

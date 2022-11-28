@@ -10,16 +10,32 @@ import arFlag from '../../public/assets/icons/algeria.svg'
 
 const LanguageSelect = () => {
 
+  const flags = [enFlag, frFlag, arFlag]
+
   const router = useRouter()
-  const { locale, locales, pathname, asPath, query } = router
+  const { pathname, asPath, query } = router
 
   const [showList, setShowList] = useState(false)
 
   const [selectedFlag, setSelectedFlag] = useState(enFlag)
   const [selectLang, setSelectedLang] = useState('English - EN')
+  
+  useEffect(() => {
+    setSelectedLang(localStorage.getItem('lang'))
+    setSelectedFlag(flags[localStorage.getItem('flag')])
+  }, [])
+
+  const handleOptionClick = (langName, flagIndex, selectedLocale) => {
+    setSelectedLang(langName)
+    setSelectedFlag(flags[flagIndex])
+    setShowList(false)
+    localStorage.setItem('lang', langName)
+    localStorage.setItem('flag', flagIndex)
+    router.push({ pathname, query }, asPath, { locale: selectedLocale })
+  }
 
   return (
-    <div className={classes.main}>
+    <div className={classes.main} dir='ltr'>
       <button className={classes.select} onClick={() => setShowList(v => !v)}>
         <div className={classes.content}>
           <Image src={selectedFlag} alt='selected flag' width={28} height={18} />
@@ -30,31 +46,24 @@ const LanguageSelect = () => {
       {
         showList && (
           <ul className={classes.list}>
-            <li className={classes.item} onClick={() => {
-              setSelectedLang('English - EN')
-              setSelectedFlag(enFlag)
-              setShowList(false)
-              localStorage.setItem('lang', 'test')
-              router.push({ pathname, query }, asPath, { locale: 'en-US' })
-            }}>
+            <li 
+              className={classes.item} 
+              onClick={() => handleOptionClick('English - EN', 0, 'en-US')} 
+            >
               <Image src={enFlag} alt='enFlag' width={28} height={18}  />
               <p>English - EN</p>
             </li>
-            <li className={classes.item} onClick={() => {
-              setSelectedLang('Français - FR')
-              setSelectedFlag(frFlag)
-              setShowList(false)
-              router.push({ pathname, query }, asPath, { locale: 'fr-FR' })
-            }}>
+            <li 
+              className={classes.item} 
+              onClick={() =>  handleOptionClick('Français - FR', 1, 'fr-FR')}
+            >
               <Image src={frFlag} alt='frFlag' width={28} height={18}  />
               <p>Français - FR</p>
             </li>
-            <li className={classes.item} onClick={() => {
-              setSelectedLang('العربية - AR')
-              setSelectedFlag(arFlag)
-              setShowList(false)
-              router.push({ pathname, query }, asPath, { locale: 'ar-DZ' })
-            }}>
+            <li 
+              className={classes.item} 
+              onClick={() =>  handleOptionClick('العربية - AR', 2, 'ar-DZ')}
+            >
               <Image src={arFlag} alt='arFlag' width={28} height={18}  />
               <p>العربية - AR</p>
             </li>

@@ -5,6 +5,7 @@ import { FaFacebook, FaInstagram } from 'react-icons/fa'
 
 import Image from 'next/image'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 
 import NavItem from './NavItem'
 import Dropdown from './Dropdown'
@@ -13,6 +14,9 @@ import { aboutLinks } from './navLinks'
 import classes from './Sidebar.module.css'
 
 export default () => {
+
+  const { locale } = useRouter()
+
   return (
     <Menu
       className={classes.menu}
@@ -22,6 +26,7 @@ export default () => {
       crossButtonClassName={classes.close_icon}
       morphShapeClassName={classes.morph_shape}
       overlayClassName={classes.overlay}
+      right={locale == 'ar-DZ' ? true : false}
     >
       <div className={classes.content}>
         <div className={classes.head}>
@@ -30,11 +35,22 @@ export default () => {
           </Link>
         </div>
         <div className={classes.main}>
-          <NavItem sidebar={true} linkName='Home' />
-          <NavItem sidebar={true} withDropDown={true} linkName='Shop'>
+          <NavItem 
+            sidebar={true} 
+            linkName={locale == 'fr-FR' ? 'Accueil' : locale == 'ar-DZ' ? 'الرئيسة' : 'Home' } 
+          />
+          <NavItem 
+            sidebar={true} 
+            withDropDown={true} 
+            linkName={locale == 'fr-FR' ? 'Boutique' : locale == 'ar-DZ' ? 'المتجر' : 'Shop' }
+          >
             <Dropdown links={aboutLinks} sidebar={true} />
           </NavItem>
-          <NavItem sidebar={true} withDropDown={true} linkName='About'>
+          <NavItem 
+            sidebar={true} 
+            withDropDown={true} 
+            linkName={locale == 'fr-FR' ? 'A propos' : locale == 'ar-DZ' ? 'حول' : 'About'}
+          >
             <Dropdown links={aboutLinks} sidebar={true} />
           </NavItem>
         </div>

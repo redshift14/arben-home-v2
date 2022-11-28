@@ -16,6 +16,8 @@ import LanguageSelect from './LanguageSelect'
 
 const Navbar = () => {
 
+  const { locale } = useRouter()
+
   const [offset, setOffset] = useState(0)
 
   useEffect(() => {
@@ -23,16 +25,24 @@ const Navbar = () => {
     window.removeEventListener('scroll', onScroll)
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
-  }, []);
+  }, [])
 
   return (
     <div className={offset > 180 ? `${classes.main} ${classes.shadow}` : classes.main}>
       <nav className={classes.nav}>
-        <NavItem linkName='Home' />
-        <NavItem linkName='Shop' withDropDown={true}>
+        <NavItem 
+          linkName={locale == 'fr-FR' ? 'Accueil' : locale == 'ar-DZ' ? 'الرئيسة' : 'Home' } 
+        />
+        <NavItem 
+          linkName={locale == 'fr-FR' ? 'Boutique' : locale == 'ar-DZ' ? 'المتجر' : 'Shop' } 
+          withDropDown={true}
+        >
           <Dropdown links={aboutLinks} />
         </NavItem>
-        <NavItem linkName='About' withDropDown={true}>
+        <NavItem 
+          linkName={locale == 'fr-FR' ? 'A propos' : locale == 'ar-DZ' ? 'حول' : 'About' }
+          withDropDown={true}
+        >
           <Dropdown links={aboutLinks} />
         </NavItem>
       </nav>

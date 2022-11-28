@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router'
 import Head from 'next/head'
 
 import Cart from './Navbar/Cart'
@@ -7,8 +8,11 @@ import Bottombar from './Navbar/Bottombar'
 import Footer from './Footer/Footer'
 
 const Layout = ({ children }) => {
+
+  const { locale } = useRouter()
+
   return (
-    <div>
+    <div dir={ locale == 'ar-DZ' ? 'rtl' : 'ltr' }>
       <Head>
         <title>Arben Home</title>
       </Head>

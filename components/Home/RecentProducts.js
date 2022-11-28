@@ -1,12 +1,22 @@
+import { useRouter } from 'next/router'
 import classes from './RecentProducts.module.css'
 import ProductCard from '../ProductCard'
 
 import testImage from '../../public/assets/lh_nara_wisteria_ss_h1.jpg'
 
 const RecentProducts = () => {
+
+  const { locale } = useRouter()
+
   return (
     <section className={classes.main}>
-      <h2>Recent Products</h2>
+      <h2>
+        {
+          locale == 'fr-FR' ? 'Produits Recents' : 
+          locale == 'ar-DZ' ? 'أحدث المنتجات' : 
+          'Recent Products'
+        }
+      </h2>
       <div className={classes.cards}>
         <ProductCard 
           title={'Nara bluestone bamboo cotton 400TC'}

@@ -1,6 +1,7 @@
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Navigation, Pagination, Autoplay } from 'swiper'
 import { useRef } from 'react'
+import { useRouter } from 'next/router'
 
 import 'swiper/css'
 import 'swiper/css/navigation'
@@ -15,6 +16,8 @@ import ShowcaseSlide from './ShowcaseSlide'
 import classes from './Showcase.module.css'
 
 const Showcase = () => {
+
+  const { locale } = useRouter()
 
   const swiperPrevRef = useRef(null)
   const swiperNextRef = useRef(null)
@@ -37,19 +40,36 @@ const Showcase = () => {
         swiper.navigation.init()
         swiper.navigation.update()
       }}
+      dir='ltr'
     >
       <SwiperSlide>
         <ShowcaseSlide 
           imageSrc={Image1.src} 
-          titleText={'Bedroom And Kitchen Linen'}
-          subtitleText={'Top quality handmade linen'}
+          titleText={
+            locale == 'fr-FR' ? 'Linge de Chambre et de Cuisine' : 
+            locale == 'ar-DZ' ? 'أفرشة غرف النوم والمطبخ' :
+            'Bedroom And Kitchen Linen'
+          }
+          subtitleText={
+            locale == 'fr-FR' ? 'Linge fait main de qualité supérieure' : 
+            locale == 'ar-DZ' ? 'كتان عالي الجودة مصنوع يدويًا' :
+            'Top quality handmade linen'
+          }
         />
       </SwiperSlide>
       <SwiperSlide>
         <ShowcaseSlide 
           imageSrc={Image2.src} 
-          titleText={'Lorem ipsum dolor sit amet'}
-          subtitleText={'Vestibulum in eleifend lectus, id facilisis augue'}
+          titleText={
+            locale == 'fr-FR' ? 'Linge de Chambre et de Cuisine' : 
+            locale == 'ar-DZ' ? 'أفرشة غرف النوم والمطبخ' :
+            'Bedroom And Kitchen Linen'
+          }
+          subtitleText={
+            locale == 'fr-FR' ? 'Linge fait main de qualité supérieure' : 
+            locale == 'ar-DZ' ? 'كتان عالي الجودة مصنوع يدويًا' :
+            'Top quality handmade linen'
+          }
         />
       </SwiperSlide>
       <div className={classes.swiperNavPrev} ref={swiperPrevRef} style={{ backgroundImage: `url(${arrowIcon.src})` }}></div>
