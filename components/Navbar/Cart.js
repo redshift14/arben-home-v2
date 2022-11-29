@@ -12,7 +12,7 @@ export default () => {
 
   return (
     <Menu
-      className={classes.menu}
+      className={locale == 'ar-DZ' ? `${classes.menu_ar} ${classes.menu}` : classes.menu}
       customBurgerIcon={<HiOutlineShoppingBag />}
       burgerButtonClassName={locale == 'ar-DZ' ? `${classes.burger_icon} ${classes.burger_icon_ar}` : classes.burger_icon} 
       customCrossIcon={<VscClose />}

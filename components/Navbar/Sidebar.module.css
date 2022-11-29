@@ -6,6 +6,10 @@
   font-size: 32px;
   color: var(--gray-9);
 }
+.burger_icon_ar {
+  left: auto;
+  right: 30px;
+}
 .burger_icon:hover {
   color: var(--gray-7);
 }
@@ -24,6 +28,9 @@
   background: white;
   width: 400px !important;
   max-width: 100%;
+}
+.menu_hidden {
+  opacity: 0;
 }
 .overlay {
   background: rgba(0, 0, 0, 0.3);
@@ -77,6 +84,10 @@
   .burger_icon {
     left: 10px;
   }
+  .burger_icon_ar {
+    left: auto;
+    right: 10px;
+  }
 }
 @media only screen and (max-width: 500px) {
   .burger_icon {
@@ -84,5 +95,9 @@
     bottom: 2px;
     left: 15px;
     font-size: 28px;
+  }
+  .burger_icon_ar {
+    left: auto;
+    right: 15px;
   }
 }

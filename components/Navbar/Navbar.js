@@ -40,20 +40,20 @@ const Navbar = () => {
           <Dropdown links={aboutLinks} />
         </NavItem>
         <NavItem 
-          linkName={locale == 'fr-FR' ? 'A propos' : locale == 'ar-DZ' ? 'حول' : 'About' }
+          linkName={locale == 'fr-FR' ? 'À propos' : locale == 'ar-DZ' ? 'حول' : 'About' }
           withDropDown={true}
         >
           <Dropdown links={aboutLinks} />
         </NavItem>
       </nav>
 
-      <div className={classes.logo_container}>
+      <div className={locale == 'ar-DZ' ? `${classes.logo_container} ${classes.logo_container_ar}` : classes.logo_container}>
         <Link href={'/'}>
           <Image src={Logo} alt='logo' />
         </Link>
       </div>
 
-      <div className={classes.select_container}>
+      <div className={locale == 'ar-DZ' ? `${classes.select_container} ${classes.select_container_ar}` : classes.select_container}>
         <LanguageSelect />
       </div>
     </div>

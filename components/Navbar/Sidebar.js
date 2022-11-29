@@ -6,6 +6,7 @@ import { FaFacebook, FaInstagram } from 'react-icons/fa'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
+import { useState } from 'react'
 
 import NavItem from './NavItem'
 import Dropdown from './Dropdown'
@@ -17,16 +18,21 @@ export default () => {
 
   const { locale } = useRouter()
 
+  const [open, setOpen] = useState(false)
+
   return (
     <Menu
-      className={classes.menu}
+      className={!open ? `${classes.menu} ${classes.menu_hidden}` : classes.menu}
       customBurgerIcon={<BiMenu />}
-      burgerButtonClassName={classes.burger_icon} 
+      burgerButtonClassName={locale == 'ar-DZ' ? `${classes.burger_icon} ${classes.burger_icon_ar}` : classes.burger_icon} 
       customCrossIcon={<VscClose />}
       crossButtonClassName={classes.close_icon}
       morphShapeClassName={classes.morph_shape}
       overlayClassName={classes.overlay}
       right={locale == 'ar-DZ' ? true : false}
+      onOpen={() => setOpen(true)}
+      onClose={() => setOpen(false)}
+      isOpen={open}
     >
       <div className={classes.content}>
         <div className={classes.head}>

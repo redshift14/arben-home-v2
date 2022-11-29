@@ -7,8 +7,8 @@
   color: var(--gray-8);
 }
 .burger_icon_ar {
-  left: 30px;
   right: auto;
+  left: 30px;
 }
 .burger_icon:hover {
   color: var(--gray-7);
@@ -27,6 +27,9 @@
 .menu {
   background: white;
 }
+.menu_ar {
+  left: 0px !important;
+}
 .overlay {
   background: rgba(0, 0, 0, 0.3);
 }
@@ -35,10 +38,18 @@
   .burger_icon {
     right: 20px;
   }
+  .burger_icon_ar {
+    left: 20px;
+    right: auto;
+  }
 }
 @media only screen and (max-width: 650px) {
   .burger_icon {
     right: 10px;
+  }
+  .burger_icon_ar {
+    right: auto;
+    left: 10px;
   }
 }
 @media only screen and (max-width: 500px) {
@@ -48,5 +59,9 @@
     right: 15px;
     color: var(--gray-9);
     font-size: 22px;
+  }
+  .burger_icon_ar {
+    right: auto;
+    left: 15px;
   }
 }

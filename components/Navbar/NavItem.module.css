@@ -13,9 +13,13 @@
   top: 100%;
   width: 0;
   height: 1.5px;
-  background: var(--gray-5);
+  background: var(--gray-6);
   transition: width .3s;
   z-index: 11;
+}
+.wrapper_ar::after {
+  left: auto;
+  right: 0;
 }
 .wrapper:hover::after {
   width: 100%;
@@ -40,10 +44,12 @@
 .wrapper:hover .chevron {
   transform: rotate(-180deg);
 }
+.wrapper_ar:hover .chevron {
+  transform: rotate(180deg);
+}
 .menu {
   position: absolute;
   width: max-content;
-  left: 0;
   top: 100%;
   opacity: 0;
   pointer-events: none;

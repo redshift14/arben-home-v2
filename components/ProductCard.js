@@ -14,7 +14,7 @@ const ProductCard = ({ title, startingPrice, sizes, coverImage }) => {
           <div className={classes.sizes}>
             {
               sizes.map((s, index) => (
-                <p className={classes.size} key={index}>{s}</p>
+                <p dir='ltr' className={classes.size} key={index}>{s}</p>
               ))
             }
           </div>

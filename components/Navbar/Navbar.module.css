@@ -35,6 +35,10 @@
   justify-content: flex-end;
   padding-right: 30px;
 }
+.select_container_ar {
+  padding-left: 30px;
+  padding-right: 0;
+}
 
 @media only screen and (max-width: 1000px) {
   .main {
@@ -47,6 +51,10 @@
     padding-left: 60px;
     justify-content: flex-start;
   }
+  .logo_container_ar {
+    padding-left: 0;
+    padding-right: 60px;
+  }
 }
 @media only screen and (max-width: 650px) {
   .main {
@@ -54,6 +62,10 @@
   }
   .logo_container {
     padding-left: 35px;
+  }
+  .logo_container_ar {
+    padding-left: 0;
+    padding-right: 35px;
   }
 }
 @media only screen and (max-width: 500px) {
@@ -63,12 +75,18 @@
   .logo_container {
     padding-left: 0;
   }
+  .logo_container_ar {
+    padding-right: 0;
+  }
   .logo_container img {
     height: 50px;
     width: auto;
   }
   .select_container {
     padding-right: 0;
+  }
+  .select_container_ar{
+    padding-left: 0;
   }
 }
 @media only screen and (max-width: 330px) {
