@@ -20,6 +20,14 @@
   justify-content: space-around;
 }
 
+@media only screen and (min-width: 2150px) {
+  .main {
+    padding: 70px 10px;
+  }
+  .logo_container img {
+    height: 70px;
+  }
+}
 @media only screen and (max-width: 1000px) {
   .logo_container {
     display: none;

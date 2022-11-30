@@ -62,3 +62,9 @@
   pointer-events: all;
   transform: translateY(0);
 }
+
+@media only screen and (min-width: 2150px) {
+  .link {
+    font-size: 22px;
+  }
+}

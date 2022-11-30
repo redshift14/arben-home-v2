@@ -50,3 +50,9 @@ ul {
 .bm-menu-wrap {
   top: 0;
 }
+
+@media only screen and (min-width: 2150px) {
+  :root {
+    --nav-height: 110px;
+  }
+}

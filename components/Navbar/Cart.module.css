@@ -34,6 +34,12 @@
   background: rgba(0, 0, 0, 0.3);
 }
 
+@media only screen and (min-width: 2150px) {
+  .burger_icon {
+    top: 40px;
+  }
+}
+
 @media only screen and (max-width: 1000px) {
   .burger_icon {
     right: 20px;

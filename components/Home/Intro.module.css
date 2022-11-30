@@ -25,6 +25,20 @@
   color: var(--gray-9);
 }
 
+@media only screen and (min-width: 2150px) {
+  .main {
+    padding: 80px 10px;
+  }
+  .icon {
+    font-size: 48px;
+  }
+  .text h3 {
+    font-size: 32px;
+  }
+  .text h4 {
+    font-size: 26px;
+  }
+}
 @media only screen and (max-width: 1000px) {
   .main {
     grid-template-columns: 1fr 1fr;

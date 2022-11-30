@@ -74,6 +74,17 @@
   background-color: var(--gray-3);
 }
 
+@media only screen and (min-width: 2150px) {
+  .select {
+    width: 180px;
+    font-size: 18px;
+  }
+  .list {
+    width: 180px;
+    font-size: 18px;
+  }
+}
+
 @media only screen and (max-width: 500px) {
   .select {
     font-size: 14px;

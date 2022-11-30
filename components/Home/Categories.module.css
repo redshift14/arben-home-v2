@@ -37,6 +37,21 @@
   color: var(--gray-9);
 }
 
+@media only screen and (min-width: 2150px) {
+  .main {
+    gap: 80px;
+  }
+  .main h2 {
+    font-size: 46px;
+  }
+  .card {
+    min-height: 500px;
+  }
+  .card h3 {
+    font-size: 36px;
+  }
+}
+
 @media only screen and (max-width: 500px) {
   .cards {
     grid-template-columns: auto;
@@ -46,6 +61,7 @@
     grid-column-end: 2;
   }
 }
+
 @media only screen and (max-width: 400px) {
   .main h2 {
     font-size: 28px;

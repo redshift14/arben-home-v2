@@ -2,6 +2,7 @@
   border-bottom-left-radius: 8px;
   border-bottom-right-radius: 8px;
   transition: transform 200ms;
+  width: 550px;
 }
 .main:hover {
   box-shadow: 1px 3px 5px 3px rgba(0, 0, 0, 0.10);
@@ -10,7 +11,6 @@
 .main, .image {
   border-top-left-radius: 8px;
   border-top-right-radius: 8px;
-  object-fit: cover;
 }
 .content {
   background-color: white;
@@ -18,7 +18,6 @@
   display: flex;
   flex-direction: column;
   gap: 15px;
-  width: auto;
   border-bottom-left-radius: 8px;
   border-bottom-right-radius: 8px;
 }
@@ -31,41 +30,92 @@
 }
 .sizes {
   display: grid;
-  grid-template-columns: auto auto auto;
+  grid-template-columns: auto auto auto auto;
   row-gap: 10px;
   padding-bottom: 10px;
+  justify-content: start;
+  gap: 10px;
 }
 .size {
   border: 1px solid var(--gray-4);
-  width: fit-content;
+  width: 85px;
   padding: 5px 10px;
   font-size: 16px;
   text-align: center;
 }
 
-@media only screen and (max-width: 1260px) {
+@media only screen and (max-width: 3500px) {
+  .main {
+    width: 500px;
+  }
+}
+@media only screen and (max-width: 3200px) {
+  .main {
+    width: 450px;
+  }
+}
+@media only screen and (max-width: 2870px) {
+  .main {
+    width: 400px;
+  }
+  .sizes {
+    grid-template-columns: auto auto auto;
+  }
+}
+
+@media only screen and (max-width: 1290px) {
+  .main {
+    width: 320px;
+  }
+} 
+
+@media only screen and (max-width: 680px) {
+  .main {
+    width: 300px;
+  }
+} 
+
+@media only screen and (max-width: 650px) {
   .content {
     padding: 20px 10px;
   }
   .title {
-    font-size: 18px;
+    font-size: 16px;
   }
   .price {
-    font-size: 18px;
+    font-size: 16px;
+  }
+  .sizes {
+    gap: 5px;
   }
   .size {
-    padding: 5px;
     font-size: 14px;
+    width: 70px;
+    padding: 5px 0;
+  }
+} 
+@media only screen and (max-width: 630px) {
+  .main {
+    width: 240px;
   }
 }
 @media only screen and (max-width: 500px) {
-  .content {
-    padding: 20px;
+  .main {
+    width: 400px;
   }
-  .title {
-    font-size: 20px;
+}
+@media only screen and (max-width: 420px) {
+  .main {
+    width: 350px;
   }
-  .price {
-    font-size: 20px;
+}
+@media only screen and (max-width: 380px) {
+  .main {
+    width: 300px;
+  }
+}
+@media only screen and (max-width: 320px) {
+  .main {
+    width: 250px;
   }
 }

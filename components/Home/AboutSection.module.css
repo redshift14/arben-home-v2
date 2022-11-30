@@ -15,6 +15,18 @@
   color: var(--gray-8);
 }
 
+@media only screen and (min-width: 2150px) {
+  .main {
+    padding: 40px 20px 70px 20px;
+  }
+  .main h3 {
+    font-size: 46px;
+  }
+  .main p {
+    font-size: 24px;
+    line-height: 34px;
+  }
+}
 @media only screen and (max-width: 400px) {
   .main h3 {
     font-size: 28px;

@@ -4,12 +4,14 @@ import RecentProducts from '../components/Home/RecentProducts'
 import Categories from '../components/Home/Categories'
 import AboutSection from '../components/Home/AboutSection'
 
-const Home = () => {
+import { client } from '../lib/client'
+
+const Home = ({ products }) => {
   return (
     <>
       <Showcase />
       <Intro />
-      <RecentProducts />
+      <RecentProducts products={products} />
       <Categories />
       <AboutSection />
     </>
@@ -17,3 +19,12 @@ const Home = () => {
 }
 
 export default Home
+
+export const getServerSideProps = async () => {
+  const query = '*[_type == "product"]{ _id, name, price, sizes, images }'
+  const products = await client.fetch(query)
+
+  return {
+    props: { products }
+  }
+}
