@@ -1,0 +1,54 @@
+.main {
+  padding: 0 20px;
+}
+.main nav {
+  border-bottom: 1px solid var(--gray-5);
+}
+.btn {
+  outline: none;
+  border: none;
+  cursor: pointer;
+  border: 1px solid var(--gray-5);
+  color: var(--gray-7);
+  border-bottom-color: transparent;
+  font-size: 18px;
+  font-weight: 500;
+  padding: 8px 10px;
+  background-color: white;
+}
+.active {
+  background-color: var(--gray-9);
+  border: 1px solid var(--gray-9);
+  color: white;
+}
+.tab {
+  padding: 30px 0;
+}
+.description_container {
+  font-size: 18px;
+  line-height: 30px;
+}
+.info_container {
+  display: flex;
+  gap: 30px;
+  align-items: center;
+}
+.titles h5 {
+  margin-bottom: 10px;
+  font-size: 18px;
+}
+.info h6 {
+  margin-bottom: 10px;
+  font-size: 18px;
+  font-weight: 400;
+}
+.material_container {
+  display: flex;
+  gap: 5px;
+}
+
+@media only screen and (max-width: 460px) {
+  .main {
+    padding: 0 10px;
+  }
+}

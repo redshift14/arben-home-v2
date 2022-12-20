@@ -7,14 +7,14 @@ import { useNextSanityImage } from 'next-sanity-image'
 
 import classes from './ProductCard.module.css'
 
-const ProductCard = ({ title, startingPrice, sizes, coverImage }) => {
+const ProductCard = ({ title, slug, startingPrice, sizes, coverImage }) => {
 
   const imageProps = useNextSanityImage(client, coverImage)
 
   const { locale } = useRouter()
 
   return (
-    <Link href={'/'}>
+    <Link href={`/products/${slug.current}`}>
       <div className={classes.main}>
         <Image {...imageProps} alt='cover image'layout='responsive' objectFit='cover' className={classes.image} />
         <div className={classes.content}>

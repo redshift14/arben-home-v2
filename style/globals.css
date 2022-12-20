@@ -51,6 +51,49 @@ ul {
   top: 0;
 }
 
+/* image gallery */
+.image-gallery-thumbnail {
+  --border-width: 2px;
+  cursor: pointer;
+  border: var(--border-width) solid transparent !important;
+}
+@media (hover: hover) and (pointer: fine) {
+  .image-gallery-thumbnail:hover {
+      outline: none;
+      border: var(--border-width) solid var(--gray-5) !important;
+  }
+}
+.image-gallery-thumbnail.active, .image-gallery-thumbnail:focus {
+  border: var(--border-width) solid var(--gray-7) !important;
+}
+
+.image-gallery-icon {
+  color: var(--gray-2) !important;
+}
+.image-gallery-icon:hover {
+  color: var(--gray-6) !important;
+}
+.image-gallery-right-nav {
+  padding-right: 30px !important;
+}
+.image-gallery-left-nav {
+  padding-left: 30px !important;
+}
+.image-gallery-left-nav svg, .image-gallery-right-nav svg {
+  width: 20px !important;
+  height: 40px !important;
+}
+.image-gallery-fullscreen-button {
+  padding: 10px 30px 10px 10px !important;
+}
+.image-gallery-fullscreen-button svg {
+  width: 20px !important;
+  height: 20px !important;
+  opacity: .8 !important;
+  border: none !important;
+  outline: none !important;
+}
+
 @media only screen and (min-width: 2150px) {
   :root {
     --nav-height: 110px;

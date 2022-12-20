@@ -23,6 +23,11 @@ export const product = {
       }
     },
     {
+      title: 'Product Subtitle',
+      name: 'subtitle',
+      type: 'localeString'
+    },
+    {
       title: 'Categories',
       name: 'categories',
       type: 'array',

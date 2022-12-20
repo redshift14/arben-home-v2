@@ -20,6 +20,7 @@ const RecentProducts = ({ products }) => {
           products.map(product => (
             <ProductCard 
               key={product._id}
+              slug={product.slug}
               title={locale == 'fr-FR' ? product.name.fr : locale == 'ar-DZ' ? product.name.ar : product.name.en}
               startingPrice={product.price[0]}
               sizes={product.sizes}

@@ -21,7 +21,7 @@ const Home = ({ products }) => {
 export default Home
 
 export const getServerSideProps = async () => {
-  const query = '*[_type == "product"]{ _id, name, price, sizes, images }'
+  const query = '*[_type == "product"]{ _id, name, slug, price, sizes, images }[0..7]'
   const products = await client.fetch(query)
 
   return {
