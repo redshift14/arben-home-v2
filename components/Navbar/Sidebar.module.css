@@ -21,6 +21,15 @@
   font-size: 25px;
   color: var(--gray-7);
 }
+.close_icon_ar {
+  top: 34px !important;
+  left: 15px !important;
+  right: auto !important;
+  height: auto !important;
+  width: auto !important;
+  font-size: 25px;
+  color: var(--gray-7);
+}
 .close_icon:hover {
   color: var(--gray-5);
 }

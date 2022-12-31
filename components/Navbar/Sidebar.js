@@ -14,7 +14,7 @@ import Logo from '../../public/assets/logoSmall.webp'
 import { aboutLinks } from './navLinks'
 import classes from './Sidebar.module.css'
 
-export default () => {
+const Sidebar = () => {
 
   const { locale } = useRouter()
 
@@ -26,7 +26,7 @@ export default () => {
       customBurgerIcon={<BiMenu />}
       burgerButtonClassName={locale == 'ar-DZ' ? `${classes.burger_icon} ${classes.burger_icon_ar}` : classes.burger_icon} 
       customCrossIcon={<VscClose />}
-      crossButtonClassName={classes.close_icon}
+      crossButtonClassName={locale == 'ar-DZ' ? `${classes.close_icon_ar}` : classes.close_icon}
       morphShapeClassName={classes.morph_shape}
       overlayClassName={classes.overlay}
       right={locale == 'ar-DZ' ? true : false}
@@ -68,3 +68,5 @@ export default () => {
     </Menu>
   )
 }
+
+export default Sidebar

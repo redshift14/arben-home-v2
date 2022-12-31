@@ -1,11 +1,12 @@
 import { useRouter } from 'next/router'
 import Head from 'next/head'
 
-import Cart from './Navbar/Cart'
+import Cart from './Cart/Cart'
 import Navbar from './Navbar/Navbar'
 import Sidebar from './Navbar/Sidebar'
 import Bottombar from './Navbar/Bottombar'
 import Footer from './Footer/Footer'
+import CartQuantityLabel from './Cart/CartQuantityLabel'
 
 const Layout = ({ children }) => {
 
@@ -18,6 +19,7 @@ const Layout = ({ children }) => {
       </Head>
       <header>
         <Cart />
+        <CartQuantityLabel />
         <Sidebar />
         <Navbar />
         <Bottombar />

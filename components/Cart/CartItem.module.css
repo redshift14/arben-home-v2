@@ -1,0 +1,113 @@
+.main {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin-bottom: 20px;
+}
+.image_container img {
+  height: 140px;
+  width: auto;
+}
+.content {
+  height: 140px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 100%;
+  padding-bottom: 5px;
+}
+.content h5 {
+  font-size: 20px;
+  font-weight: 500;
+}
+.content h6 {
+  font-size: 18px;
+  font-weight: 500;
+  margin-top: 5px;
+  direction: ltr;
+}
+.size_ar {
+  text-align: right;
+}
+.bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.quantity_container {
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  --box-height: 30px;
+  --box-width: 30px;
+  padding-bottom: 5px;
+}
+.quantity_container button {
+  width: var(--box-width);
+  height: var(--box-height);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--gray-9);
+  font-size: 16px;
+  cursor: pointer;
+  border: none;
+  outline: none;
+  background-color: transparent;
+  border: 1px solid var(--gray-8);
+}
+.quantity_container p {
+  width: var(--box-width);
+  height: var(--box-height);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-top: 1px solid var(--gray-8);
+  border-bottom: 1px solid var(--gray-8);
+}
+.price_remove {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.price_remove p {
+  margin-bottom: 5px;
+  font-weight: 600;
+}
+.price_remove button {
+  outline: none;
+  border: none;
+  background-color: transparent;
+  text-decoration: underline;
+  font-size: 15px;
+  cursor: pointer;
+}
+.price_remove button:hover {
+  color: red;
+}
+
+@media only screen and (max-width: 380px) {
+  .image_container img {
+    height: 120px;
+  }
+  .content {
+    height: 120px;
+  }
+  .content h5 {
+    font-size: 16px;
+  }
+  .content h6 {
+    font-size: 14px;
+  }
+  .quantity_container {
+    --box-height: 25px;
+    --box-width: 25px;
+  }
+  .price_remove p {
+    font-size: 14px;
+  }
+  .price_remove button {
+    font-size: 14px;
+  }
+}

@@ -17,7 +17,9 @@ const InfoTab = ({ care, materialsUsed }) => {
         </h5>
       </div>
       <div className={classes.info}>
-        <h6>{care.en}</h6>
+        <h6>
+          { locale === 'ar-DZ' ? care.ar : locale === 'fr-FR' ? care.fr : care.en }
+        </h6>
         <div className={classes.material_container}>
           {
             materialsUsed.map((m, index) => (

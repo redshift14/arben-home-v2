@@ -1,11 +1,14 @@
 import '../style/globals.css'
 import Layout from '../components/Layout'
+import { StateContext } from '../context/stateContext'
 
 const MyApp = ({ Component, pageProps }) => {
   return (
-    <Layout>
-      <Component {...pageProps} />
-    </Layout>
+    <StateContext>
+      <Layout>
+        <Component {...pageProps} />
+      </Layout>
+    </StateContext>
   )
 }
 

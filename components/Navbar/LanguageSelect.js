@@ -23,7 +23,7 @@ const LanguageSelect = () => {
   useEffect(() => {
     setSelectedLang(localStorage.getItem('lang'))
     setSelectedFlag(flags[localStorage.getItem('flag')])
-  }, [])
+  }, [flags])
 
   const handleOptionClick = (langName, flagIndex, selectedLocale) => {
     setSelectedLang(langName)
