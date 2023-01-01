@@ -34,9 +34,10 @@ export const product = {
       of: [{ type: 'string' }]
     },
     {
-      title: 'Quantity',
-      name: 'quantity',
-      type: 'number',
+      title: 'Quantities',
+      name: 'quantities',
+      type: 'array',
+      of: [{ type: 'number' }]
     },
     {
       title: 'Price',

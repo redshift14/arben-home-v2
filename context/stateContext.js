@@ -9,9 +9,6 @@ export const StateContext = ({ children }) => {
   const [totalPrice, setTotalPrice] = useState(0)
   const [totalQuantities, setTotalQuantities] = useState(0)
 
-  // selected quantity in the product main page
-  const [selectedQuantity, setSelectedQuantity] = useState(1)
-
   let foundProduct, index
 
   const addProductToCart = (product, quantity, price, size) => {
@@ -58,7 +55,7 @@ export const StateContext = ({ children }) => {
     const newCartItems = cartItems.filter(item => item.id+item.size !== id+size)
 
     if (value === 'inc') {
-      if (foundProduct.quantity <= maxQty) {
+      if (foundProduct.quantity < maxQty) {
         
         newCartItems.splice(index, 0, { ...foundProduct, quantity: foundProduct.quantity+1 })
         
@@ -78,25 +75,9 @@ export const StateContext = ({ children }) => {
     }
   }
 
-  // quantity in the product page
-  const handleIncreaseQty = (availableQuantity) => {
-    if (selectedQuantity <= availableQuantity) {
-      setSelectedQuantity(v => v+1)
-    }
-    else return
-  }
-
-  // quantity in the product page
-  const handleReduceQty = () => {
-    if (selectedQuantity > 1) {
-      setSelectedQuantity(v => v-1)
-    }
-    else return
-  }
-
   return (
     <Context.Provider
-      value={{ cartItems, addProductToCart, removeProductFromCart, handleIncreaseQty, handleReduceQty, selectedQuantity, toggleQuantityInCartItem, totalPrice, totalQuantities }}
+      value={{ cartItems, addProductToCart, removeProductFromCart, toggleQuantityInCartItem, totalPrice, totalQuantities }}
     >
       { children }
     </Context.Provider>

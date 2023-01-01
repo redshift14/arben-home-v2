@@ -14,7 +14,7 @@ import classes from './MainDetails.module.css'
 
 const MainDetails = ({ product }) => {
 
-  const { addProductToCart, handleIncreaseQty, handleReduceQty, selectedQuantity } = useStateContext()
+  const { addProductToCart, } = useStateContext()
 
   const THRESHOLD = 1000
   const [windowWidth, setWindowWidth] = useState()
@@ -31,30 +31,37 @@ const MainDetails = ({ product }) => {
     return _ => {
       window.removeEventListener('resize', handleResize)
     }
+
   },[windowWidth])
 
   const { locale } = useRouter()
 
-  const { images, name, subtitle, price, quantity, sizes, title, slug, _id } = product
+  const { images, name, subtitle, price, quantities, sizes, title, slug, _id } = product
 
   const [selectedPrice, setSelectedPrice] = useState(0)
   const [selectedSize, setSelectedSize] = useState(0) 
+  const [selectedQuantity, setSelectedQuantity] = useState(1)
+  const [maxQuantity, setMaxQuantity] = useState(0)
 
-  // const [selectedQty, setSelectedQty] = useState(1)
+  const handleIncreaseQty = () => {
+    if (selectedQuantity < quantities[maxQuantity]) {
+      setSelectedQuantity(v => v+1)
+    }
+    else return
+  }
 
-  // const handleAddQty = () => {
-  //   if (selectedQty <= quantity) {
-  //     setSelectedQty(v => v+1)
-  //   }
-  //   else return
-  // }
+  const handleReduceQty = () => {
+    if (selectedQuantity > 1) {
+      setSelectedQuantity(v => v-1)
+    }
+    else return
+  }
 
-  // const handleMinusQty = () => {
-  //   if (selectedQty > 1) {
-  //     setSelectedQty(v => v-1)
-  //   }
-  //   else return
-  // }
+  useEffect(() => {
+    if( selectedQuantity > quantities[maxQuantity]) {
+      setSelectedQuantity(quantities[maxQuantity])
+    }
+  }, [maxQuantity])
 
   const imagesLinks = images.map((image) => ({
     original: urlFor(image).url(),
@@ -74,7 +81,7 @@ const MainDetails = ({ product }) => {
         />
       </div>
       <div className={classes.details_container}>
-        <p className={classes.state_box}>{quantity > 0 ? available : notAvailable }</p>
+        <p className={classes.state_box}>{quantities.some(q => q > 0) ? available : notAvailable }</p>
         <h2>{locale === 'ar-DZ' ? name.ar : locale === 'fr-FR' ? name.fr : name.en}</h2>
         <h4>
           {locale === 'ar-DZ' ? subtitle.ar : locale === 'fr-FR' ? subtitle.fr : subtitle.en}
@@ -91,6 +98,7 @@ const MainDetails = ({ product }) => {
                 onClick={() => {
                   setSelectedPrice(index)
                   setSelectedSize(index)
+                  setMaxQuantity(index)
                 }}
                 dir='ltr'
               >
@@ -100,11 +108,11 @@ const MainDetails = ({ product }) => {
           }
         </div>
         <div className={classes.quantity_container}>
-          <button className={classes.add} onClick={() => handleIncreaseQty(quantity)}>
+          <button className={classes.add} onClick={handleIncreaseQty}>
             <BsPlus />
           </button>
           <p>{selectedQuantity}</p>
-          <button className={classes.minus} onClick={() => handleReduceQty()}>
+          <button className={classes.minus} onClick={handleReduceQty}>
             <BiMinus />
           </button>
         </div>
@@ -112,7 +120,7 @@ const MainDetails = ({ product }) => {
           <button 
             className={classes.addToCart}
             onClick={() => 
-              addProductToCart({id: _id, slug: slug.current, title: title, name: name, maxQty: quantity, image: images[0]}, selectedQuantity, price[selectedPrice], sizes[selectedSize])
+              addProductToCart({id: _id, slug: slug.current, title: title, name: name, maxQty: quantities[maxQuantity], image: images[0]}, selectedQuantity, price[selectedPrice], sizes[selectedSize])
             }
           >
             {locale === 'ar-DZ' ? 'أضف إلى السلة' : locale === 'fr-FR' ? 'Ajouter au Panier' : 'Add to Cart'}
