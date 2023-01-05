@@ -25,6 +25,7 @@ const RecentProducts = ({ products }) => {
               startingPrice={product.price[0]}
               sizes={product.sizes}
               coverImage={product.images[0]}
+              searchPage={false}
             />
           ))
         }

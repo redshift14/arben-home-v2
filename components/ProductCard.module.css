@@ -21,12 +21,21 @@
   border-bottom-left-radius: 8px;
   border-bottom-right-radius: 8px;
 }
+.content_s {
+  padding: 20px 10px;
+}
 .title {
   font-size: 20px;
+}
+.title_s {
+  font-size: 18px;
 }
 .price {
   font-size: 20px;
   font-weight: 600;
+}
+.price_s {
+  font-size: 18px;
 }
 .sizes {
   display: grid;
@@ -36,6 +45,10 @@
   justify-content: start;
   gap: 10px;
 }
+.sizes_s {
+  grid-template-columns: auto auto auto;
+  gap: 5px;
+}
 .size {
   border: 1px solid var(--gray-4);
   width: 85px;
@@ -43,12 +56,18 @@
   font-size: 16px;
   text-align: center;
 }
+.size_s {
+  font-size: 15px;
+  width: 70px;
+  padding: 5px 0;
+}
 
 @media only screen and (max-width: 3500px) {
   .main {
     width: 500px;
   }
 }
+
 @media only screen and (max-width: 3200px) {
   .main {
     width: 450px;
@@ -58,23 +77,52 @@
   .main {
     width: 400px;
   }
+  .main_s {
+    width: 280px;
+  }
   .sizes {
     grid-template-columns: auto auto auto;
   }
 }
-
 @media only screen and (max-width: 1290px) {
   .main {
     width: 320px;
   }
+  .main_s {
+    width: 280px;
+  }
 } 
-
+@media only screen and (max-width: 1200px) {
+  .main_s {
+    width: 250px;
+  }
+}
+@media only screen and (max-width: 1100px) {
+  .main_s {
+    width: 200px;
+  }
+  .sizes_s {
+    grid-template-columns: auto auto;
+  }
+}
+@media only screen and (max-width: 1000px) {
+  .main_s {
+    width: 250px;
+  }
+}
+@media only screen and (max-width: 920px) {
+  .sizes_s {
+    grid-template-columns: auto auto auto;
+  }
+}
 @media only screen and (max-width: 680px) {
   .main {
     width: 300px;
   }
+  .main_s {
+    width: 250px;
+  }
 } 
-
 @media only screen and (max-width: 650px) {
   .content {
     padding: 20px 10px;
@@ -98,10 +146,19 @@
   .main {
     width: 240px;
   }
+  .main_s {
+    width: 210px;
+  }
+  .sizes_s {
+    grid-template-columns: auto auto;
+  }
 }
 @media only screen and (max-width: 500px) {
   .main {
     width: 400px;
+  }
+  .sizes_s {
+    grid-template-columns: auto auto auto auto;
   }
 }
 @media only screen and (max-width: 420px) {
@@ -112,6 +169,9 @@
 @media only screen and (max-width: 380px) {
   .main {
     width: 300px;
+  }
+  .sizes_s {
+    grid-template-columns: auto auto auto;
   }
 }
 @media only screen and (max-width: 320px) {

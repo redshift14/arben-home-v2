@@ -1,11 +1,11 @@
- export const shopLink = [
+ export const shopLinks = [
   {
     name: {
-      en: 'Who we are?',
-      fr: 'Qui nous sommes?',
-      ar: 'من نحن؟'
+      en: 'All products',
+      fr: 'Tous les produits',
+      ar: 'كل المنتجات'
     },
-    to: '/'
+    to: '/products'
   },
   {
     name: {

@@ -4,6 +4,8 @@ import Head from 'next/head'
 import Cart from './Cart/Cart'
 import Navbar from './Navbar/Navbar'
 import Sidebar from './Navbar/Sidebar'
+import FiltersSidebar from './Products/FiltersSidebar'
+
 import Bottombar from './Navbar/Bottombar'
 import Footer from './Footer/Footer'
 import CartQuantityLabel from './Cart/CartQuantityLabel'
@@ -21,6 +23,7 @@ const Layout = ({ children }) => {
         <Cart />
         <CartQuantityLabel />
         <Sidebar />
+        <FiltersSidebar />
         <Navbar />
         <Bottombar />
       </header>

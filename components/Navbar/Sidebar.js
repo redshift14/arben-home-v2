@@ -11,7 +11,7 @@ import { useState } from 'react'
 import NavItem from './NavItem'
 import Dropdown from './Dropdown'
 import Logo from '../../public/assets/logoSmall.webp'
-import { aboutLinks } from './navLinks'
+import { aboutLinks, shopLinks } from './navLinks'
 import classes from './Sidebar.module.css'
 
 const Sidebar = () => {
@@ -44,18 +44,21 @@ const Sidebar = () => {
           <NavItem 
             sidebar={true} 
             linkName={locale == 'fr-FR' ? 'Accueil' : locale == 'ar-DZ' ? 'الرئيسة' : 'Home' } 
+            to={'/'}
           />
           <NavItem 
             sidebar={true} 
             withDropDown={true} 
             linkName={locale == 'fr-FR' ? 'Boutique' : locale == 'ar-DZ' ? 'المتجر' : 'Shop' }
+            to={'/'}
           >
-            <Dropdown links={aboutLinks} sidebar={true} />
+            <Dropdown links={shopLinks} sidebar={true} />
           </NavItem>
           <NavItem 
             sidebar={true} 
             withDropDown={true} 
             linkName={locale == 'fr-FR' ? 'A propos' : locale == 'ar-DZ' ? 'حول' : 'About'}
+            to={'/'}
           >
             <Dropdown links={aboutLinks} sidebar={true} />
           </NavItem>

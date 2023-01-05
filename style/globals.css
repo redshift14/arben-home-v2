@@ -29,6 +29,7 @@ ul {
 /* scrollbar */
 ::-webkit-scrollbar {
   width: 8px;
+  z-index: 999;
 }
 ::-webkit-scrollbar-track {
   background: var(--gray-0); 
@@ -57,6 +58,7 @@ ul {
   cursor: pointer;
   border: var(--border-width) solid transparent !important;
 }
+
 @media (hover: hover) and (pointer: fine) {
   .image-gallery-thumbnail:hover {
       outline: none;

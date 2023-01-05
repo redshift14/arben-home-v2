@@ -1,0 +1,127 @@
+.main {
+  position: relative;
+}
+.select {
+  outline: none;
+  border: none;
+  background-color: white;
+  display: flex;
+  align-items: center;
+  padding: 8px 10px;
+  gap: 5px 10px;
+  color: var(--gray-9);
+  border-radius: 5px;
+  border: 1px solid var(--gray-4);
+  font-weight: 600;
+  position: relative;
+  width: 180px;
+  cursor: pointer;
+}
+.content, .item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.content p {
+  font-size: 15px;
+}
+.arrows {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 20px;
+  height: 100%;
+  background-color: transparent;
+}
+.arrows_ar {
+  right: auto;
+  left: 20px;
+}
+.arrows::after,
+.arrows::before {
+  --size: 6px;
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 0;
+  left: 0;
+  transform: translate(-50%, -50%);
+}
+.arrows::before {
+  border-left: var(--size) solid transparent ;
+  border-right: var(--size) solid transparent;
+  border-bottom: var(--size) solid var(--gray-4);
+  top: 40%;
+}
+.arrows::after {
+  border-left: var(--size) solid transparent ;
+  border-right: var(--size) solid transparent;
+  border-top: var(--size) solid var(--gray-4);
+  top: 60%;
+}
+.list {
+  position: absolute;
+  width: 180px;
+  top: calc(100% + 5px);
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding: 10px 0;
+  border-radius: 5px;
+  border: 1px solid var(--gray-4);
+  z-index: 10;
+  background-color: white;
+}
+.item {
+  padding: 10px;
+  cursor: pointer;
+}
+.item:hover {
+  background-color: var(--gray-3);
+}
+
+@media only screen and (max-width: 500px) {
+  .select {
+    width: 150px;
+    padding: 11px 10px;
+  }
+  .content p {
+    font-size: 14px;
+  }
+  .list {
+    width: 150px;
+  }
+  .arrows_ar {
+    left: 10px;
+  }
+}
+@media only screen and (max-width: 380px) {
+  .select {
+    width: 150px;
+    padding: 11px 8px;
+  }
+  .list {
+    width: 150px;
+  }
+  .arrows {
+    width: 14px;
+  }
+}
+@media only screen and (max-width: 350px) {
+  .select {
+    width: 130px;
+    padding: 11px 5px;
+  }
+  .list {
+    width: 130px;
+  }
+  .arrows {
+    width: 14px;
+  }
+  .content p {
+    font-size: 12px;
+  }
+  .item {
+    font-size: 12px;
+  }
+}

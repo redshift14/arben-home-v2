@@ -14,7 +14,7 @@ const Dropdown = ({ links, sidebar }) => {
     <div className={main}>
       {
         links.map((l, index) => (
-          <Link href={'/'} key={index} className={link_container}>
+          <Link href={l.to} key={index} className={link_container}>
             <button className={locale == 'ar-DZ' ? `${link} ${link_ar}` : link}>
               {
                 locale == 'fr-FR' ? l.name.fr : locale == 'ar-DZ' ? l.name.ar : l.name.en

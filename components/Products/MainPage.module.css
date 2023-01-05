@@ -1,0 +1,31 @@
+.main {
+  margin-top: var(--nav-height);
+  padding: 20px 30px 40px 30px;
+  display: grid;
+  grid-template-columns: 1fr 4fr;
+  column-gap: 60px;
+}
+
+@media only screen and (max-width: 1610px) {
+  .main {
+    grid-template-columns: 1fr 3fr;
+  }
+}
+@media only screen and (max-width: 1310px) {
+  .main {
+    column-gap: 40px;
+  }
+}
+@media only screen and (max-width: 1000px) {
+  .main {
+    grid-template-columns: 1fr;
+  }
+  .menu_container {
+    display: none;
+  }
+}
+@media only screen and (max-width: 570px) {
+  .main {
+    padding: 20px 20px 40px 20px;
+  }
+}

@@ -7,7 +7,7 @@ import { useNextSanityImage } from 'next-sanity-image'
 
 import classes from './ProductCard.module.css'
 
-const ProductCard = ({ title, slug, startingPrice, sizes, coverImage }) => {
+const ProductCard = ({ title, slug, startingPrice, sizes, coverImage, searchPage }) => {
 
   const imageProps = useNextSanityImage(client, coverImage)
 
@@ -15,17 +15,27 @@ const ProductCard = ({ title, slug, startingPrice, sizes, coverImage }) => {
 
   return (
     <Link href={`/products/${slug.current}`}>
-      <div className={classes.main}>
+      <div className={searchPage ? `${classes.main} ${classes.main_s}` : classes.main}>
         <Image {...imageProps} alt='cover image'layout='responsive' objectFit='cover' className={classes.image} />
-        <div className={classes.content}>
-          <p className={classes.title}>{title}</p>
-          <p className={classes.price}>
+        <div 
+          className={searchPage ? `${classes.content} ${classes.content_s}` : classes.content}
+        >
+          <p className={searchPage ? `${classes.title} ${classes.title_s}` : classes.title}>
+            {title}
+          </p>
+          <p className={searchPage ? `${classes.price} ${classes.price_s}` : classes.price}>
             {locale == 'fr-FR' ? 'à partir de ' : locale == 'ar-DZ' ? ' ابتداءً من ' : 'from '}{startingPrice}$
           </p>
-          <div className={classes.sizes}>
+          <div className={searchPage ? `${classes.sizes} ${classes.sizes_s}` : classes.sizes}>
             {
               sizes.map((s, index) => (
-                <p dir='ltr' className={classes.size} key={index}>{s}</p>
+                <p 
+                  dir='ltr'
+                  className={searchPage ? `${classes.size} ${classes.size_s}` : classes.size} 
+                  key={index}
+                >
+                  {s}
+                </p>
               ))
             }
           </div>

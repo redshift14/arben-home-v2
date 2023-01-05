@@ -1,0 +1,78 @@
+.main {
+  border-bottom: 1px solid var(--gray-3);
+  padding: 15px 0;
+}
+.head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.head h4 {
+  font-size: 19px;
+  font-weight: 600;
+  color: var(--gray-9);
+}
+.head button {
+  border: none;
+  outline: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: transparent;
+  font-size: 20px;
+  color: var(--gray-7);
+  cursor: pointer;
+}
+.head button:hover {
+  color: var(--gray-9);
+}
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-top: 20px;
+}
+/* custom checkbox */ 
+.item {
+  font-size: 16px;
+  display: grid;
+  grid-template-columns: 20px auto;
+  gap: 10px;
+  cursor: pointer;
+}
+.item input[type='checkbox'] {
+  /* hide native input checkbox */
+  -webkit-appearance: none;
+  appearance: none;
+  background-color: white;
+  margin: 0;
+  /* styling the custom box */ 
+  width: 18px;
+  height: 18px;
+  border: 1.5px solid var(--gray-5);
+  border-radius: 3px;
+  cursor: pointer;
+  display: grid;
+  place-content: center;
+}
+.item input[type='checkbox']::before {
+  content: '';
+  width: 11px;
+  height: 11px;
+  transform: scale(0);
+  transition: 120ms transform ease-in-out;
+  box-shadow: inset 1em 1em white;
+  transform-origin: bottom left;
+  clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
+}
+.item input[type="checkbox"]:checked {
+  background-color: var(--gray-9);
+}
+.item input[type="checkbox"]:checked::before {
+  transform: scale(1);
+}
+.item input[type="checkbox"]:hover {
+  border-color: var(--gray-9);
+  border-width: 1.9px;
+}
+/* custom check box end */

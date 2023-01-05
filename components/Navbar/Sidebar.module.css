@@ -42,7 +42,8 @@
   opacity: 0;
 }
 .overlay {
-  background: rgba(0, 0, 0, 0.3);
+  background: rgba(0, 0, 0, 0.3) !important;
+  top: 0;
 }
 /**************************************************************************/
 .content {
