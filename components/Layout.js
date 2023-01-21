@@ -12,7 +12,7 @@ import CartQuantityLabel from './Cart/CartQuantityLabel'
 
 const Layout = ({ children }) => {
 
-  const { locale } = useRouter()
+  const { locale, pathname } = useRouter()
 
   return (
     <div dir={ locale == 'ar-DZ' ? 'rtl' : 'ltr' }>
@@ -23,7 +23,7 @@ const Layout = ({ children }) => {
         <Cart />
         <CartQuantityLabel />
         <Sidebar />
-        <FiltersSidebar />
+        { pathname === '/products' && <FiltersSidebar /> }
         <Navbar />
         <Bottombar />
       </header>

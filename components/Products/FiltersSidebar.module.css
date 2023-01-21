@@ -11,6 +11,10 @@
 .burger_icon:hover {
   color: var(--gray-6);
 }
+.burger_icon_ar {
+  left: auto;
+  right: 30px;
+}
 .close_icon {
   right: auto !important;
   top: 23px !important;
@@ -20,6 +24,16 @@
   font-size: 38px;
   color: var(--gray-9);
 }
+.close_icon_ar {
+  left: auto !important;
+  top: 17px !important;
+  right: 10px !important;
+  height: auto !important;
+  width: auto !important;
+  font-size: 38px;
+  color: var(--gray-9);
+  transform: rotate(180deg);
+}
 .close_icon:hover {
   color: var(--gray-7);
 }
@@ -27,6 +41,14 @@
   background-color: white;
   width: 400px !important;
   max-width: 100%;
+}
+.menu {
+  background: white;
+  width: 400px !important;
+  max-width: 100%;
+}
+.menu_hidden {
+  opacity: 0;
 }
 .overlay {
   background: rgba(0, 0, 0, 0.3) !important;
@@ -48,23 +70,33 @@
   text-align: center;
   border-bottom: 1px solid var(--gray-3);
   color: var(--gray-9);
+  background-color: white;
+}
+.head_ar {
+  left: auto;
+  right: 0;
 }
 .main {
   margin-top: 90px;
 }
 .content_header {
   display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
+  flex-direction: column;
+  gap: 20px;
   border-bottom: 1px solid var(--gray-3);
   padding-bottom: 30px;
 }
-.content_header h2 {
+.content_header_text {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+.content_header_text h2 {
   font-size: 24px;
   font-weight: 600;
   color: var(--gray-9);
 }
-.content_header button {
+.content_header_text button {
   border: none;
   outline: none;
   background-color: transparent;
@@ -72,7 +104,7 @@
   color: var(--gray-7);
   cursor: pointer;
 }
-.content_header button:hover {
+.content_header_text button:hover {
   color: var(--gray-9);
 }
 

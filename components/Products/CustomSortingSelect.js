@@ -5,25 +5,25 @@ import classes from './CustomSortingSelect.module.css'
 
 const options = [
   {
-    id: 1,
+    id: 'newest',
     ar: 'الأحدث',
     fr: 'Les plus récent',
     en: 'Newest'
   },
   {
-    id: 2,
+    id: 'alphabetically',
     ar: 'أبجدياً',
     fr: 'Alphabétiquement',
     en: 'Alphabetically'
   },
   {
-    id: 3,
+    id: 'priceDecroissant',
     ar: 'السعر الأعلى الى الأدنى',
     fr: 'Prix : décroissant',
     en: 'Price: high to low'
   },
   {
-    id: 4,
+    id: 'priceCroissant',
     ar: 'السعر الأدنى الى الأعلى',
     fr: 'Prix: ​​croissant',
     en: 'Price: low to high'
@@ -34,9 +34,10 @@ const CustomSortingSelect = () => {
 
   const { locale } = useRouter()
 
+  const router = useRouter()
+
   const [showList, setShowList] = useState(false)
   const [selectedOption, setSelectedOption] = useState('')
-  const [selectedOptionId, setSelectedOptionId] = useState(1)
 
   useEffect(() => {
     const defaultOption = locale === 'ar-DZ' ? options[0].ar : locale === 'fr-FR' ? options[0].fr : options[0].en
@@ -64,7 +65,7 @@ const CustomSortingSelect = () => {
                   onClick={() => { 
                     setSelectedOption(locale === 'ar-DZ' ? option.ar : locale === 'fr-FR' ? option.fr : option.en)
                     setShowList(false)
-                    setSelectedOptionId(option.id)
+                    router.push({ pathname: '/products', query: { sorting: option.id } })
                   }}
                 >
                   {

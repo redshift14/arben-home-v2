@@ -6,13 +6,11 @@ import classes from './Tabs.module.css'
 import DescriptionTab from './DescriptionTab'
 import InfoTab from './InfoTab'
 
-const Tabs = ({ product }) => {
+const Tabs = ({ care, description, materialsUsed }) => {
 
   const { locale } = useRouter()
 
   const [activeTab, setActiveTab] = useState('description')
-
-  const { care, description, materialsUsed } = product
 
   return (
     <div className={classes.main}>

@@ -1,0 +1,16 @@
+.main {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding-top: 10px;
+}
+.label {
+  background-color: var(--gray-1);
+  width: max-content;
+  padding: 8px;
+  border-radius: 5px;
+  font-size: 15px;
+  border: 1px solid var(--gray-6);
+  cursor: default;
+  color: var(--gray-9);
+}

@@ -1,28 +1,30 @@
 import { useRouter } from 'next/router'
 
-import FilterMenuItem from './FilterMenuItem'
+import FiltersListLabels from './FiltersListLabels'
+import FilterMenuContent from './FilterMenuContent'
 import classes from './FilterMenu.module.css'
 
-import { filters } from './filters'
+import { useStateContext } from '../../context/stateContext'
 
 const FilterMenu = () => {
   
   const { locale } = useRouter()
-  
+
+  const { handleResetFilters } = useStateContext()
+
   return (
     <div className={classes.main}>
       <div className={classes.head}>
-        <h2>{ locale === 'ar-DZ' ? 'تصفية' : locale === 'fr-FR' ? 'Filtres' : 'Filters' }</h2>
-        <button>
-          { locale === 'ar-DZ' ? 'تهيئة' : locale === 'fr-FR' ? 'Tout effacer' : 'Clear all'}
-        </button>
+        <div className={classes.head_text}>
+          <h2>{ locale === 'ar-DZ' ? 'تصفية' : locale === 'fr-FR' ? 'Filtres' : 'Filters' }</h2>
+          <button onClick={() => handleResetFilters()}>
+            { locale === 'ar-DZ' ? 'تهيئة' : locale === 'fr-FR' ? 'Tout effacer' : 'Clear all'}
+          </button>
+        </div>
+        <FiltersListLabels /> 
       </div>
-      <div className={classes.content} >
-        {
-          filters.map(f => (
-            <FilterMenuItem key={f.id} title={f.title} filters={f.data} />
-          ))
-        }
+      <div className={classes.content}>
+        <FilterMenuContent />
       </div>
     </div>
   )

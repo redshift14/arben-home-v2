@@ -3,19 +3,19 @@ import { Navigation, Pagination, Autoplay } from 'swiper'
 import { useRef } from 'react'
 import { useRouter } from 'next/router'
 
+import { urlFor } from '../../lib/client'
+
 import 'swiper/css'
 import 'swiper/css/navigation'
 import 'swiper/css/pagination'
 import 'swiper/css/scrollbar'
 
-import Image1 from '../../public/assets/showcase1.jpg'
-import Image2 from '../../public/assets/showcase2.jpg'
 import arrowIcon from '../../public/assets/icons/arrow.png'
 
 import ShowcaseSlide from './ShowcaseSlide'
 import classes from './Showcase.module.css'
 
-const Showcase = () => {
+const Showcase = ({ data }) => {
 
   const { locale } = useRouter()
 
@@ -42,36 +42,28 @@ const Showcase = () => {
       }}
       dir='ltr'
     >
-      <SwiperSlide>
-        <ShowcaseSlide 
-          imageSrc={Image1.src} 
-          titleText={
-            locale == 'fr-FR' ? 'Linge de Chambre et de Cuisine' : 
-            locale == 'ar-DZ' ? 'أفرشة غرف النوم والمطبخ' :
-            'Bedroom And Kitchen Linen'
-          }
-          subtitleText={
-            locale == 'fr-FR' ? 'Linge fait main de qualité supérieure' : 
-            locale == 'ar-DZ' ? 'كتان عالي الجودة مصنوع يدويًا' :
-            'Top quality handmade linen'
-          }
-        />
-      </SwiperSlide>
-      <SwiperSlide>
-        <ShowcaseSlide 
-          imageSrc={Image2.src} 
-          titleText={
-            locale == 'fr-FR' ? 'Linge de Chambre et de Cuisine' : 
-            locale == 'ar-DZ' ? 'أفرشة غرف النوم والمطبخ' :
-            'Bedroom And Kitchen Linen'
-          }
-          subtitleText={
-            locale == 'fr-FR' ? 'Linge fait main de qualité supérieure' : 
-            locale == 'ar-DZ' ? 'كتان عالي الجودة مصنوع يدويًا' :
-            'Top quality handmade linen'
-          }
-        />
-      </SwiperSlide>
+      {
+        data.map(slideInfo => {
+          const { _key, coverImage, mainText, secondaryText, } = slideInfo
+          return (
+            <SwiperSlide key={_key}>
+              <ShowcaseSlide 
+                imageSrc={urlFor(coverImage).url()} 
+                titleText={
+                  locale == 'fr-FR' ? mainText.fr : 
+                  locale == 'ar-DZ' ? mainText.ar :
+                  mainText.en
+                }
+                subtitleText={
+                  locale == 'fr-FR' ? secondaryText.fr : 
+                  locale == 'ar-DZ' ? secondaryText.ar :
+                  secondaryText.en
+                }
+              />
+            </SwiperSlide>
+          )
+        })
+      }
       <div className={classes.swiperNavPrev} ref={swiperPrevRef} style={{ backgroundImage: `url(${arrowIcon.src})` }}></div>
       <div className={classes.swiperNavNext} ref={swiperNextRef} style={{ backgroundImage: `url(${arrowIcon.src})` }}></div>
     </Swiper>

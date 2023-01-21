@@ -4,11 +4,31 @@ import MainDetails from '../../components/productDetails/MainDetails'
 import Tabs from '../../components/productDetails/Tabs'
 
 const ProductDetails = ({ product }) => {
+
+  console.log(product)
+  
+  const { 
+    images, name, subtitle, price, quantities, sizes, title, slug, _id, care, description, materialsUsed
+  } = product
   
   return (
     <div>
-      <MainDetails product={product} />
-      <Tabs product={product} />
+      <MainDetails 
+        images={images}
+        name={name}
+        subtitle={subtitle}
+        price={price}
+        quantities={quantities}
+        sizes={sizes}
+        title={title}
+        slug={slug}
+        _id={_id} 
+      />
+      <Tabs
+        care={care} 
+        description={description}
+        materialsUsed={materialsUsed}
+      />
     </div>
   )
 }

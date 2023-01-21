@@ -12,7 +12,7 @@ import { useStateContext } from '../../context/stateContext'
 import { urlFor } from '../../lib/client'
 import classes from './MainDetails.module.css'
 
-const MainDetails = ({ product }) => {
+const MainDetails = ({ images, name, subtitle, price, quantities, sizes, title, slug, _id }) => {
 
   const { addProductToCart, } = useStateContext()
 
@@ -35,8 +35,6 @@ const MainDetails = ({ product }) => {
   },[windowWidth])
 
   const { locale } = useRouter()
-
-  const { images, name, subtitle, price, quantities, sizes, title, slug, _id } = product
 
   const [selectedPrice, setSelectedPrice] = useState(0)
   const [selectedSize, setSelectedSize] = useState(0) 

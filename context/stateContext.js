@@ -1,9 +1,69 @@
 import { createContext, useContext, useState, useEffect } from 'react'
+import { useRouter } from 'next/router'
 
 const Context = createContext()
 
 export const StateContext = ({ children }) => {
 
+  const router = useRouter()
+
+  const { query } = router
+
+  ///////////// filters list 
+
+  const [selectedCategories, setSelectedCategories] = useState([])
+  const [selectedPrices, setSelectedPrices] = useState([])
+  const [selectedMaterials, setSelectedMaterials] = useState([])
+
+  const handleFilterOptionsChange = (e, state, setState, filterType) => {
+    const index = state.indexOf(e.target.value)
+    if (index === -1) {
+      if (filterType === 'category') {
+        setState([...selectedCategories, e.target.value])
+      } 
+      else if (filterType === 'price') {
+        setState([...selectedPrices, e.target.value])
+      }
+      else if (filterType === 'material') {
+        setState([...selectedMaterials, e.target.value])
+      }
+    }
+    else {
+      if (filterType === 'category') {
+        setState(selectedCategories.filter(item => item !== e.target.value))
+      } 
+      else if (filterType === 'price') {
+        setState(selectedPrices.filter(item => item !== e.target.value))
+      }
+      else if (filterType === 'material') {
+        setState(selectedMaterials.filter(item => item !== e.target.value))
+      }
+    }
+  }
+
+  const handleResetFilters = () => {
+    setSelectedCategories([])
+    setSelectedMaterials([])
+    setSelectedPrices([])
+  }
+
+  useEffect(() => {
+    setTimeout(() => {      
+      // router.push({ 
+      //   pathname: '/products', 
+      //   query: { 
+      //     category: selectedCategories.length > 0 ? selectedCategories.join(',') : [] ,
+      //     price: selectedPrices.length > 0 ? selectedPrices.join(',') : [],
+      //     material: selectedMaterials.length > 0 ? selectedMaterials.join(',') : []
+      //   } 
+      // })
+    }, 300)
+  }, [selectedCategories, selectedPrices, selectedMaterials])
+
+  ///////////// products list
+  const [productsList, setProductsList] = useState([])
+
+  //////////// cart 
   const [cartItems, setCartItems] = useState([])
 
   const [totalPrice, setTotalPrice] = useState(0)
@@ -36,7 +96,7 @@ export const StateContext = ({ children }) => {
       product.quantity = quantity
       setCartItems([...cartItems, { ...product }])
     }
-  } 
+  }
 
   const removeProductFromCart = (product) => {
     foundProduct = cartItems.find(item => item.id+item.size === product.id+product.size)
@@ -77,7 +137,7 @@ export const StateContext = ({ children }) => {
 
   return (
     <Context.Provider
-      value={{ cartItems, addProductToCart, removeProductFromCart, toggleQuantityInCartItem, totalPrice, totalQuantities }}
+      value={{ cartItems, addProductToCart, removeProductFromCart, toggleQuantityInCartItem, totalPrice, totalQuantities, productsList, setProductsList, selectedCategories, setSelectedCategories, selectedMaterials, setSelectedMaterials, selectedPrices, setSelectedPrices, handleFilterOptionsChange, handleResetFilters }}
     >
       { children }
     </Context.Provider>

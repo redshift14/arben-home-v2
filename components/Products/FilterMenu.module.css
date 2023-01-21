@@ -5,17 +5,22 @@
 }
 .head {
   display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
+  flex-direction: column;
+  gap: 20px;
   border-bottom: 1px solid var(--gray-3);
   padding-bottom: 25px;
 }
-.head h2 {
+.head_text {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+.head_text h2 {
   font-size: 24px;
   font-weight: 600;
   color: var(--gray-9);
 }
-.head button {
+.head_text button {
   border: none;
   outline: none;
   background-color: transparent;
@@ -23,7 +28,7 @@
   color: var(--gray-7);
   cursor: pointer;
 }
-.head button:hover {
+.head_text button:hover {
   color: var(--gray-9);
 }
 

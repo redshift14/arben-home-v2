@@ -6,14 +6,17 @@ import AboutSection from '../components/Home/AboutSection'
 
 import { client } from '../lib/client'
 
-const Home = ({ products }) => {
+const Home = ({ products, layoutInfo }) => {
+
+  const { aboutSectionText, categoriesSection, headerSection, introSection } = layoutInfo.homePage
+  
   return (
     <>
-      <Showcase />
-      <Intro />
+      <Showcase data={headerSection} />
+      <Intro data={introSection} />
       <RecentProducts products={products} />
-      <Categories />
-      <AboutSection />
+      <Categories data={categoriesSection} />
+      <AboutSection data={aboutSectionText} />
     </>
   )
 }
@@ -21,10 +24,15 @@ const Home = ({ products }) => {
 export default Home
 
 export const getServerSideProps = async () => {
-  const query = '*[_type == "product"]{ _id, name, slug, price, sizes, images }[0..7]'
-  const products = await client.fetch(query)
+
+  const layoutQuery = '*[_type == "layout"][0]'
+
+  const layoutInfo = await client.fetch(layoutQuery) 
+
+  const productsQuery = '*[_type == "product"] | order(_createdAt desc) { _id, name, slug, price, sizes, images }[0..5]'
+  const products = await client.fetch(productsQuery)
 
   return {
-    props: { products }
+    props: { products, layoutInfo }
   }
 }
