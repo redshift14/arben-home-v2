@@ -1,19 +1,21 @@
 import { defineType } from 'sanity'
+import { MdOutlineStyle as icon } from 'react-icons/md'
 
 export default defineType({
   title: 'Style', 
   name: 'style',
-  type: 'object',
+  type: 'document',
+  icon,
   fields: [
     {
-      title: 'Style Name',
+      title: 'Style name',
       name: 'styleName',
-      type: 'string',
-    },
-    {
-      title: 'Style Content',
-      name: 'styleContent',
       type: 'localeString'
     }
-  ]
+  ],
+  preview: {
+    select: {
+      title: 'styleName.en'
+    }
+  }
 })

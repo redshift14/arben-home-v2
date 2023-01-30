@@ -4,13 +4,11 @@ import MainDetails from '../../components/productDetails/MainDetails'
 import Tabs from '../../components/productDetails/Tabs'
 
 const ProductDetails = ({ product }) => {
-
-  console.log(product)
   
   const { 
     images, name, subtitle, price, quantities, sizes, title, slug, _id, care, description, materialsUsed
   } = product
-  
+
   return (
     <div>
       <MainDetails 

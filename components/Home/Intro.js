@@ -9,9 +9,9 @@ import classes from './Intro.module.css'
 const Intro = ({ data }) => {
 
   const iconsArray = [
-    <FaTruck className={classes.icon} />,
-    <MdOutlinePublishedWithChanges  className={classes.icon}/>,
-    <GiCash className={classes.icon} />
+    <FaTruck className={classes.icon} key={0} />,
+    <MdOutlinePublishedWithChanges  className={classes.icon} key={1} />,
+    <GiCash className={classes.icon} key={2} />
   ]
 
   const { locale } = useRouter()

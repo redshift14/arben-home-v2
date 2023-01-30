@@ -32,7 +32,7 @@ const options = [
 
 const CustomSortingSelect = () => {
 
-  const { locale } = useRouter()
+  const { locale, query } = useRouter()
 
   const router = useRouter()
 
@@ -65,7 +65,7 @@ const CustomSortingSelect = () => {
                   onClick={() => { 
                     setSelectedOption(locale === 'ar-DZ' ? option.ar : locale === 'fr-FR' ? option.fr : option.en)
                     setShowList(false)
-                    router.push({ pathname: '/products', query: { sorting: option.id } })
+                    router.push({ pathname: '/products', query: { ...query, sorting: option.id } })
                   }}
                 >
                   {

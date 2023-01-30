@@ -24,7 +24,7 @@ const InfoTab = ({ care, materialsUsed }) => {
           {
             materialsUsed.map((m, index) => (
               <h6 key={index}>
-                {locale === 'ar-DZ' ? m.materialContent.ar : locale === 'fr-FR' ? m.materialContent.fr : m.materialContent.en }
+                {/* {locale === 'ar-DZ' ? m.materialName.ar : locale === 'fr-FR' ? m.materialName.fr : m.materialName.en } */}
               </h6>
             ))
           }

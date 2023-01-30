@@ -1,40 +1,46 @@
 import { useRouter } from 'next/router'
 
-import { categories, prices, materials } from './filtersData'
-
 import { useStateContext } from '../../context/stateContext'
 
 import FilterMenuItem from './FilterMenuItem'
 
 const FilterMenuContent = () => {
-
+  
   const { locale } = useRouter()
 
-  const { handleFilterOptionsChange, selectedCategories, setSelectedCategories, selectedPrices, setSelectedPrices, selectedMaterials, setSelectedMaterials } = useStateContext()
+  const { handleFilterOptionsChange, selectedCategories, setSelectedCategories,  selectedMaterials, setSelectedMaterials, selectedColors, setSelectedColors, selectedStyles, setSelectedStyles, allCategories, allMaterials, allColors, allStyles } = useStateContext()
+
+  const titles = [
+    locale === 'ar-DZ' ? 'الصنف' : locale === 'fr-FR' ? 'Catégorie' : 'Category',
+    locale === 'ar-DZ' ? 'اللون' : locale === 'fr-FR' ? 'Coleur' : 'Color',
+    locale === 'ar-DZ' ? 'المواد المستعملة' : locale === 'fr-FR' ? 'Matériaux utilisés' : 'Materials used',
+    locale === 'ar-DZ' ? 'الطراز' : locale === 'fr-FR' ? 'Style' : 'Style',
+  ]
+
+  const allFilters = [allCategories, allColors, allMaterials, allStyles]
+  const selectedFilters = [selectedCategories, selectedColors, selectedMaterials, selectedStyles]
+  const setSelectedFilters = [setSelectedCategories, setSelectedColors, setSelectedMaterials, setSelectedStyles]
+  const filtersNames = ['category', 'color', 'material', 'style']
 
   return (
     <>
       <FilterMenuItem 
-        title={locale === 'ar-DZ' ? 'الصنف' : locale === 'fr-FR' ? 'Catégorie' : 'Category'} 
-        filterName='category'
-        options={categories}
-        selectedOptions={selectedCategories}
-        handleCheckboxChange={(e) => handleFilterOptionsChange(e, selectedCategories, setSelectedCategories, 'category')}
-      /> 
-      <FilterMenuItem 
         title={locale === 'ar-DZ' ? 'السعر' : locale === 'fr-FR' ? 'Prix' : 'Price'} 
-        filterName='price'
-        options={prices}
-        selectedOptions={selectedPrices}
-        handleCheckboxChange={(e) => handleFilterOptionsChange(e, selectedPrices, setSelectedPrices, 'price')}
+        filterName={'price'}
+        isPriceItem={true}
       /> 
-      <FilterMenuItem 
-        title={locale === 'ar-DZ' ? 'المواد المستعملة' : locale === 'fr-FR' ? 'Matérials utilisé' : 'Materials used'} 
-        filterName='material'
-        options={materials}
-        selectedOptions={selectedMaterials}
-        handleCheckboxChange={(e) => handleFilterOptionsChange(e, selectedMaterials, setSelectedMaterials, 'material')}
-      /> 
+      {
+        allFilters.map((filter, index) => (
+          <FilterMenuItem 
+            key={index}
+            title={titles[index]} 
+            filterName={filtersNames[index]}
+            options={filter}
+            selectedOptions={selectedFilters[index]}
+            handleCheckboxChange={(e) => handleFilterOptionsChange(e, selectedFilters[index], setSelectedFilters[index], filtersNames[index])}
+          /> 
+        ))
+      }
     </>
   )
 }

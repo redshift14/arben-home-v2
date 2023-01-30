@@ -7,13 +7,25 @@ export const StateContext = ({ children }) => {
 
   const router = useRouter()
 
-  const { query } = router
+  const { query, asPath, pathname } = router
+
+
+  ///////////// get filters from backend
+
+  const [allCategories, setAllCategories] = useState([])
+  const [allStyles, setAllStyles] = useState([])
+  const [allMaterials, setAllMaterials] = useState([])
+  const [allColors, setAllColors] = useState([])
 
   ///////////// filters list 
 
   const [selectedCategories, setSelectedCategories] = useState([])
-  const [selectedPrices, setSelectedPrices] = useState([])
+  const [selectedColors, setSelectedColors] = useState([])
   const [selectedMaterials, setSelectedMaterials] = useState([])
+  const [selectedStyles, setSelectedStyles] = useState([])
+  
+  const [selectedMinPrice, setSelectedMinPrice] = useState(1)
+  const [selectedMaxPrice, setSelectedMaxPrice] = useState(20000)
 
   const handleFilterOptionsChange = (e, state, setState, filterType) => {
     const index = state.indexOf(e.target.value)
@@ -21,44 +33,74 @@ export const StateContext = ({ children }) => {
       if (filterType === 'category') {
         setState([...selectedCategories, e.target.value])
       } 
-      else if (filterType === 'price') {
-        setState([...selectedPrices, e.target.value])
+      else if (filterType === 'color') {
+        setState([...selectedColors, e.target.value])
       }
       else if (filterType === 'material') {
         setState([...selectedMaterials, e.target.value])
+      }
+      else if (filterType === 'style') {
+        setState([...selectedStyles, e.target.value])
       }
     }
     else {
       if (filterType === 'category') {
         setState(selectedCategories.filter(item => item !== e.target.value))
       } 
-      else if (filterType === 'price') {
-        setState(selectedPrices.filter(item => item !== e.target.value))
+      else if (filterType === 'color') {
+        setState(selectedColors.filter(item => item !== e.target.value))
       }
       else if (filterType === 'material') {
         setState(selectedMaterials.filter(item => item !== e.target.value))
       }
+      else if (filterType === 'style') {
+        setState(selectedStyles.filter(item => item !== e.target.value))
+      }
     }
+  }
+
+  const minPrice = 1
+  const maxPrice = 20000
+
+  const handleMinPriceInputChange = (e) => {
+    const value = Math.max(minPrice, Math.min(maxPrice, Number(e.target.value)))
+    if (value > selectedMaxPrice) setSelectedMinPrice(selectedMaxPrice)
+    else setSelectedMinPrice(value)
+  }
+
+  const handleMaxPriceInputChange = (e) => {
+    const value = Math.max(minPrice, Math.min(maxPrice, Number(e.target.value)))
+    if (value < selectedMinPrice) setSelectedMaxPrice(selectedMinPrice)
+    else setSelectedMaxPrice(value)
   }
 
   const handleResetFilters = () => {
     setSelectedCategories([])
+    setSelectedColors([])
     setSelectedMaterials([])
-    setSelectedPrices([])
+    setSelectedStyles([])
+    setSelectedMinPrice(1)
+    setSelectedMaxPrice(20000)
   }
 
   useEffect(() => {
     setTimeout(() => {      
-      // router.push({ 
-      //   pathname: '/products', 
-      //   query: { 
-      //     category: selectedCategories.length > 0 ? selectedCategories.join(',') : [] ,
-      //     price: selectedPrices.length > 0 ? selectedPrices.join(',') : [],
-      //     material: selectedMaterials.length > 0 ? selectedMaterials.join(',') : []
-      //   } 
-      // })
-    }, 300)
-  }, [selectedCategories, selectedPrices, selectedMaterials])
+      if (pathname == '/products') {
+        router.push({
+          pathname: '/products', 
+          query: {
+            ...query,
+            category: selectedCategories.length > 0 ? selectedCategories.join(',') : [] ,
+            color: selectedColors.length > 0 ? selectedColors.join(',') : [] ,
+            material: selectedMaterials.length > 0 ? selectedMaterials.join(',') : [],
+            style: selectedStyles.length > 0 ? selectedStyles.join(',') : [] ,
+            maxPrice: selectedMaxPrice !== 20000 ? selectedMaxPrice : [],
+            minPrice: selectedMinPrice !== 1 ? selectedMinPrice : []
+          }
+        })
+      }
+    }, 200)
+  }, [selectedCategories, selectedColors, selectedMaterials, selectedStyles, selectedMaxPrice, selectedMinPrice])
 
   ///////////// products list
   const [productsList, setProductsList] = useState([])
@@ -135,9 +177,16 @@ export const StateContext = ({ children }) => {
     }
   }
 
+  // helper functions
+  
+  const capitilizeFirstLetter = (string) => {
+    string = string.charAt(0).toUpperCase()+string.slice(1)
+    return string
+  }
+
   return (
     <Context.Provider
-      value={{ cartItems, addProductToCart, removeProductFromCart, toggleQuantityInCartItem, totalPrice, totalQuantities, productsList, setProductsList, selectedCategories, setSelectedCategories, selectedMaterials, setSelectedMaterials, selectedPrices, setSelectedPrices, handleFilterOptionsChange, handleResetFilters }}
+      value={{ cartItems, addProductToCart, removeProductFromCart, toggleQuantityInCartItem, totalPrice, totalQuantities, productsList, setProductsList, selectedCategories, setSelectedCategories, selectedColors, setSelectedColors, selectedMaterials, setSelectedMaterials, selectedStyles, setSelectedStyles, selectedMaxPrice, setSelectedMaxPrice, selectedMinPrice, setSelectedMinPrice, handleFilterOptionsChange, handleResetFilters, allCategories, setAllCategories, capitilizeFirstLetter, allColors, setAllColors, allMaterials, setAllMaterials, allStyles, setAllStyles, handleMinPriceInputChange, handleMaxPriceInputChange }}
     >
       { children }
     </Context.Provider>

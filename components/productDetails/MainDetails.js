@@ -14,7 +14,7 @@ import classes from './MainDetails.module.css'
 
 const MainDetails = ({ images, name, subtitle, price, quantities, sizes, title, slug, _id }) => {
 
-  const { addProductToCart, } = useStateContext()
+  const { addProductToCart } = useStateContext()
 
   const THRESHOLD = 1000
   const [windowWidth, setWindowWidth] = useState()

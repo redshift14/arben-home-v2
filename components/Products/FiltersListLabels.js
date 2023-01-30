@@ -4,9 +4,9 @@ import classes from './FiltersListLabels.module.css'
 
 const FiltersListLabels = () => {
 
-  const { selectedCategories, selectedMaterials, selectedPrices } = useStateContext()
+  const { selectedCategories, selectedColors, selectedMaterials, selectedStyles } = useStateContext()
 
-  const allFilters = [...selectedCategories, ...selectedMaterials, ...selectedPrices]
+  const allFilters = [...selectedCategories, ...selectedColors, ...selectedMaterials, ...selectedStyles ]
 
   return (
     allFilters.length > 0 && (

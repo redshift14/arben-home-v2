@@ -36,7 +36,12 @@ export default defineType({
       title: 'Categories',
       name: 'categories',
       type: 'array',
-      of: [{ type: 'category' }]
+      of: [{ 
+        type: 'reference',
+        to: [
+          { type: 'category' }
+        ]
+      }]
     },
     {
       title: 'Quantities',
@@ -60,19 +65,34 @@ export default defineType({
       title: 'Styles',
       name: 'styles',
       type: 'array',
-      of: [{ type: 'style' }]
+      of: [{ 
+        type: 'reference',
+        to: [
+          { type: 'style' }
+        ] 
+      }]
     },
     {
       title: 'Materials Used',
       name: 'materialsUsed',
       type: 'array',
-      of: [{ type: 'materialUsed' }]
+      of: [{ 
+        type: 'reference',
+        to: [
+          { type: 'materialUsed' }
+        ] 
+      }]
     },
     {
       title: 'Colors',
       name: 'colors',
       type: 'array',
-      of: [{ type: 'color' }]
+      of: [{ 
+        type: 'reference',
+        to: [
+          { type: 'color' }
+        ] 
+      }]
     },
     {
       title: 'Care',

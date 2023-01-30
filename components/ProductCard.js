@@ -24,7 +24,8 @@ const ProductCard = ({ title, slug, startingPrice, sizes, coverImage, searchPage
             {title}
           </p>
           <p className={searchPage ? `${classes.price} ${classes.price_s}` : classes.price}>
-            {locale == 'fr-FR' ? 'à partir de ' : locale == 'ar-DZ' ? ' ابتداءً من ' : 'from '}{startingPrice}$
+            {locale == 'fr-FR' ? 'à partir de ' : locale == 'ar-DZ' ? ' ابتداءً من ' : 'from '}{startingPrice}
+            {locale == 'ar-DZ' ? ' دينار جزائري ' : ' DZD '} 
           </p>
           <div className={searchPage ? `${classes.sizes} ${classes.sizes_s}` : classes.sizes}>
             {

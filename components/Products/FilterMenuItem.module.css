@@ -76,3 +76,33 @@
   border-width: 1.9px;
 }
 /* custom check box end */
+
+/* price part */
+.price_filter_container {
+  padding: 0 0 15px 0;
+  display: flex;
+  gap: 15px;
+}
+.top_part {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+}
+.top_part input {
+  padding: 6px 5px;
+  border: none;
+  outline: none;
+  border-radius: 5px;
+  border: 1px solid var(--gray-6);
+  width: 100px;
+}
+.price_filter_container button {
+  width: 100%;
+  background-color: var(--gray-8);
+  color: white;
+  border-radius: 5px;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  font-size: 14px;
+}

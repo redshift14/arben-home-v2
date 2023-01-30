@@ -1,19 +1,21 @@
 import { defineType } from 'sanity'
+import { SiMaterialdesign as icon } from 'react-icons/si'
 
 export default defineType({
   title: 'Material used', 
   name: 'materialUsed',
-  type: 'object',
+  type: 'document',
+  icon,
   fields: [
     {
-      title: 'Material Name',
+      title: 'Material name',
       name: 'materialName',
-      type: 'string',
-    },
-    {
-      title: 'Material Content',
-      name: 'materialContent',
       type: 'localeString'
     }
-  ]
+  ],
+  preview: {
+    select: {
+      title: 'materialName.en'
+    }
+  }
 })
