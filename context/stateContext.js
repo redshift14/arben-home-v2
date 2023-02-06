@@ -7,8 +7,7 @@ export const StateContext = ({ children }) => {
 
   const router = useRouter()
 
-  const { query, asPath, pathname } = router
-
+  const { query, pathname } = router
 
   ///////////// get filters from backend
 
@@ -24,8 +23,8 @@ export const StateContext = ({ children }) => {
   const [selectedMaterials, setSelectedMaterials] = useState([])
   const [selectedStyles, setSelectedStyles] = useState([])
   
-  const [selectedMinPrice, setSelectedMinPrice] = useState(1)
-  const [selectedMaxPrice, setSelectedMaxPrice] = useState(20000)
+  const [selectedConfirmedMinPrice, setSelectedConfirmedMinPrice] = useState(1)
+  const [selectedConfirmedMaxPrice, setSelectedConfirmedMaxPrice] = useState(20000)
 
   const handleFilterOptionsChange = (e, state, setState, filterType) => {
     const index = state.indexOf(e.target.value)
@@ -59,28 +58,13 @@ export const StateContext = ({ children }) => {
     }
   }
 
-  const minPrice = 1
-  const maxPrice = 20000
-
-  const handleMinPriceInputChange = (e) => {
-    const value = Math.max(minPrice, Math.min(maxPrice, Number(e.target.value)))
-    if (value > selectedMaxPrice) setSelectedMinPrice(selectedMaxPrice)
-    else setSelectedMinPrice(value)
-  }
-
-  const handleMaxPriceInputChange = (e) => {
-    const value = Math.max(minPrice, Math.min(maxPrice, Number(e.target.value)))
-    if (value < selectedMinPrice) setSelectedMaxPrice(selectedMinPrice)
-    else setSelectedMaxPrice(value)
-  }
-
   const handleResetFilters = () => {
     setSelectedCategories([])
     setSelectedColors([])
     setSelectedMaterials([])
     setSelectedStyles([])
-    setSelectedMinPrice(1)
-    setSelectedMaxPrice(20000)
+    setSelectedConfirmedMinPrice(1)
+    setSelectedConfirmedMaxPrice(20000)
   }
 
   useEffect(() => {
@@ -94,13 +78,13 @@ export const StateContext = ({ children }) => {
             color: selectedColors.length > 0 ? selectedColors.join(',') : [] ,
             material: selectedMaterials.length > 0 ? selectedMaterials.join(',') : [],
             style: selectedStyles.length > 0 ? selectedStyles.join(',') : [] ,
-            maxPrice: selectedMaxPrice !== 20000 ? selectedMaxPrice : [],
-            minPrice: selectedMinPrice !== 1 ? selectedMinPrice : []
+            maxPrice: selectedConfirmedMaxPrice !== 20000 ? selectedConfirmedMaxPrice : [],
+            minPrice: selectedConfirmedMinPrice !== 1 ? selectedConfirmedMinPrice : []
           }
         })
       }
     }, 200)
-  }, [selectedCategories, selectedColors, selectedMaterials, selectedStyles, selectedMaxPrice, selectedMinPrice])
+  }, [selectedCategories, selectedColors, selectedMaterials, selectedStyles, selectedConfirmedMinPrice, selectedConfirmedMaxPrice])
 
   ///////////// products list
   const [productsList, setProductsList] = useState([])
@@ -186,7 +170,7 @@ export const StateContext = ({ children }) => {
 
   return (
     <Context.Provider
-      value={{ cartItems, addProductToCart, removeProductFromCart, toggleQuantityInCartItem, totalPrice, totalQuantities, productsList, setProductsList, selectedCategories, setSelectedCategories, selectedColors, setSelectedColors, selectedMaterials, setSelectedMaterials, selectedStyles, setSelectedStyles, selectedMaxPrice, setSelectedMaxPrice, selectedMinPrice, setSelectedMinPrice, handleFilterOptionsChange, handleResetFilters, allCategories, setAllCategories, capitilizeFirstLetter, allColors, setAllColors, allMaterials, setAllMaterials, allStyles, setAllStyles, handleMinPriceInputChange, handleMaxPriceInputChange }}
+      value={{ cartItems, addProductToCart, removeProductFromCart, toggleQuantityInCartItem, totalPrice, totalQuantities, productsList, setProductsList, selectedCategories, setSelectedCategories, selectedColors, setSelectedColors, selectedMaterials, setSelectedMaterials, selectedStyles, setSelectedStyles, setSelectedConfirmedMaxPrice, selectedConfirmedMaxPrice, setSelectedConfirmedMinPrice, selectedConfirmedMinPrice, handleFilterOptionsChange, handleResetFilters, allCategories, setAllCategories, capitilizeFirstLetter, allColors, setAllColors, allMaterials, setAllMaterials, allStyles, setAllStyles }}
     >
       { children }
     </Context.Provider>

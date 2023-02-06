@@ -20,6 +20,10 @@ const Sidebar = () => {
 
   const [open, setOpen] = useState(false)
 
+  const handleLinkClick = () => {
+    setOpen(false)
+  }
+
   return (
     <Menu
       className={!open ? `${classes.menu} ${classes.menu_hidden}` : classes.menu}
@@ -36,7 +40,7 @@ const Sidebar = () => {
     >
       <div className={classes.content}>
         <div className={classes.head}>
-          <Link href={'/'}>
+          <Link href={'/'} onClick={handleLinkClick}>
             <Image src={Logo} width={150} height={'auto'} alt='Logo' />
           </Link>
         </div>
@@ -45,12 +49,14 @@ const Sidebar = () => {
             sidebar={true} 
             linkName={locale == 'fr-FR' ? 'Accueil' : locale == 'ar-DZ' ? 'الرئيسة' : 'Home' } 
             to={'/'}
+            clickFunction={handleLinkClick}
           />
           <NavItem 
             sidebar={true} 
             withDropDown={true} 
             linkName={locale == 'fr-FR' ? 'Boutique' : locale == 'ar-DZ' ? 'المتجر' : 'Shop' }
             to={'/'}
+            clickFunction={handleLinkClick}
           >
             <Dropdown links={shopLinks} sidebar={true} />
           </NavItem>
@@ -59,6 +65,7 @@ const Sidebar = () => {
             withDropDown={true} 
             linkName={locale == 'fr-FR' ? 'A propos' : locale == 'ar-DZ' ? 'حول' : 'About'}
             to={'/'}
+            clickFunction={handleLinkClick}
           >
             <Dropdown links={aboutLinks} sidebar={true} />
           </NavItem>

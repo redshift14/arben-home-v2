@@ -63,7 +63,8 @@ const MainDetails = ({ images, name, subtitle, price, quantities, sizes, title, 
 
   const imagesLinks = images.map((image) => ({
     original: urlFor(image).url(),
-    thumbnail: urlFor(image).width(100).url()
+    thumbnail: urlFor(image).width(100).url(),
+    originalClass: classes.image_item_original
   }))
 
   const available = locale === 'ar-DZ' ? 'متوفر' : locale === 'fr-FR' ? 'En Stock' : 'In Stock'
@@ -79,7 +80,9 @@ const MainDetails = ({ images, name, subtitle, price, quantities, sizes, title, 
         />
       </div>
       <div className={classes.details_container}>
-        <p className={classes.state_box}>{quantities.some(q => q > 0) ? available : notAvailable }</p>
+        <p className={classes.state_box}>
+          { quantities.some(q => q > 0) ? available : notAvailable }
+        </p>
         <h2>{locale === 'ar-DZ' ? name.ar : locale === 'fr-FR' ? name.fr : name.en}</h2>
         <h4>
           {locale === 'ar-DZ' ? subtitle.ar : locale === 'fr-FR' ? subtitle.fr : subtitle.en}

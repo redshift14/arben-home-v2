@@ -24,7 +24,8 @@ const RecentProducts = ({ products }) => {
               title={locale == 'fr-FR' ? product.name.fr : locale == 'ar-DZ' ? product.name.ar : product.name.en}
               startingPrice={product.price[0]}
               sizes={product.sizes}
-              coverImage={product.images[0]}
+              coverImage1={product.images[0]}
+              coverImage2={product.images[1]}
               searchPage={false}
             />
           ))

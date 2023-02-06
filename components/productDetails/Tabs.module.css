@@ -2,7 +2,7 @@
   padding: 0 20px;
 }
 .main nav {
-  border-bottom: 1px solid var(--gray-5);
+  border-bottom: 1px solid var(--gray-4);
 }
 .btn {
   outline: none;

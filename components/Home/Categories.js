@@ -9,6 +9,8 @@ const Categories = ({ data }) => {
 
   const { locale } = useRouter()
 
+  const links = ['products?category=quilt+cover', '/products?category=pillowcase', '/products?category=bed+sheets']
+
   return (
     <section className={classes.main}>
       <h2>
@@ -28,6 +30,7 @@ const Categories = ({ data }) => {
                 image={urlFor(interfaceCategoryImage).url()} 
                 title={locale == 'fr-FR' ? interfaceCategoryName.fr : locale == 'ar-DZ' ? interfaceCategoryName.ar : interfaceCategoryName.en} 
                 wide={index === 2}
+                to={links[index]}
               />
             )
           })

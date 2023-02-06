@@ -9,13 +9,36 @@ const FilterMenuItem = ({ title, options, selectedOptions, handleCheckboxChange,
 
   const { locale } = useRouter()
 
-  const { capitilizeFirstLetter, selectedMaxPrice, handleMaxPriceInputChange, selectedMinPrice, handleMinPriceInputChange, } = useStateContext()
+  const { capitilizeFirstLetter, selectedConfirmedMaxPrice, setSelectedConfirmedMaxPrice, setSelectedConfirmedMinPrice, selectedConfirmedMinPrice } = useStateContext()
 
-  const [open, setOpen] = useState(false) 
+  const [open, setOpen] = useState(true) 
+
+  const [selectedMinPrice, setSelectedMinPrice] = useState(1)
+  const [selectedMaxPrice, setSelectedMaxPrice] = useState(20000)
+
+  useEffect(() => {
+    if (selectedConfirmedMinPrice == 1) setSelectedMinPrice(1)
+    if (selectedConfirmedMaxPrice == 20000) setSelectedMaxPrice(20000)
+  }, [selectedConfirmedMaxPrice, selectedConfirmedMinPrice])
+
+  const minPrice = 1
+  const maxPrice = 20000
+
+  const handleMinPriceInputChange = (e) => {
+    const value = Math.max(minPrice, Math.min(maxPrice, Number(e.target.value)))
+    if (value > selectedMaxPrice) setSelectedMinPrice(selectedMaxPrice)
+    else setSelectedMinPrice(value)
+  }
+
+  const handleMaxPriceInputChange = (e) => {
+    const value = Math.max(minPrice, Math.min(maxPrice, Number(e.target.value)))
+    if (value < selectedMinPrice) setSelectedMaxPrice(selectedMinPrice)
+    else setSelectedMaxPrice(value)
+  }
 
   const handleConfirmPrices = () => {
-    // setSelectedMinPrice(inputMinPriceValue)
-    // setSelectedMaxPrice(inputMaxPriceValue)
+    setSelectedConfirmedMaxPrice(selectedMaxPrice)
+    setSelectedConfirmedMinPrice(selectedMinPrice)
   }
 
   const getOptionName = (option) => {

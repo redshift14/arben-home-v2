@@ -7,6 +7,9 @@
 .image_gallery_container {
   flex: 1;
 }
+.image_item_original {
+  max-height: 700px;
+}
 .details_container {
   flex: 1;
   display: flex;

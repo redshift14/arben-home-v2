@@ -81,28 +81,40 @@
 .price_filter_container {
   padding: 0 0 15px 0;
   display: flex;
-  gap: 15px;
+  flex-direction: column;
+  gap: 20px;
 }
 .top_part {
   display: flex;
-  gap: 5px;
+  gap: 10px;
   align-items: center;
 }
+.top_part span {
+  font-size: 16px;
+}
 .top_part input {
-  padding: 6px 5px;
+  padding: 10px 6px;
   border: none;
   outline: none;
   border-radius: 5px;
-  border: 1px solid var(--gray-6);
-  width: 100px;
+  border: 1px solid var(--gray-5);
+  width: 100%;
+  font-size: 15px;
+}
+.top_part input:focus {
+  border-color: var(--gray-9);
 }
 .price_filter_container button {
   width: 100%;
-  background-color: var(--gray-8);
+  background-color: var(--gray-9);
   color: white;
   border-radius: 5px;
   border: none;
   outline: none;
   cursor: pointer;
-  font-size: 14px;
+  font-size: 15px;
+  padding: 10px 0;
+}
+.price_filter_container button:hover {
+  background-color: var(--gray-8);
 }
