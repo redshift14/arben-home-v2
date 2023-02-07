@@ -16,6 +16,16 @@ export default defineType({
       title: 'Home page',
       name: 'homePage',
       type: 'homePage'
+    },
+    {
+      title: 'Other pages showcase image',
+      name: 'otherPagesShowcaseImage',
+      type: 'image'
+    },
+    {
+      title: 'Delivery notes',
+      name: 'deliveryNotes',
+      type: 'localeText'
     }
   ],
   preview: {

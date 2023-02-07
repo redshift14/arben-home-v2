@@ -22,6 +22,8 @@ const Cart =  () => {
 
   const { locale } = useRouter()
 
+  const router = useRouter()
+
   const { cartItems, totalPrice, totalQuantities } = useStateContext()
 
   return (
@@ -81,7 +83,12 @@ const Cart =  () => {
                 { locale === 'ar-DZ' ? 'سيتم احتساب مصاريف الشحن عند مواصلة الدفع.' : locale === 'fr-FR' ? "L'expédition sera calculée à la caisse." : 'Shipping will be calculated at checkout.' }
               </p>
               <div className={classes.buttons}>
-                <button className={classes.checkout_btn}>
+                <button 
+                  className={classes.checkout_btn} 
+                  onClick={() => { 
+                    router.push('/checkout') 
+                    setIsOpen(false)
+                  }}>
                   { locale === 'ar-DZ' ? 'الدفع' : locale === 'fr-FR' ? 'Passer à la caisse' : 'Proceed to checkout' }
                 </button>
                 <button onClick={handleOpenMenu} className= {classes.continue_shopping_btn}>

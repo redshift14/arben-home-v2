@@ -1,0 +1,77 @@
+.main {
+  margin-top: var(--nav-height);
+}
+.showcase_container {
+  height: 280px;
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.showcase_container h2 {
+  color: white;
+  font-size: 38px;
+  font-weight: 600;
+}
+.layout {
+  display: flex;
+  gap: 60px;
+  padding: 40px 4%;
+}
+.content {
+  padding: 10px 4% 60px 4% ;
+}
+.shipping_notes_container h4 {
+  font-size: 24px;
+  font-weight: 500;
+}
+.shipping_notes_container p {
+  font-size: 18px;
+  margin-top: 20px;
+  line-height: 30px;
+}
+.place_order_btn {
+  width: 300px;
+  height: 40px;
+  margin-bottom: 40px;
+  cursor: pointer;
+  font-size: 18px;
+  background-color: var(--gray-9);
+  color: white;
+  border-radius: 5px;
+  font-weight: 600;
+  border: none;
+  outline: none;
+}
+.place_order_btn:hover {
+  background-color: var(--gray-8);
+}
+
+@media only screen and (max-width: 1000px) {
+  .layout {
+    gap: 30px;
+  }
+  .showcase_container h2 {
+    font-size: 30px;
+  }
+  .shipping_notes_container h4 {
+    font-size: 20px;
+  }
+  .shipping_notes_container p {
+    font-size: 16px;
+  }
+  .place_order_btn {
+    font-size: 16px;
+  }
+}
+@media only screen and (max-width: 690px) {
+  .layout {
+    flex-direction: column;
+  }
+}
+@media only screen and (max-width: 400px) {
+  .place_order_btn {
+    width: 250px;
+  }
+}
