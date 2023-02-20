@@ -70,20 +70,24 @@ const RelatedProducts = ({ products }) => {
         dir='ltr'
       >
         {
-          products.map(product => (
-            <SwiperSlide key={product._id} className={classes.swiperSlide}>
-              <ProductCard 
-                slug={product.slug}
-                title={locale == 'fr-FR' ? product.name.fr : locale == 'ar-DZ' ? product.name.ar : product.name.en}
-                startingPrice={product.price[0]}
-                sizes={product.sizes}
-                coverImage1={product.images[0]}
-                coverImage2={product.images[1]}
-                searchPage={false}
-                relatedPage={true}
-              />
-            </SwiperSlide>
-          ))
+          products.map(product =>  {
+
+            const { _id, slug, name, models, images } = product
+
+            return (
+              <SwiperSlide key={_id} className={classes.swiperSlide}>
+                <ProductCard 
+                  slug={slug}
+                  title={locale == 'fr-FR' ? name.fr : locale == 'ar-DZ' ? name.ar : name.en}
+                  models={models}
+                  coverImage1={images[0]}
+                  coverImage2={images[1]}
+                  searchPage={false}
+                  relatedPage={true}
+                />
+              </SwiperSlide>
+            )
+          }) 
         }
 
         <div className={classes.swiperNavPrev} ref={swiperPrevRef} style={{ backgroundImage: `url(${arrowIcon.src})` }}></div>

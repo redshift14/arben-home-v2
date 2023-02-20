@@ -2,7 +2,7 @@ import { defineType } from 'sanity'
 import { MdOutlineRequestPage as icon } from 'react-icons/md'
 
 export default defineType({
-  title: 'Oder',
+  title: 'Order',
   name: 'order',
   type: 'document',
   icon,
@@ -34,6 +34,27 @@ export default defineType({
       title: 'Total',
       name: 'total',
       type: 'number'
+    },
+    {
+      title: 'Notes', 
+      name: 'notes',
+      type: 'text'
+    },
+    {
+      title: 'Issued',
+      name: 'issued',
+      type: 'boolean'
+    },
+    {
+      title: 'Delivered',
+      name: 'delivered',
+      type: 'boolean'
     }
-  ]
+  ],
+  preview: {
+    select: {
+      title: 'client.lastName',
+      subtitle: 'client.address'
+    }
+  }
 })

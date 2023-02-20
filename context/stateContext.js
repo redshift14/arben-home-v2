@@ -1,13 +1,15 @@
 import { createContext, useContext, useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
 
+import { capitilizeFirstLetter } from '../lib/helpers'
+
 const Context = createContext()
 
 export const StateContext = ({ children }) => {
 
   const router = useRouter()
 
-  const { query, pathname } = router
+  const { query, pathname, locale } = router
 
   ///////////// get filters from backend
 
@@ -22,11 +24,14 @@ export const StateContext = ({ children }) => {
   const [selectedColors, setSelectedColors] = useState([])
   const [selectedMaterials, setSelectedMaterials] = useState([])
   const [selectedStyles, setSelectedStyles] = useState([])
+
+  const [selectedAllFiltersWithTranslation, setSelectedAllFiltersWithTranslation] = useState([])
   
   const [selectedConfirmedMinPrice, setSelectedConfirmedMinPrice] = useState(1)
   const [selectedConfirmedMaxPrice, setSelectedConfirmedMaxPrice] = useState(20000)
 
   const handleFilterOptionsChange = (e, state, setState, filterType) => {
+
     const index = state.indexOf(e.target.value)
     if (index === -1) {
       if (filterType === 'category') {
@@ -41,6 +46,7 @@ export const StateContext = ({ children }) => {
       else if (filterType === 'style') {
         setState([...selectedStyles, e.target.value])
       }
+      setSelectedAllFiltersWithTranslation([...selectedAllFiltersWithTranslation, e.target.name])
     }
     else {
       if (filterType === 'category') {
@@ -55,6 +61,7 @@ export const StateContext = ({ children }) => {
       else if (filterType === 'style') {
         setState(selectedStyles.filter(item => item !== e.target.value))
       }
+      setSelectedAllFiltersWithTranslation(selectedAllFiltersWithTranslation.filter(item => item !== e.target.name))
     }
   }
 
@@ -65,7 +72,18 @@ export const StateContext = ({ children }) => {
     setSelectedStyles([])
     setSelectedConfirmedMinPrice(1)
     setSelectedConfirmedMaxPrice(20000)
+    setSelectedAllFiltersWithTranslation([])
   }
+
+  useEffect(() => {
+    setSelectedCategories([])
+    setSelectedColors([])
+    setSelectedMaterials([])
+    setSelectedStyles([])
+    setSelectedConfirmedMinPrice(1)
+    setSelectedConfirmedMaxPrice(20000)
+    setSelectedAllFiltersWithTranslation([])
+  }, [locale])
 
   useEffect(() => {
     setTimeout(() => {      
@@ -161,16 +179,9 @@ export const StateContext = ({ children }) => {
     }
   }
 
-  // helper functions
-  
-  const capitilizeFirstLetter = (string) => {
-    string = string.charAt(0).toUpperCase()+string.slice(1)
-    return string
-  }
-
   return (
     <Context.Provider
-      value={{ cartItems, addProductToCart, removeProductFromCart, toggleQuantityInCartItem, totalPrice, totalQuantities, productsList, setProductsList, selectedCategories, setSelectedCategories, selectedColors, setSelectedColors, selectedMaterials, setSelectedMaterials, selectedStyles, setSelectedStyles, setSelectedConfirmedMaxPrice, selectedConfirmedMaxPrice, setSelectedConfirmedMinPrice, selectedConfirmedMinPrice, handleFilterOptionsChange, handleResetFilters, allCategories, setAllCategories, capitilizeFirstLetter, allColors, setAllColors, allMaterials, setAllMaterials, allStyles, setAllStyles }}
+      value={{ cartItems, addProductToCart, removeProductFromCart, toggleQuantityInCartItem, totalPrice, totalQuantities, productsList, setProductsList, selectedCategories, setSelectedCategories, selectedColors, setSelectedColors, selectedMaterials, setSelectedMaterials, selectedStyles, setSelectedStyles, setSelectedConfirmedMaxPrice, selectedConfirmedMaxPrice, setSelectedConfirmedMinPrice, selectedConfirmedMinPrice, handleFilterOptionsChange, handleResetFilters, allCategories, setAllCategories, capitilizeFirstLetter, allColors, setAllColors, allMaterials, setAllMaterials, allStyles, setAllStyles, selectedAllFiltersWithTranslation }}
     >
       { children }
     </Context.Provider>

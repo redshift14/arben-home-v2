@@ -21,6 +21,7 @@ const Sidebar = () => {
   const [open, setOpen] = useState(false)
 
   const handleLinkClick = () => {
+    console.log('clicked')
     setOpen(false)
   }
 
@@ -55,10 +56,10 @@ const Sidebar = () => {
             sidebar={true} 
             withDropDown={true} 
             linkName={locale == 'fr-FR' ? 'Boutique' : locale == 'ar-DZ' ? 'المتجر' : 'Shop' }
-            to={'/'}
+            to={'/products'}
             clickFunction={handleLinkClick}
           >
-            <Dropdown links={shopLinks} sidebar={true} />
+            <Dropdown clickFunction={handleLinkClick} links={shopLinks} sidebar={true} />
           </NavItem>
           <NavItem 
             sidebar={true} 

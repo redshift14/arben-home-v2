@@ -1,16 +1,12 @@
 import { useRouter } from 'next/router'
-import { useNextSanityImage } from 'next-sanity-image'
 
-import { useStateContext } from '../../context/stateContext'
-import { urlFor, client } from '../../lib/client'
+import { urlFor } from '../../lib/client'
 
 import classes from './SummaryCard.module.css'
 
-const SummaryCard = () => {
+const SummaryCard = ({ cartItems, totalPrice }) => {
 
   const { locale } = useRouter()
-
-  const { cartItems, totalPrice } = useStateContext()
 
   const textDirection = locale == 'ar-DZ' ? 'right' : 'left'
 
@@ -28,7 +24,7 @@ const SummaryCard = () => {
             const { id, name, image, price, size, quantity } = item
 
             return (
-              <div className={classes.card} key={id}>
+              <div className={classes.card} key={id+size}>
                 <div className={classes.image_container}>
                   <img src={urlFor(image).url()} alt='product image' />
                 </div>

@@ -23,7 +23,7 @@ export default defineType({
       name: 'slug',
       type: 'slug',
       options: {
-        source: 'name',
+        source: 'title',
         maxLength: 90
       }
     },
@@ -44,22 +44,10 @@ export default defineType({
       }]
     },
     {
-      title: 'Quantities',
-      name: 'quantities',
+      title: 'Models',
+      name: 'models',
       type: 'array',
-      of: [{ type: 'number' }]
-    },
-    {
-      title: 'Price',
-      name: 'price',
-      type: 'array',
-      of: [{ type: 'number' }]
-    },
-    {
-      title: 'Sizes',
-      name: 'sizes',
-      type: 'array',
-      of: [{ type: 'string' }]
+      of: [{ type: 'model' }]
     },
     {
       title: 'Styles',

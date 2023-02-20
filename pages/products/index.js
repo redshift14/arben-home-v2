@@ -6,7 +6,7 @@ import { useStateContext } from '../../context/stateContext'
 
 import { client } from '../../lib/client'
 
-const Products = ({ products, allCategories, allColors, allMaterials, allStyles, test }) => {
+const Products = ({ products, allCategories, allColors, allMaterials, allStyles }) => {
 
   const { setProductsList, setAllCategories, setAllColors, setAllStyles, setAllMaterials } = useStateContext()
 
@@ -58,7 +58,7 @@ export const getServerSideProps = async (context) => {
 // function to get sorting options from context variable in url
 const getSortingOptions = (sorting) => {
 
-  const sortingOption =  sorting === 'alphabetically' ? 'title' : sorting === 'priceDecroissant' ? 'price[0]' : sorting === 'priceCroissant' ? 'price[0]' : '_createdAt'
+  const sortingOption =  sorting === 'alphabetically' ? 'title' : sorting === 'priceDecroissant' ? 'models[0].price' : sorting === 'priceCroissant' ? 'models[0].price' : '_createdAt'
 
   let sortingDirection
 
@@ -101,7 +101,7 @@ const getMainFilterQuery = (category, color, material, style, sortingOption
     if (maxPrice) validMaxPrice = parseInt(maxPrice)
 
   return `
-    *[_type=='product' 
+    *[_type=='product' && !(_id in path("drafts.**"))
       ${getInnerfilterQuery(category, 'categories' , 'categoryName') ? 
       '&& ' + getInnerfilterQuery(category, 'categories' , 'categoryName') : ''}
       ${getInnerfilterQuery(color, 'colors' , 'colorName') ? 
@@ -110,7 +110,7 @@ const getMainFilterQuery = (category, color, material, style, sortingOption
       '&& ' + getInnerfilterQuery(material, 'materialsUsed' , 'materialName')  : ''} 
       ${getInnerfilterQuery(style, 'styles' , 'styleName') ? 
       '&& ' + getInnerfilterQuery(style, 'styles' , 'styleName') : ''}
-      && (price[0] >= ${parseInt(validMinPrice)} && price[0] <= ${parseInt(validMaxPrice)}) 
+      && (models[0].price >= ${parseInt(validMinPrice)} && models[0].price <= ${parseInt(validMaxPrice)}) 
     ] | order(${sortingOption} ${sortingDirection})
   `
 }

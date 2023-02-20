@@ -1,4 +1,5 @@
 import product from './product/product'
+import model from './product/model'
 import category from './product/category'
 import material from './product/material'
 import style from './product/style'
@@ -31,5 +32,6 @@ export const schemaTypes = [
   style,
   material,
   category,
+  model,
   product
 ]

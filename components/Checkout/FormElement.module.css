@@ -1,0 +1,68 @@
+.main {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.main label {
+  font-size: 18px;
+  font-weight: 500;
+}
+.main input,
+.main select {
+  height: 40px;  
+  padding: 0 5px;
+}
+.main input,
+.main select,
+.main textarea {
+  font-size: 18px;
+  outline: none;
+  border: none;
+  border: 1px solid var(--gray-5);
+  border-radius: 5px;
+}
+.main_wide {
+  grid-column: 1/3;
+}
+.main input:focus,
+.main textarea:focus {
+  border-color: var(--gray-9);
+  border-width: 2px;
+}
+.main textarea {
+  resize: none;
+  height: 120px;
+  padding: 5px;
+}
+.errorMessage {
+  color: red;
+  font-size: 14px;
+  margin-top: 5px;
+}
+.errorInput {
+  border-color: red !important;
+}
+.main input:invalid ~ .errorMessage {
+  display: block;
+}
+
+@media only screen and (max-width: 1000px) {
+  .main label {
+    font-size: 16px;
+  }
+  .main input,
+  .main select,
+  .main textarea {
+    font-size: 16px;
+  }
+  .main input,
+  .main select {
+    height: 35px;  
+  }
+}
+
+@media only screen and (max-width: 400px) {
+  .main_wide {
+    grid-column: 1/2;
+  }
+}

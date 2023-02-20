@@ -113,6 +113,7 @@ const FilterMenuItem = ({ title, options, selectedOptions, handleCheckboxChange,
                     <input 
                       type='checkbox' 
                       value={getOptionName(option)}
+                      name={getOptionNameTranslated(option)}
                       checked={selectedOptions.includes(getOptionName(option))}
                       onChange={handleCheckboxChange}
                     />

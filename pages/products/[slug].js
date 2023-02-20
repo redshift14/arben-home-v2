@@ -7,7 +7,7 @@ import RelatedProducts from '../../components/productDetails/RelatedProducts'
 const ProductDetails = ({ product, relatedProducts }) => {
   
   const { 
-    images, name, subtitle, price, quantities, sizes, title, slug, _id, care, description, materialsUsed,
+    images, name, subtitle, models, title, slug, _id, care, description, materialsUsed,
   } = product
 
   return (
@@ -16,9 +16,7 @@ const ProductDetails = ({ product, relatedProducts }) => {
         images={images}
         name={name}
         subtitle={subtitle}
-        price={price}
-        quantities={quantities}
-        sizes={sizes}
+        models={models}
         title={title}
         slug={slug}
         _id={_id} 
@@ -41,7 +39,7 @@ export const getStaticProps = async ({ params: { slug } }) => {
 
   const query = `
     *[_type == 'product' && slug.current == '${slug}'][0] {
-      _createdAt, _type, images, name, subtitle, price, quantities, sizes, title, slug, 
+      _createdAt, _type, images, name, subtitle, models, title, slug, 
       _id, care, description, materialsUsed[]->, categories[]->, styles[]->,
     }
   `
@@ -49,9 +47,9 @@ export const getStaticProps = async ({ params: { slug } }) => {
   const product = await client.fetch(query)
 
   const relatedProductsQuery = `
-    *[_type == 'product' && '${product.styles[0].styleName.en}' in styles[]->.styleName.en
+    *[_type == 'product' && !(_id in path("drafts.**")) && '${product.styles[0].styleName.en}' in styles[]->.styleName.en
     && '${product.categories[0].categoryName.en}' in categories[]->.categoryName.en 
-    && slug.current != '${slug}'] { _id, name, slug, price, sizes, images}[0..5]
+    && slug.current != '${slug}'] { _id, name, slug, models, images}[0..5]
   `
 
   const relatedProducts = await client.fetch(relatedProductsQuery)
@@ -62,7 +60,7 @@ export const getStaticProps = async ({ params: { slug } }) => {
 }
 
 export const getStaticPaths = async () => {
-  const query = `*[_type == 'product'] { slug { current } }`
+  const query = `*[_type == 'product' && !(_id in path("drafts.**")) ] { slug { current } }`
   const products = await client.fetch(query)
 
   const paths = products.map(product => ({

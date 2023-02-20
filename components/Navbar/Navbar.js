@@ -43,7 +43,7 @@ const Navbar = () => {
         </NavItem>
         <NavItem 
           linkName={locale == 'fr-FR' ? 'À propos' : locale == 'ar-DZ' ? 'حول' : 'About' }
-          to={'/'}
+          to={undefined}
           withDropDown={true}
         >
           <Dropdown links={aboutLinks} />

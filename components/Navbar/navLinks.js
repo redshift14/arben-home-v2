@@ -9,27 +9,27 @@
   },
   {
     name: {
-      en: 'Contact us',
-      fr: 'Contactez-nous',
-      ar: 'تواصلوا معنا'
+      en: 'Bed sheets',
+      fr: 'Draps de lit',
+      ar: 'أطقم شراشف'
     },
-    to: '/'
+    to: '/products?category=bed+sheets'
   },
   {
     name: {
-      en: 'FAQs',
-      fr: 'FAQs',
-      ar: 'الأسئلة الشائعة'
+      en: 'Quilt covers',
+      fr: 'Housses de couette',
+      ar: 'أغلفة ملاحف'
     },
-    to: '/'
+    to: '/products?category=quilt+cover'
   },
   {
     name: {
-      en: 'Terms & conditions',
-      fr: 'Termes et conditions',
-      ar: 'الشروط والأحكام'
+      en: 'Pillowcases',
+      fr: "Taies d'oreiller",
+      ar: 'أغلفة وسائد'
     },
-    to: '/'
+    to: '/products?category=pillowcase'
   }
 ]
 
@@ -40,7 +40,7 @@ export const aboutLinks = [
       fr: 'Qui nous sommes?',
       ar: 'من نحن؟'
     },
-    to: '/'
+    to: '/contact'
   },
   {
     name: {
@@ -48,7 +48,7 @@ export const aboutLinks = [
       fr: 'Contactez-nous',
       ar: 'تواصلوا معنا'
     },
-    to: '/'
+    to: '/contact'
   },
   {
     name: {

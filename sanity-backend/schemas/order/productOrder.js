@@ -16,6 +16,11 @@ export default defineType({
       type: 'string'
     },
     {
+      title: 'Model key',
+      name: 'modelKey',
+      type: 'string'
+    },
+    {
       title: 'Size',
       name: 'size',
       type: 'string'
@@ -23,7 +28,7 @@ export default defineType({
     {
       title: 'Price',
       name: 'price',
-      type: 'string'
+      type: 'number'
     },
     {
       title: 'Quantity',

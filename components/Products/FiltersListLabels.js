@@ -4,17 +4,15 @@ import classes from './FiltersListLabels.module.css'
 
 const FiltersListLabels = () => {
 
-  const { selectedCategories, selectedColors, selectedMaterials, selectedStyles } = useStateContext()
-
-  const allFilters = [...selectedCategories, ...selectedColors, ...selectedMaterials, ...selectedStyles ]
+  const { selectedAllFiltersWithTranslation } = useStateContext()
 
   return (
-    allFilters.length > 0 && (
+    selectedAllFiltersWithTranslation.length > 0 && (
       <div className={classes.main}>
         {
-          allFilters.map((filter, index) => (
+          selectedAllFiltersWithTranslation.map((name, index) => (
             <div className={classes.label} key={index}>
-              { filter }
+              { name }
             </div>
           ))
         }

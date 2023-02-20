@@ -23,11 +23,13 @@ const NavItem = ({ children, linkName, withDropDown, sidebar, to, clickFunction 
   }
 
   const handleRouterPush = (to) => {
-    if((!sidebar) || (sidebar && !withDropDown) ) {
-      router.push(to)
-    }
-    if (sidebar) {
-      clickFunction()
+    if (to !== undefined) {
+      if((!sidebar) || (sidebar && !withDropDown) ) {
+        router.push(to)
+      }
+      if (sidebar) {
+        clickFunction()
+      }
     }
   }
 

@@ -31,22 +31,6 @@
   margin-top: 20px;
   line-height: 30px;
 }
-.place_order_btn {
-  width: 300px;
-  height: 40px;
-  margin-bottom: 40px;
-  cursor: pointer;
-  font-size: 18px;
-  background-color: var(--gray-9);
-  color: white;
-  border-radius: 5px;
-  font-weight: 600;
-  border: none;
-  outline: none;
-}
-.place_order_btn:hover {
-  background-color: var(--gray-8);
-}
 
 @media only screen and (max-width: 1000px) {
   .layout {
@@ -68,10 +52,5 @@
 @media only screen and (max-width: 690px) {
   .layout {
     flex-direction: column;
-  }
-}
-@media only screen and (max-width: 400px) {
-  .place_order_btn {
-    width: 250px;
   }
 }

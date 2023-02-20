@@ -6,10 +6,23 @@ import { urlFor } from '../lib/client'
 
 import classes from './ProductCard.module.css'
 
-const ProductCard = ({ title, slug, startingPrice, sizes, coverImage1, coverImage2, searchPage, relatedPage }) => {
+const ProductCard = ({ title, slug, models, coverImage1, coverImage2, searchPage, relatedPage }) => {
 
   const { locale } = useRouter()
 
+  const prices = models.map(model => (
+    model.price
+  ))
+
+  const sizes = models.map(model => (
+    model.size
+  ))
+
+  const quantities = models.map(model => ( model.quantity ))
+
+  const available = locale === 'ar-DZ' ? 'متوفر' : locale === 'fr-FR' ? 'En Stock' : 'In Stock'
+  const notAvailable = locale === 'ar-DZ' ? 'غير متوفر' : locale === 'fr-FR' ? 'En Rupture de Stock' : 'Out of Stock'
+  
   const [image, setImage] = useState(coverImage1)
 
   return (
@@ -43,6 +56,9 @@ const ProductCard = ({ title, slug, startingPrice, sizes, coverImage1, coverImag
             classes.content
           }
         >
+          <p className={classes.state_box}>
+            { quantities.some(q => q > 0) ? available : notAvailable }
+          </p>
           <p 
             className={
               searchPage ? `${classes.title} ${classes.title_s}` : 
@@ -59,7 +75,8 @@ const ProductCard = ({ title, slug, startingPrice, sizes, coverImage1, coverImag
               classes.price
             }
           >
-            {locale == 'fr-FR' ? 'à partir de ' : locale == 'ar-DZ' ? ' ابتداءً من ' : 'from '}{startingPrice}
+            {locale == 'fr-FR' ? 'à partir de ' : locale == 'ar-DZ' ? ' ابتداءً من ' : 'from '}
+            { Math.min(...prices) }
             {locale == 'ar-DZ' ? ' دينار جزائري ' : ' DZD '} 
           </p>
           <div 

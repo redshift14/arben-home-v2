@@ -12,7 +12,7 @@ import { useStateContext } from '../../context/stateContext'
 import { urlFor } from '../../lib/client'
 import classes from './MainDetails.module.css'
 
-const MainDetails = ({ images, name, subtitle, price, quantities, sizes, title, slug, _id }) => {
+const MainDetails = ({ images, name, subtitle, models, title, slug, _id }) => {
 
   const { addProductToCart } = useStateContext()
 
@@ -36,9 +36,29 @@ const MainDetails = ({ images, name, subtitle, price, quantities, sizes, title, 
 
   const { locale } = useRouter()
 
+  const router = useRouter()
+
+  const sizes = models.map(model => (
+    model.size
+  ))
+
+  const prices = models.map(model => (
+    model.price
+  ))
+
+  const quantities = models.map(model => (
+    model.quantity
+  ))
+
+  const modelsKeys = models.map(model => (
+    model._key
+  )) 
+
   const [selectedPrice, setSelectedPrice] = useState(0)
   const [selectedSize, setSelectedSize] = useState(0) 
   const [selectedQuantity, setSelectedQuantity] = useState(1)
+  const [selectedKey, setSelectedKey] = useState(modelsKeys[0])
+
   const [maxQuantity, setMaxQuantity] = useState(0)
 
   const handleIncreaseQty = () => {
@@ -88,7 +108,7 @@ const MainDetails = ({ images, name, subtitle, price, quantities, sizes, title, 
           {locale === 'ar-DZ' ? subtitle.ar : locale === 'fr-FR' ? subtitle.fr : subtitle.en}
         </h4>
         <h3 className={classes.price}>
-          {price[selectedPrice]}{locale === 'ar-DZ' ? ' دينار جزائري ' : ' DZD '}
+          {prices[selectedPrice]}{locale === 'ar-DZ' ? ' دينار جزائري ' : ' DZD '}
         </h3>
         <div className={classes.sizes_container}>
           {
@@ -100,6 +120,7 @@ const MainDetails = ({ images, name, subtitle, price, quantities, sizes, title, 
                   setSelectedPrice(index)
                   setSelectedSize(index)
                   setMaxQuantity(index)
+                  setSelectedKey(modelsKeys[index])
                 }}
                 dir='ltr'
               >
@@ -121,12 +142,20 @@ const MainDetails = ({ images, name, subtitle, price, quantities, sizes, title, 
           <button 
             className={classes.addToCart}
             onClick={() => 
-              addProductToCart({id: _id, slug: slug.current, title: title, name: name, maxQty: quantities[maxQuantity], image: images[0]}, selectedQuantity, price[selectedPrice], sizes[selectedSize])
+              addProductToCart({id: _id, slug: slug.current, title: title, name: name, modelKey: selectedKey, maxQty: quantities[maxQuantity], image: images[0]}, selectedQuantity, prices[selectedPrice], sizes[selectedSize])
             }
+            disabled={selectedQuantity == 0}
           >
             {locale === 'ar-DZ' ? 'أضف إلى السلة' : locale === 'fr-FR' ? 'Ajouter au Panier' : 'Add to Cart'}
           </button>
-          <button className={classes.buyNow}>
+          <button 
+            onClick={() => {
+              addProductToCart({id: _id, slug: slug.current, title: title, name: name, modelKey: selectedKey, maxQty: quantities[maxQuantity], image: images[0]}, selectedQuantity, prices[selectedPrice], sizes[selectedSize])
+              router.push('/checkout')
+            }}
+            className={classes.buyNow}
+            disabled={selectedQuantity == 0}
+          >
             {locale === 'ar-DZ' ? 'اشتر الآن' : locale === 'fr-FR' ? 'Acheter Maintenant' : 'Buy Now'}
           </button>
         </div>

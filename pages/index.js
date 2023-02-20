@@ -29,7 +29,7 @@ export const getServerSideProps = async () => {
 
   const layoutInfo = await client.fetch(layoutQuery) 
 
-  const productsQuery = '*[_type == "product"] | order(_createdAt desc) { _id, name, slug, price, sizes, images }[0..5]'
+  const productsQuery = '*[_type == "product" && !(_id in path("drafts.**"))] | order(_createdAt desc) { _id, name, slug, models, images }[0..5]'
   const products = await client.fetch(productsQuery)
 
   return {

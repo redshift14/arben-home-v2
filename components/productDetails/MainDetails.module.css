@@ -114,6 +114,18 @@
 .buyNow:hover {
   background-color: var(--gray-8);
 }
+.addToCart:disabled, .buyNow:disabled {
+  cursor: not-allowed;
+}
+.addToCart:disabled:hover {
+  background-color: var(--gray-4);
+}
+.buyNow:disabled {
+  color: var(--gray-4);
+}
+.buyNow:disabled:hover {
+  background-color: var(--gray-9);
+}
 
 @media only screen and (max-width: 1000px) {
   .state_box {
