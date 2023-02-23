@@ -1,15 +1,22 @@
 import { useState } from 'react'
 import { useRouter } from 'next/router'
+import Image from 'next/image'
+
+import toast from 'react-hot-toast'
 
 import FormElement from './FormElement'
 
 import { checkName, checkValidEmail, checkAddress, checkIndividualInput } from '../../lib/helpers'
+
+import loadingGif from '../../public/assets/icons/Rolling-1s-200px.gif'
 
 import classes from './ContactForm.module.css'
 
 const ContactForm = ({ imageSrc }) => {
 
   const { locale } = useRouter()
+
+  const [loading, setLoading] = useState(false)
 
   const [inputs, setInputs] = useState([
     {
@@ -52,17 +59,28 @@ const ContactForm = ({ imageSrc }) => {
 
   const checkFunctions = [checkName, checkValidEmail, checkAddress, checkAddress]
 
+  const initializeValues = () => {
+    setLoading(false)
+
+    setValues({
+      name: '',
+      subject: '',
+      email: '',
+      message: ''
+    })
+  }
+
   const handleChange = (e) => {
     setValues({ ...values, [e.target.name]: e.target.value })
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
+
     e.preventDefault()
 
     let errors = 0
 
     for (let i = 0; i < inputs.length; i++) {
-      console.log(values[inputs[i].name])
       if (!checkFunctions[i](values[inputs[i].name], locale)) {
         errors++
         checkIndividualInput(inputs[i].name, inputs, setInputs)
@@ -70,7 +88,33 @@ const ContactForm = ({ imageSrc }) => {
     }
 
     if (errors === 0) {
-      
+      setLoading(true)
+      try {
+        const res = await fetch('/api/contact', {
+          method: 'POST',
+          body: JSON.stringify(values),
+          headers: {
+            "Content-type": "application/json",
+            "Accept": "application/json"
+          }
+        })
+
+        console.log(res)
+        initializeValues()
+
+        toast.success('Your message has been sent!', { 
+          duration: 4000,
+          style: {
+            boxShadow: '1px 2px 5px 1px rgba(0, 0, 0, 0.10)',
+            fontSize: '18px',
+            padding: '5px 10px'
+          }
+        })
+      }
+      catch(err) {
+        initializeValues()
+        console.log(err.message)
+      } 
     }
   } 
 
@@ -91,7 +135,10 @@ const ContactForm = ({ imageSrc }) => {
           }
         </div>
         <button type='submit' onClick={handleSubmit}>
-          { locale == 'ar-DZ' ? 'إرسال' : locale == 'fr-FR' ? 'Envoyer le message' : 'Send message' }
+          {
+            loading ? <Image src={loadingGif} alt='loading' /> :
+            locale == 'ar-DZ' ? 'إرسال' : locale == 'fr-FR' ? 'Envoyer le message' : 'Send message'
+          }
         </button>
       </form>
     </div>

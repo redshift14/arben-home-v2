@@ -79,9 +79,16 @@
   font-weight: 600;
   border: none;
   outline: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .form button:hover {
   background-color: var(--gray-8);
+}
+.form button img {
+  height: calc(100% - 5px);
+  width: auto;
 }
 .errorMessage {
   color: red;

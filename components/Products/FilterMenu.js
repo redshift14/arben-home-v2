@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import { useRouter } from 'next/router'
 
 import FiltersListLabels from './FiltersListLabels'
@@ -10,7 +11,19 @@ const FilterMenu = () => {
   
   const { locale } = useRouter()
 
-  const { handleResetFilters } = useStateContext()
+  const router = useRouter()
+
+  const { handleResetFilters, setSelectedAllFiltersWithTranslation, setSelectedCategories } = useStateContext()
+
+  useEffect(() => {
+
+    setTimeout(() => {        
+      if (router.query.category) {
+        setSelectedAllFiltersWithTranslation([router.query.category])
+        setSelectedCategories([router.query.category])
+      }
+    }, 300)
+  }, [])
 
   return (
     <div className={classes.main}>

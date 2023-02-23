@@ -11,12 +11,18 @@ const FilterMenuContent = () => {
 
   const router = useRouter()
 
-  const { handleFilterOptionsChange, selectedCategories, setSelectedCategories,  selectedMaterials, setSelectedMaterials, selectedColors, setSelectedColors, selectedStyles, setSelectedStyles, allCategories, allMaterials, allColors, allStyles } = useStateContext()
+  const { handleFilterOptionsChange, selectedCategories, setSelectedCategories,  selectedMaterials, setSelectedMaterials, selectedColors, setSelectedColors, selectedStyles, setSelectedStyles, setSelectedAllFiltersWithTranslation, allCategories, allMaterials, allColors, allStyles } = useStateContext()
   
   useEffect(() => {
-    if (router.query.category) {
-      setSelectedCategories([router.query.category])
-    }
+
+    setTimeout(() => {      
+      console.log(router.query.category)
+  
+      if (router.query.category) {
+        setSelectedCategories([router.query.category])
+      }
+    }, 200)
+
   }, [])
 
   const titles = [
