@@ -1,8 +1,11 @@
 import { useState } from 'react'
 import { useRouter } from 'next/router'
 
+import { toast } from 'react-hot-toast'
+
 import ShippingInfo from './ShippingInfo'
 import SummaryCard from './SummaryCard'
+import EmptyCart from './EmptyCart'
 
 import { client } from '../../lib/client'
 
@@ -22,7 +25,7 @@ const MainLayout = ({ imageSrc, deliveryNotes }) => {
 
   const [wilayaError, setWilayaError] = useState(false)
 
-  const { cartItems, totalPrice } = useStateContext()
+  const { cartItems, setCartItems, setTotalPrice, setTotalQuantities, totalPrice } = useStateContext()
 
   const [inputs, setInputs] = useState([
     {
@@ -90,12 +93,28 @@ const MainLayout = ({ imageSrc, deliveryNotes }) => {
     setValues({ ...values, [e.target.name]: e.target.value })
   }
 
+  const initializeValues = () => {
+    setLoading(false)
+
+    setValues({
+      firstName: '',
+      lastName: '',
+      address: '',
+      phone: '',
+      email: '',
+      notes: '' 
+    })
+    
+    setCartItems([])
+    setTotalPrice(0)
+    setTotalQuantities(0)
+  }
+
   const handleSubmitOrder = async (e) => {
 
     e.preventDefault()
 
-    // const res = await client.delete({query: '*[_type=="order"]'})
-    // console.log(res)
+    const res = await client.delete({query: '*[_type=="order"]'})
     
     let errors = 0
     
@@ -117,6 +136,9 @@ const MainLayout = ({ imageSrc, deliveryNotes }) => {
 
     if (errors === 0 && selectedWilaya != '0') {
 
+      setLoading(true)
+
+      // products in order array to insert in order document
       const productsInOrder = cartItems.map((item, index) => {
         const { id, modelKey, title, size, price, quantity } = item
         return ({
@@ -132,6 +154,7 @@ const MainLayout = ({ imageSrc, deliveryNotes }) => {
 
       const deliveryCost = totalPrice > 2999 ? 0 : 500
       
+      // new order object
       const newOrder = {
         client: {
           firstName: values.firstName,
@@ -150,8 +173,7 @@ const MainLayout = ({ imageSrc, deliveryNotes }) => {
       }
 
       try {
-        setLoading(true)
-
+        // creating order document
         const orderRes = await client.create({
           ...newOrder,
           _type: 'order'
@@ -165,6 +187,7 @@ const MainLayout = ({ imageSrc, deliveryNotes }) => {
 
         const docs = await client.getDocuments(productsIDs)
 
+        // array of models to update
         const updatedModels = docs.map((doc, index) => {
           return doc.models.map(model => {
             if (model._key == modelsKeys[index]) {
@@ -176,6 +199,8 @@ const MainLayout = ({ imageSrc, deliveryNotes }) => {
             return model
           })
         })
+
+        // Manipulation the updated models array to choose the minimal quantity, with a help from chatgpt
 
         // If any repeated models with different quantites, set the quantity to the smallest
         const quantities = {}
@@ -213,54 +238,86 @@ const MainLayout = ({ imageSrc, deliveryNotes }) => {
           return await client.patch(doc._id).set({ models: updatedModels[index] }).commit()
         })
 
-        setLoading(false)
+        if (updatedDocs) {
+
+          orderRes.emailLang = locale
+
+          const emailRes = await fetch('/api/order', {
+            method: 'POST',
+            body: JSON.stringify(orderRes),
+            headers: {
+              "Content-type": "application/json",
+              "Accept": "application/json"
+            }
+          })
+
+          console.log(emailRes)
+
+          toast.success('Your order has been issued!, an email with full order details will be sent to you', { 
+            duration: 6000,
+            style: {
+              boxShadow: '1px 2px 5px 1px rgba(0, 0, 0, 0.10)',
+              fontSize: '18px',
+              padding: '10px 15px',
+              margin: '10px'
+            }
+          })
+
+          initializeValues()
+        }
       }
-      catch(e) {
-        setLoading(false)
-        console.log(e)
+      catch(err) {
+        initializeValues()
+        console.log(err)
       }
     }
   }
 
   return (
     <div className={classes.main}>
-      <div className={classes.showcase_container} style={{ backgroundImage: `url('${imageSrc}')` }}>
-        <h2>
-          {
-            locale == 'ar-DZ' ? 'الدفع' : locale == 'fr-FR' ? 'Caisse' : 'Checkout'
-          }
-        </h2>
-      </div>
-      <div className={classes.layout}>
-        <ShippingInfo 
-          values={values}
-          inputs={inputs}
-          handleChange={handleChange}
-          handleSubmit={handleSubmitOrder}
-          selectedCommune={selectedCommune} 
-          selectedWilaya={selectedWilaya}
-          wilayaError={wilayaError}
-          setSelectedCommune={setSelectedCommune}
-          setSelectedWilaya={setSelectedWilaya}
-        />
-        <SummaryCard cartItems={cartItems} totalPrice={totalPrice} />
-      </div>
-      <div className={classes.content}>
-        <div className={classes.shipping_notes_container}>
-          <h4>
-            {
-              locale == 'ar-DZ' ? 'ملاحظات التوصيل' : locale == 'fr-FR' ? 'Notes de livraison' : 'Delivery notes'
-            }
-          </h4>
-          <p>
-            {
-              locale == 'ar-DZ' ? deliveryNotes.ar : locale == 'fr-FR' ? deliveryNotes.fr : deliveryNotes.en                         
-            }
-          </p>
-        </div>
-      </div>
-      { loading &&
-        <div>...loading</div>
+      {
+        cartItems.length <= 0 ? <EmptyCart /> :
+        <>
+          <div 
+            className={classes.showcase_container} 
+            style={{ backgroundImage: `url('${imageSrc}')` }}
+          >
+            <h2>
+              {
+                locale == 'ar-DZ' ? 'الدفع' : locale == 'fr-FR' ? 'Caisse' : 'Checkout'
+              }
+            </h2>
+          </div>
+          <div className={classes.layout}>
+            <ShippingInfo 
+              values={values}
+              inputs={inputs}
+              handleChange={handleChange}
+              handleSubmit={handleSubmitOrder}
+              loading={loading}
+              selectedCommune={selectedCommune} 
+              selectedWilaya={selectedWilaya}
+              wilayaError={wilayaError}
+              setSelectedCommune={setSelectedCommune}
+              setSelectedWilaya={setSelectedWilaya}
+            />
+            <SummaryCard cartItems={cartItems} totalPrice={totalPrice} />
+          </div>
+          <div className={classes.content}>
+            <div className={classes.shipping_notes_container}>
+              <h4>
+                {
+                  locale == 'ar-DZ' ? 'ملاحظات التوصيل' : locale == 'fr-FR' ? 'Notes de livraison' : 'Delivery notes'
+                }
+              </h4>
+              <p>
+                {
+                  locale == 'ar-DZ' ? deliveryNotes.ar : locale == 'fr-FR' ? deliveryNotes.fr : deliveryNotes.en                         
+                }
+              </p>
+            </div>
+          </div>
+        </>
       }
     </div>
   )

@@ -65,9 +65,16 @@
   font-weight: 600;
   border: none;
   outline: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .place_order_btn:hover {
   background-color: var(--gray-8);
+}
+.place_order_btn img {
+  height: calc(100% - 5px);
+  width: auto;
 }
 
 @media only screen and (max-width: 1000px) {

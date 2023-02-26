@@ -15,3 +15,10 @@ export const mailOptions = {
   from: email,
   to: email 
 }
+
+export const getClientMailOptions = (data) => {
+  return {
+    from: email,
+    to: data.client.email
+  }
+}

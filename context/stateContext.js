@@ -181,7 +181,7 @@ export const StateContext = ({ children }) => {
 
   return (
     <Context.Provider
-      value={{ cartItems, addProductToCart, removeProductFromCart, toggleQuantityInCartItem, totalPrice, totalQuantities, productsList, setProductsList, selectedCategories, setSelectedCategories, selectedColors, setSelectedColors, selectedMaterials, setSelectedMaterials, selectedStyles, setSelectedStyles, setSelectedConfirmedMaxPrice, selectedConfirmedMaxPrice, setSelectedConfirmedMinPrice, selectedConfirmedMinPrice, handleFilterOptionsChange, handleResetFilters, allCategories, setAllCategories, capitilizeFirstLetter, allColors, setAllColors, allMaterials, setAllMaterials, allStyles, setAllStyles, selectedAllFiltersWithTranslation, setSelectedAllFiltersWithTranslation }}
+      value={{ cartItems, setCartItems, addProductToCart, removeProductFromCart, toggleQuantityInCartItem, totalPrice, setTotalPrice, totalQuantities, setTotalQuantities, productsList, setProductsList, selectedCategories, setSelectedCategories, selectedColors, setSelectedColors, selectedMaterials, setSelectedMaterials, selectedStyles, setSelectedStyles, setSelectedConfirmedMaxPrice, selectedConfirmedMaxPrice, setSelectedConfirmedMinPrice, selectedConfirmedMinPrice, handleFilterOptionsChange, handleResetFilters, allCategories, setAllCategories, capitilizeFirstLetter, allColors, setAllColors, allMaterials, setAllMaterials, allStyles, setAllStyles, selectedAllFiltersWithTranslation, setSelectedAllFiltersWithTranslation }}
     >
       { children }
     </Context.Provider>

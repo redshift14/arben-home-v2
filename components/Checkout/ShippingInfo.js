@@ -1,15 +1,18 @@
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
+import Image from 'next/image'
 
 import wilayas from './wilayaAlgeria.json'
 import communes from './communeAlgeria.json'
 
 import FormElement from './FormElement'
 
+import loadingGif from '../../public/assets/icons/Rolling-1s-200px.gif'
+
 import classes from './ShippingInfo.module.css'
 
 const ShippingInfo = ({ 
-  selectedWilaya, wilayaError, selectedCommune, setSelectedWilaya, setSelectedCommune, inputs, values, handleChange, handleSubmit
+  selectedWilaya, wilayaError, selectedCommune, setSelectedWilaya, setSelectedCommune, inputs, values, handleChange, handleSubmit, loading
 }) => {
   
   const { locale } = useRouter()
@@ -80,6 +83,7 @@ const ShippingInfo = ({
         </div>
         <button className={classes.place_order_btn} type='submit'>
           {
+            loading ? <Image src={loadingGif} alt='loading' /> :
             locale == 'ar-DZ' ? 'تأكيد الطلب' : locale == 'fr-FR' ? 'Passer la commande' : 'Place order'
           }
         </button>

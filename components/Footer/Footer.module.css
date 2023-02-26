@@ -3,6 +3,7 @@
   align-items: center;
   padding: 50px 10px;
   border-top: 1px solid var(--gray-4);
+  height: var(--footer-height);
 }
 .logo_container {
   flex: 1;
