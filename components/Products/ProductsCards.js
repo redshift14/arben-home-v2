@@ -4,7 +4,7 @@ import ProductCard from '../ProductCard'
 import CustomSortingSelect from './CustomSortingSelect'
 import classes from './ProductsCards.module.css'
 
-const ProductsCards = ({ products }) => {
+const ProductsCards = ({ products, totalItems }) => {
 
   const { locale } = useRouter()
 
@@ -16,7 +16,7 @@ const ProductsCards = ({ products }) => {
         </h1>
         <div className={classes.search_options_container}>
           <p className={classes.search_options_text}>
-            { products.length }
+            { totalItems }
             { locale === 'ar-DZ' ? ' عناصر' : locale === 'fr-FR' ? ' éléments' : ' items' }
           </p>
           <CustomSortingSelect />

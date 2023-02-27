@@ -7,6 +7,7 @@ import color from './product/color'
 
 import layout from './layout/layout'
 import home from './layout/home'
+import faq from './layout/faq'
 
 import client from './order/client'
 import order from './order/order'
@@ -25,6 +26,7 @@ export const schemaTypes = [
   productOrder,
   order,
 
+  faq,
   home,
   layout,
 

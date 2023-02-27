@@ -5,7 +5,7 @@ import ContactForm from '../../components/ContactUs/ContactForm'
 const Contact = ({ layoutInfo }) => {
   return (
     <>
-      <ContactForm imageSrc={urlFor(layoutInfo.otherPagesShowcaseImage).url()} />
+      <ContactForm imageSrc={urlFor(layoutInfo.contactPageShowcaseImage).url()} />
     </>
   )
 }
@@ -13,7 +13,7 @@ const Contact = ({ layoutInfo }) => {
 export default Contact
 
 export const getServerSideProps = async () => {
-  const layoutQuery = '*[_type == "layout"]{otherPagesShowcaseImage}[0]'
+  const layoutQuery = '*[_type == "layout"]{contactPageShowcaseImage}[0]'
 
   const layoutInfo = await client.fetch(layoutQuery) 
 

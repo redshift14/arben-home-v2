@@ -9,7 +9,7 @@ const Categories = ({ data }) => {
 
   const { locale } = useRouter()
 
-  const links = ['/products?category=quilt+cover', '/products?category=pillowcase', '/products?category=bed+sheets']
+  const links = ['/products?category=quilt+cover', '/products?category=pillowcase', '/products?category=bed+sheet']
 
   return (
     <section className={classes.main}>

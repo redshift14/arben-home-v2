@@ -7,11 +7,11 @@
   min-height: calc(100vh - var(--footer-height) - var(--nav-height));
 }
 .icon_container {
-  font-size: 78px;
+  font-size: 70px;
   color: var(--gray-9);
   border: 2px solid var(--gray-7);
-  height: 120px;
-  width: 120px;
+  height: 110px;
+  width: 110px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -26,7 +26,7 @@
 }
 .content h1 {
   color: var(--gray-9);
-  font-size: 36px;
+  font-size: 32px;
   font-weight: 500;
 }
 .content button {
@@ -41,4 +41,26 @@
 }
 .content button:hover {
   background-color: var(--gray-8);
+}
+
+@media only screen and (max-width: 500px) {
+  .main {
+    gap: 10px;
+  }
+  .icon_container {
+    font-size: 32px;
+    height: 50px;
+    width: 50px;
+    border-width: 1px;
+  }
+  .content {
+    gap: 10px;
+  }
+  .content h1 {
+    font-size: 18px;
+  }
+  .content button {
+    padding: 5px 15px;
+    font-size: 12px;
+  }
 }

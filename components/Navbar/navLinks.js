@@ -40,7 +40,7 @@ export const aboutLinks = [
       fr: 'Qui nous sommes?',
       ar: 'من نحن؟'
     },
-    to: '/contact'
+    to: '/'
   },
   {
     name: {
@@ -56,7 +56,7 @@ export const aboutLinks = [
       fr: 'FAQs',
       ar: 'الأسئلة الشائعة'
     },
-    to: '/'
+    to: '/faq'
   },
   {
     name: {

@@ -18,8 +18,13 @@ export default defineType({
       type: 'homePage'
     },
     {
-      title: 'Other pages showcase image',
-      name: 'otherPagesShowcaseImage',
+      title: 'Faq page',
+      name: 'faqPage',
+      type: 'faqPage'
+    },
+    {
+      title: 'Contact page showcase image',
+      name: 'contactPageShowcaseImage',
       type: 'image'
     },
     {
