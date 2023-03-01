@@ -28,6 +28,16 @@ export default defineType({
       type: 'image'
     },
     {
+      title: 'Checkout page showcase image',
+      name: 'checkoutPageShowcaseImage',
+      type: 'image'
+    },
+    {
+      title: 'About page showcase image',
+      name: 'aboutPageShowcaseImage',
+      type: 'image'
+    },
+    {
       title: 'Delivery notes',
       name: 'deliveryNotes',
       type: 'localeText'

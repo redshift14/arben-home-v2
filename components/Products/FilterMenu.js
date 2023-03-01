@@ -13,16 +13,37 @@ const FilterMenu = () => {
 
   const router = useRouter()
 
-  const { handleResetFilters, setSelectedAllFiltersWithTranslation, setSelectedCategories } = useStateContext()
+  const { 
+    handleResetFilters, setSelectedAllFiltersWithTranslation, selectedAllFiltersWithTranslation, setSelectedCategories, selectedCategories, setSelectedColors, selectedColors, setSelectedMaterials, selectedMaterials, setSelectedStyles, selectedStyles
+  } = useStateContext()
 
   useEffect(() => {
 
-    setTimeout(() => {        
-      if (router.query.category) {
-        setSelectedAllFiltersWithTranslation([router.query.category])
-        setSelectedCategories([router.query.category])
-      }
-    }, 300)
+    if (router.query.category) {
+      setSelectedAllFiltersWithTranslation(
+        [router.query.category]
+      )
+      setSelectedCategories([router.query.category])
+    }
+    if (router.query.color) {
+      setSelectedAllFiltersWithTranslation(
+        [router.query.color]
+      )
+      setSelectedColors([router.query.color])
+    }
+    if (router.query.material) {
+      setSelectedAllFiltersWithTranslation(
+        [router.query.material]
+      )
+      setSelectedMaterials([router.query.material])
+    }
+    if (router.query.style) {
+      setSelectedAllFiltersWithTranslation(
+        [router.query.style]
+      )
+      setSelectedStyles([router.query.style])
+    }
+
   }, [])
 
   return (

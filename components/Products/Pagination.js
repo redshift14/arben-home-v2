@@ -1,9 +1,11 @@
+import { useRouter } from 'next/router'
 import { useEffect } from 'react'
 import { BsChevronLeft, BsChevronRight } from 'react-icons/bs'
 
+import { paginate, nextPage, prevPage } from '../../lib/helpers/PaginationFunctions'
 import classes from './Pagination.module.css'
 
-const Pagination = ({ productsPerPage, totalProducts, paginate, nextPage, prevPage, currentPage }) => {
+const Pagination = ({ productsPerPage, totalProducts, setCurrentPage, currentPage }) => {
 
   const pageNumbers = []
 
@@ -15,11 +17,16 @@ const Pagination = ({ productsPerPage, totalProducts, paginate, nextPage, prevPa
     window.scrollTo({top: 0, left: 0, behavior: 'smooth'});
   }, [currentPage])
 
+  const { locale } = useRouter()
+
   return (
     <nav className={classes.nav}>
       <ul className={classes.list}>
         <li>
-          <button className={classes.icon_btn} onClick={() => prevPage()}>
+          <button 
+            className={locale === 'ar-DZ' ? `${classes.icon_btn} ${classes.icon_btn_ar}` : classes.icon_btn} 
+            onClick={() => prevPage(currentPage, setCurrentPage)}
+          >
             <BsChevronLeft />
           </button>
         </li>
@@ -28,7 +35,7 @@ const Pagination = ({ productsPerPage, totalProducts, paginate, nextPage, prevPa
             <li key={number}>
               <button 
                 className={currentPage === number ? classes.current_btn : ''} 
-                onClick={() => paginate(number)}
+                onClick={() => paginate(number, setCurrentPage)}
               >
                 {number}
               </button>
@@ -36,7 +43,10 @@ const Pagination = ({ productsPerPage, totalProducts, paginate, nextPage, prevPa
           ))
         }
         <li>
-          <button className={classes.icon_btn} onClick={() => nextPage(pageNumbers.length)}>
+          <button 
+            className={locale === 'ar-DZ' ? `${classes.icon_btn} ${classes.icon_btn_ar}` : classes.icon_btn} 
+            onClick={() => nextPage(pageNumbers.length, currentPage, setCurrentPage)}
+          >
             <BsChevronRight />
           </button>
         </li>

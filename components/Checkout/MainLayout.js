@@ -10,7 +10,7 @@ import EmptyCart from './EmptyCart'
 import { client } from '../../lib/client'
 
 import { useStateContext } from '../../context/stateContext'
-import { checkName, checkIfAlgerianPhoneNumber, checkValidEmail, checkAddress, checkIndividualInput } from '../../lib/helpers'
+import { checkName, checkIfAlgerianPhoneNumber, checkValidEmail, checkAddress, checkIndividualInput } from '../../lib/helpers/formCheckers'
 
 import classes from './MainLayout.module.css'
 

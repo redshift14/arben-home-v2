@@ -1,0 +1,145 @@
+.main {
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+  transition: transform 200ms;
+  width: 550px;
+  border-radius: 8px;
+  position: relative;
+}
+.main:hover {
+  box-shadow: 1px 3px 5px 3px rgba(0, 0, 0, 0.10);
+  transform: translateY(-0.2%);
+}
+.image_part {
+  width: 100%;
+  height: 600px;
+  background-size: cover;
+  background-position: center;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+  transition: all .8s ease;
+}
+.state_box {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: var(--gray-8);
+  width: fit-content;
+  color: white;
+  font-weight: 500;
+  padding: 8px;
+  border-radius: 5px;
+  font-size: 14px;
+}
+.content {
+  background-color: white;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  border-radius: 8px;
+}
+.titleClass {
+  font-size: 20px;
+}
+.price {
+  font-size: 20px;
+  font-weight: 600;
+}
+.sizesClass {
+  display: grid;
+  grid-template-columns: auto auto auto auto;
+  row-gap: 10px;
+  padding-bottom: 10px;
+  justify-content: start;
+  gap: 10px;
+}
+.size {
+  border: 1px solid var(--gray-4);
+  width: 85px;
+  padding: 5px 10px;
+  font-size: 16px;
+  text-align: center;
+}
+
+@media only screen and (max-width: 3500px) {
+  .main {
+    width: 500px;
+  }
+}
+
+@media only screen and (max-width: 3200px) {
+  .main {
+    width: 450px;
+  }
+  .image_part {
+    height: 500px;
+  }
+}
+@media only screen and (max-width: 2870px) {
+  .main {
+    width: 400px;
+  }
+  .sizesClass {
+    grid-template-columns: auto auto auto;
+  }
+}
+@media only screen and (max-width: 1290px) {
+  .main {
+    width: 320px;
+  }
+} 
+@media only screen and (max-width: 1000px) {
+  .image_part {
+    height: 450px;
+  }
+}
+@media only screen and (max-width: 680px) {
+  .main {
+    width: 300px;
+  }
+} 
+@media only screen and (max-width: 650px) {
+  .content {
+    padding: 20px 10px;
+  }
+  .title {
+    font-size: 16px;
+  }
+  .price {
+    font-size: 16px;
+  }
+  .sizesClass {
+    gap: 5px;
+  }
+  .size {
+    font-size: 14px;
+    width: 70px;
+    padding: 5px 0;
+  }
+} 
+@media only screen and (max-width: 630px) {
+  .main {
+    width: 240px;
+  }
+}
+@media only screen and (max-width: 500px) {
+  .main {
+    width: 400px;
+  }
+}
+@media only screen and (max-width: 420px) {
+  .main {
+    width: 350px;
+  }
+}
+@media only screen and (max-width: 380px) {
+  .main {
+    width: 300px;
+  }
+}
+@media only screen and (max-width: 320px) {
+  .main {
+    width: 250px;
+  }
+}

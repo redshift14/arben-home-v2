@@ -1,11 +1,11 @@
  export const shopLinks = [
   {
     name: {
-      en: 'All products',
-      fr: 'Tous les produits',
-      ar: 'كل المنتجات'
+      en: 'Search for products',
+      fr: 'Rechercher des produits',
+      ar: 'بحث عن منتجات'
     },
-    to: '/products'
+    to: '/products/'
   },
   {
     name: {
@@ -13,7 +13,7 @@
       fr: 'Draps de lit',
       ar: 'أطقم شراشف'
     },
-    to: '/products?category=bed+sheets'
+    to: '/category/bed sheet'
   },
   {
     name: {
@@ -21,7 +21,7 @@
       fr: 'Housses de couette',
       ar: 'أغلفة ملاحف'
     },
-    to: '/products?category=quilt+cover'
+    to: '/category/quilt cover'
   },
   {
     name: {
@@ -29,7 +29,7 @@
       fr: "Taies d'oreiller",
       ar: 'أغلفة وسائد'
     },
-    to: '/products?category=pillowcase'
+    to: '/category/pillowcase'
   }
 ]
 
@@ -40,7 +40,7 @@ export const aboutLinks = [
       fr: 'Qui nous sommes?',
       ar: 'من نحن؟'
     },
-    to: '/'
+    to: '/about'
   },
   {
     name: {
@@ -64,6 +64,6 @@ export const aboutLinks = [
       fr: 'Termes et conditions',
       ar: 'الشروط والأحكام'
     },
-    to: '/'
+    to: '/about'
   }
 ]

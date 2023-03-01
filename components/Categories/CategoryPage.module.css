@@ -1,0 +1,17 @@
+.main {
+  margin-top: var(--nav-height);
+  padding: 0 0 60px 0;
+}
+.showcase_container {
+  height: 280px;
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.showcase_container h2 {
+  color: white;
+  font-size: 38px;
+  font-weight: 600;
+}

@@ -56,19 +56,19 @@ const Sidebar = () => {
             sidebar={true} 
             withDropDown={true} 
             linkName={locale == 'fr-FR' ? 'Boutique' : locale == 'ar-DZ' ? 'المتجر' : 'Shop' }
-            to={'/products'}
+            to={undefined}
             clickFunction={handleLinkClick}
           >
-            <Dropdown clickFunction={handleLinkClick} links={shopLinks} sidebar={true} />
+            <Dropdown links={shopLinks} sidebar={true} clickFunction={handleLinkClick} />
           </NavItem>
           <NavItem 
             sidebar={true} 
             withDropDown={true} 
             linkName={locale == 'fr-FR' ? 'A propos' : locale == 'ar-DZ' ? 'حول' : 'About'}
-            to={'/'}
+            to={undefined}
             clickFunction={handleLinkClick}
           >
-            <Dropdown links={aboutLinks} sidebar={true} />
+            <Dropdown links={aboutLinks} sidebar={true} handleLinkClick={handleLinkClick} />
           </NavItem>
         </div>
         <div className={classes.icons}>

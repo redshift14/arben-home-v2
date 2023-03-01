@@ -1,7 +1,7 @@
 import { createContext, useContext, useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
 
-import { capitilizeFirstLetter } from '../lib/helpers'
+import { capitilizeFirstLetter } from '../lib/helpers/generalFunctions'
 
 const Context = createContext()
 
@@ -76,13 +76,7 @@ export const StateContext = ({ children }) => {
   }
 
   useEffect(() => {
-    setSelectedCategories([])
-    setSelectedColors([])
-    setSelectedMaterials([])
-    setSelectedStyles([])
-    setSelectedConfirmedMinPrice(1)
-    setSelectedConfirmedMaxPrice(20000)
-    setSelectedAllFiltersWithTranslation([])
+    handleResetFilters()
   }, [locale])
 
   useEffect(() => {

@@ -1,6 +1,6 @@
 export const aboutLinks = [
   {
-    to: '/',
+    to: '/about',
     name: {
       en: 'Who We Are?',
       fr: 'Qui nous sommes?',
@@ -8,7 +8,7 @@ export const aboutLinks = [
     }
   },
   {
-    to: '/',
+    to: '/contact',
     name: {
       en: 'Contact Us',
       fr: 'Contactez-nous',
@@ -18,7 +18,7 @@ export const aboutLinks = [
 ]
 export const helpLinks = [
   {
-    to: '/',
+    to: '/about',
     name: {
       en: 'Terms & Conditions',
       fr: 'Termes et Conditions',
@@ -34,7 +34,7 @@ export const helpLinks = [
     }
   },
   {
-    to: '/',
+    to: '/faq',
     name: {
       en: 'FAQs',
       fr: 'FAQs',

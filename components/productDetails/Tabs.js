@@ -6,7 +6,7 @@ import classes from './Tabs.module.css'
 import DescriptionTab from './DescriptionTab'
 import InfoTab from './InfoTab'
 
-const Tabs = ({ care, description, materialsUsed }) => {
+const Tabs = ({ description }) => {
 
   const { locale } = useRouter()
 
@@ -36,7 +36,7 @@ const Tabs = ({ care, description, materialsUsed }) => {
         {
           activeTab === 'description' ? 
           <DescriptionTab description={description} /> : 
-          <InfoTab care={care} materialsUsed={materialsUsed} />
+          <InfoTab />
         }
       </div>
     </div>

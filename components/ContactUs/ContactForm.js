@@ -6,7 +6,7 @@ import toast from 'react-hot-toast'
 
 import FormElement from './FormElement'
 
-import { checkName, checkValidEmail, checkAddress, checkIndividualInput } from '../../lib/helpers'
+import { checkName, checkValidEmail, checkAddress, checkIndividualInput } from '../../lib/helpers/formCheckers'
 
 import loadingGif from '../../public/assets/icons/Rolling-1s-200px.gif'
 

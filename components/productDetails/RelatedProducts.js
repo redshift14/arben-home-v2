@@ -38,6 +38,7 @@ const RelatedProducts = ({ products }) => {
   const swiperNextRef = useRef(null)
 
   return (
+    products.length > 0 &&
     <div className={classes.main}>
       <h2 className={classes.title}>
         {
@@ -52,7 +53,7 @@ const RelatedProducts = ({ products }) => {
           windowWidth > 1750 && windowWidth < 3500 ? 5 : 
           windowWidth < 1750 && windowWidth > 1250 ? 4 : 
           windowWidth < 1250 && windowWidth > 850 ? 3 : 
-          windowWidth < 850 && windowWidth > 400 ? 2 : 1
+          windowWidth < 850 && windowWidth > 540 ? 2 : 1
         }
         centeredSlides={windowWidth <= 400}
         modules={[Navigation, Autoplay]}
@@ -84,6 +85,7 @@ const RelatedProducts = ({ products }) => {
                   coverImage2={images[1]}
                   searchPage={false}
                   relatedPage={true}
+                  categoriesPage={false}
                 />
               </SwiperSlide>
             )

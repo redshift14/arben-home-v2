@@ -1,4 +1,3 @@
-import { useEffect } from 'react'
 import { useRouter } from 'next/router'
 
 import { useStateContext } from '../../context/stateContext'
@@ -9,22 +8,8 @@ const FilterMenuContent = () => {
   
   const { locale } = useRouter()
 
-  const router = useRouter()
-
   const { handleFilterOptionsChange, selectedCategories, setSelectedCategories,  selectedMaterials, setSelectedMaterials, selectedColors, setSelectedColors, selectedStyles, setSelectedStyles, setSelectedAllFiltersWithTranslation, allCategories, allMaterials, allColors, allStyles } = useStateContext()
   
-  useEffect(() => {
-
-    setTimeout(() => {      
-      console.log(router.query.category)
-  
-      if (router.query.category) {
-        setSelectedCategories([router.query.category])
-      }
-    }, 200)
-
-  }, [])
-
   const titles = [
     locale === 'ar-DZ' ? 'الصنف' : locale === 'fr-FR' ? 'Catégorie' : 'Category',
     locale === 'ar-DZ' ? 'اللون' : locale === 'fr-FR' ? 'Coleur' : 'Color',

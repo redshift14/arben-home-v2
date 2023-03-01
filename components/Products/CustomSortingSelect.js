@@ -30,9 +30,9 @@ const options = [
   }
 ]
 
-const CustomSortingSelect = () => {
+const CustomSortingSelect = ({ categoryPage }) => {
 
-  const { locale, query } = useRouter()
+  const { locale, query, asPath } = useRouter()
 
   const router = useRouter()
 
@@ -65,7 +65,11 @@ const CustomSortingSelect = () => {
                   onClick={() => { 
                     setSelectedOption(locale === 'ar-DZ' ? option.ar : locale === 'fr-FR' ? option.fr : option.en)
                     setShowList(false)
-                    router.push({ pathname: '/products', query: { ...query, sorting: option.id } })
+                    if (categoryPage) {
+                      router.push({ pathname: asPath, query: { ...query, sorting: option.id } })
+                    } else {
+                      router.push({ pathname: '/products', query: { ...query, sorting: option.id } })
+                    }
                   }}
                 >
                   {

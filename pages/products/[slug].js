@@ -7,12 +7,17 @@ import RelatedProducts from '../../components/productDetails/RelatedProducts'
 const ProductDetails = ({ product, relatedProducts }) => {
   
   const { 
-    images, name, subtitle, models, title, slug, _id, care, description, materialsUsed,
+    images, name, subtitle, models, title, slug, _id, care, description, materialsUsed, styles, colors, categories
   } = product
 
   return (
     <div>
       <MainDetails 
+        styles={styles}
+        colors={colors}
+        categories={categories}
+        materialsUsed={materialsUsed}
+        care={care} 
         images={images}
         name={name}
         subtitle={subtitle}
@@ -40,7 +45,7 @@ export const getStaticProps = async ({ params: { slug } }) => {
   const query = `
     *[_type == 'product' && slug.current == '${slug}'][0] {
       _createdAt, _type, images, name, subtitle, models, title, slug, 
-      _id, care, description, materialsUsed[]->, categories[]->, styles[]->,
+      _id, care, description, materialsUsed[]->, categories[]->, styles[]->, colors[]->
     }
   `
 

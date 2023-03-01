@@ -10,9 +10,12 @@ import 'react-image-gallery/styles/css/image-gallery.css'
 import { useStateContext } from '../../context/stateContext'
 
 import { urlFor } from '../../lib/client'
+
+import OtherInfo from './OtherInfo'
+
 import classes from './MainDetails.module.css'
 
-const MainDetails = ({ images, name, subtitle, models, title, slug, _id }) => {
+const MainDetails = ({ images, name, subtitle, models, title, slug, _id, styles, colors, categories, materialsUsed, care }) => {
 
   const { addProductToCart } = useStateContext()
 
@@ -36,23 +39,13 @@ const MainDetails = ({ images, name, subtitle, models, title, slug, _id }) => {
 
   const { locale } = useRouter()
 
-  const router = useRouter()
+  const sizes = models.map(model => ( model.size))
 
-  const sizes = models.map(model => (
-    model.size
-  ))
+  const prices = models.map(model => (model.price))
 
-  const prices = models.map(model => (
-    model.price
-  ))
+  const quantities = models.map(model => (model.quantity))
 
-  const quantities = models.map(model => (
-    model.quantity
-  ))
-
-  const modelsKeys = models.map(model => (
-    model._key
-  )) 
+  const modelsKeys = models.map(model => (model._key)) 
 
   const [selectedPrice, setSelectedPrice] = useState(0)
   const [selectedSize, setSelectedSize] = useState(0) 
@@ -89,7 +82,7 @@ const MainDetails = ({ images, name, subtitle, models, title, slug, _id }) => {
 
   const available = locale === 'ar-DZ' ? 'متوفر' : locale === 'fr-FR' ? 'En Stock' : 'In Stock'
   const notAvailable = locale === 'ar-DZ' ? 'غير متوفر' : locale === 'fr-FR' ? 'En Rupture de Stock' : 'Out of Stock'
-  
+
   return (
     <div className={classes.main}>
       <div className={classes.image_gallery_container}>
@@ -104,7 +97,7 @@ const MainDetails = ({ images, name, subtitle, models, title, slug, _id }) => {
           { quantities.some(q => q > 0) ? available : notAvailable }
         </p>
         <h2>{locale === 'ar-DZ' ? name.ar : locale === 'fr-FR' ? name.fr : name.en}</h2>
-        <h4>
+        <h4 className={classes.subtitle}>
           {locale === 'ar-DZ' ? subtitle.ar : locale === 'fr-FR' ? subtitle.fr : subtitle.en}
         </h4>
         <h3 className={classes.price}>
@@ -129,16 +122,22 @@ const MainDetails = ({ images, name, subtitle, models, title, slug, _id }) => {
             ))
           }
         </div>
-        <div className={classes.quantity_container}>
-          <button className={classes.add} onClick={handleIncreaseQty}>
-            <BsPlus />
-          </button>
-          <p>{selectedQuantity}</p>
-          <button className={classes.minus} onClick={handleReduceQty}>
-            <BiMinus />
-          </button>
-        </div>
-        <div className={classes.buttons}>
+        <div className={classes.quantity_button_container}>
+          <div className={classes.quantity_container}>
+            <button 
+              className={locale === 'ar-DZ' ? `${classes.minus} ${classes.minus_ar}` : classes.minus} 
+              onClick={handleReduceQty}
+            >
+              <BiMinus />
+            </button>
+            <p>{selectedQuantity}</p>
+            <button 
+              className={locale === 'ar-DZ' ? `${classes.add} ${classes.add_ar}` : classes.add}  
+              onClick={handleIncreaseQty}
+            >
+              <BsPlus />
+            </button>
+          </div>
           <button 
             className={classes.addToCart}
             onClick={() => 
@@ -148,17 +147,14 @@ const MainDetails = ({ images, name, subtitle, models, title, slug, _id }) => {
           >
             {locale === 'ar-DZ' ? 'أضف إلى السلة' : locale === 'fr-FR' ? 'Ajouter au Panier' : 'Add to Cart'}
           </button>
-          <button 
-            onClick={() => {
-              addProductToCart({id: _id, slug: slug.current, title: title, name: name, modelKey: selectedKey, maxQty: quantities[maxQuantity], image: images[0]}, selectedQuantity, prices[selectedPrice], sizes[selectedSize])
-              router.push('/checkout')
-            }}
-            className={classes.buyNow}
-            disabled={selectedQuantity == 0}
-          >
-            {locale === 'ar-DZ' ? 'اشتر الآن' : locale === 'fr-FR' ? 'Acheter Maintenant' : 'Buy Now'}
-          </button>
         </div>
+        <OtherInfo 
+          styles={styles} 
+          categories={categories} 
+          colors={colors}
+          materialsUsed={materialsUsed} 
+          care={care} 
+        />
       </div>
     </div>
   )

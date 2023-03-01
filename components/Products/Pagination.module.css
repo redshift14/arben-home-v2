@@ -8,8 +8,6 @@
   display: flex;
   gap: 10px;
 }
-.list li {
-}
 .list button {
   width: 30px;
   height: 30px;
@@ -27,6 +25,9 @@
 }
 .list .icon_btn {
   font-size: 18px;
+}
+.icon_btn_ar {
+  transform: rotate(180deg);
 }
 .list button:hover {
   background-color: var(--gray-2);

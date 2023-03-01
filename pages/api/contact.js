@@ -1,5 +1,5 @@
 import { transporder, mailOptions } from '../../config/nodemailer'
-import { generateContactFormEmailContent } from '../../lib/helpers'
+import { generateContactFormEmailContent } from '../../lib/helpers/apiEmailGenerators'
 
 const handler = async (req, res) => {
 

@@ -1,5 +1,5 @@
 import { transporder, mailOptions, getClientMailOptions } from '../../config/nodemailer'
-import { generateNotificationEmailContent, generateClientEmailContent } from '../../lib/helpers'
+import { generateNotificationEmailContent, generateClientEmailContent } from '../../lib/helpers/apiEmailGenerators'
 
 const handler = async (req, res) => {
 
@@ -8,6 +8,14 @@ const handler = async (req, res) => {
     const data = req.body
 
     try {
+      // Client email
+      await transporder.sendMail({
+        ...getClientMailOptions(data),
+        ...generateClientEmailContent(data),
+        subject: 'Order confirmed'
+      })
+      res.status(200).json({ success: true })
+
       // Notification email to us
       await transporder.sendMail({
         ...mailOptions,
@@ -15,18 +23,11 @@ const handler = async (req, res) => {
         subject: 'New order notification'
       })
 
-      // Client email
-      await transporder.sendMail({
-        ...getClientMailOptions(data),
-        ...generateClientEmailContent(data),
-        subject: 'Order confirmed'
-      })
     }
     catch(err) {
       console.log(err.message)
       return res.status(400).json({ message: err.message })  
     }
-    return res.status(200).json({ success: true })
   }
 
 }

@@ -4,9 +4,14 @@ import { useRouter } from 'next/router'
 
 import { urlFor } from '../lib/client'
 
-import classes from './ProductCard.module.css'
+import searchClasses from '../style/productCardStyles/ProductCardSearch.module.css'
+import relatedClasses from '../style/productCardStyles/ProductCardRelated.module.css'
+import categoryClasses from '../style/productCardStyles/ProductCardCategories.module.css'
+import homeClasses from '../style/productCardStyles/ProductCardHome.module.css'
 
-const ProductCard = ({ title, slug, models, coverImage1, coverImage2, searchPage, relatedPage }) => {
+const ProductCard = ({ title, slug, models, coverImage1, coverImage2, searchPage, relatedPage, categoryPage }) => {
+
+  const { main, image_part, content, titleClass, price, state_box, sizesClass, size } = searchPage ? searchClasses : relatedPage ? relatedClasses : categoryPage ? categoryClasses : homeClasses
 
   const { locale } = useRouter()
 
@@ -27,78 +32,28 @@ const ProductCard = ({ title, slug, models, coverImage1, coverImage2, searchPage
 
   return (
     <Link href={`/products/${slug.current}`} style={{ display: 'inline-block' }}>
-      <div 
-        className={
-          searchPage ? `${classes.main} ${classes.main_s}` : 
-          relatedPage ? `${classes.main} ${classes.main_r}` : classes.main
-        }
-        dir={
-          locale == 'ar-DZ' ? 'rtl' : 'ltr'
-        }
-      >
+      <div className={main} dir={locale == 'ar-DZ' ? 'rtl' : 'ltr'}>
         <div 
-          className={
-            searchPage ? `${classes.image_part_search_page} ${classes.image_part}` : 
-            relatedPage ? `${classes.image_part_related_page} ${classes.image_part}` : 
-            classes.image_part
-          } 
-          style={{ 
-            backgroundImage: `url('${urlFor(image).url()}')`,
-          }}
+          className={image_part} 
+          style={{ backgroundImage: `url('${urlFor(image).url()}')` }}
           onMouseEnter={() => setImage(coverImage2)}
           onMouseLeave={() => setImage(coverImage1)}
         >
         </div>
-        <div 
-          className={
-            searchPage ? `${classes.content} ${classes.content_s}` : 
-            relatedPage ? `${classes.content} ${classes.content_r}` : 
-            classes.content
-          }
-        >
-          <p className={classes.state_box}>
+        <div className={content}>
+          <p className={state_box}>
             { quantities.some(q => q > 0) ? available : notAvailable }
           </p>
-          <p 
-            className={
-              searchPage ? `${classes.title} ${classes.title_s}` : 
-              relatedPage ? `${classes.title} ${classes.title_r}` : 
-              classes.title
-            }
-          >
-            {title}
-          </p>
-          <p 
-            className={
-              searchPage ? `${classes.price} ${classes.price_s}` : 
-              searchPage ? `${classes.price} ${classes.price_r}` : 
-              classes.price
-            }
-          >
+          <p className={titleClass}>{title}</p>
+          <p className={price}>
             {locale == 'fr-FR' ? 'à partir de ' : locale == 'ar-DZ' ? ' ابتداءً من ' : 'from '}
             { Math.min(...prices) }
             {locale == 'ar-DZ' ? ' دينار جزائري ' : ' DZD '} 
           </p>
-          <div 
-            className={
-              searchPage ? `${classes.sizes} ${classes.sizes_s}` : 
-              relatedPage ? `${classes.sizes} ${classes.sizes_r}` :
-              classes.sizes
-            }
-          >
+          <div className={sizesClass}>
             {
               sizes.map((s, index) => (
-                <p 
-                  dir='ltr'
-                  className={
-                    searchPage ? `${classes.size} ${classes.size_s}` : 
-                    relatedPage ? `${classes.size} ${classes.size_r}` : 
-                    classes.size
-                  } 
-                  key={index}
-                >
-                  {s}
-                </p>
+                <p dir='ltr' className={size} key={index}>{s}</p>
               ))
             }
           </div>

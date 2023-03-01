@@ -12,7 +12,7 @@ const Contact = ({ layoutInfo }) => {
 
 export default Contact
 
-export const getServerSideProps = async () => {
+export const getStaticProps = async () => {
   const layoutQuery = '*[_type == "layout"]{contactPageShowcaseImage}[0]'
 
   const layoutInfo = await client.fetch(layoutQuery) 

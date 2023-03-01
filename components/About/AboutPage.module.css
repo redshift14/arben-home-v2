@@ -1,0 +1,49 @@
+.main {
+  margin-top: var(--nav-height);
+  min-height: calc(100vh - var(--footer-height) - var(--nav-height));
+}
+.showcase_container {
+  height: 280px;
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.showcase_container h2 {
+  color: white;
+  font-size: 38px;
+  font-weight: 600;
+}
+.content {
+  padding: 40px 60px;
+}
+.content h3 {
+  font-size: 22px;
+  margin-bottom: 20px;
+}
+.content p {
+  font-size: 17px;
+  line-height: 28px;
+}
+
+@media only screen and (max-width: 800px) {
+  .content {
+    padding: 40px;
+  }
+}
+@media only screen and (max-width: 500px) {
+  .showcase_container h2 {
+    color: white;
+    font-size: 28px;
+  }
+  .content {
+    padding: 40px 20px;
+  }
+  .content h3 {
+    font-size: 20px;
+  }
+  .content p {
+    font-size: 16px;
+  }
+}

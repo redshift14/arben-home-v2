@@ -10,7 +10,7 @@ import Logo from '../../public/assets/logoSmall.webp'
 import NavItem from './NavItem'
 import Dropdown from './Dropdown'
 
-import { aboutLinks } from './navLinks'
+import { aboutLinks, shopLinks } from './navLinks'
 
 import LanguageSelect from './LanguageSelect'
 
@@ -35,9 +35,12 @@ const Navbar = () => {
           to={'/'}
         />
         <NavItem 
-          linkName={locale == 'fr-FR' ? 'Boutique' : locale == 'ar-DZ' ? 'المتجر' : 'Shop' } 
-          to={'/products'}
-        />
+          linkName={locale == 'fr-FR' ? 'Boutique' : locale == 'ar-DZ' ? 'المتجر' : 'Shop'}
+          to={undefined}
+          withDropDown={true}
+        >
+          <Dropdown links={shopLinks} />
+        </NavItem> 
         <NavItem 
           linkName={locale == 'fr-FR' ? 'À propos' : locale == 'ar-DZ' ? 'حول' : 'About' }
           to={undefined}
