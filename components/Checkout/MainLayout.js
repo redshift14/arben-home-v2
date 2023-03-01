@@ -9,6 +9,7 @@ import EmptyCart from './EmptyCart'
 
 import { client } from '../../lib/client'
 
+import { orderInputs } from './inputs'
 import { useStateContext } from '../../context/stateContext'
 import { checkName, checkIfAlgerianPhoneNumber, checkValidEmail, checkAddress, checkIndividualInput } from '../../lib/helpers/formCheckers'
 
@@ -27,56 +28,7 @@ const MainLayout = ({ imageSrc, deliveryNotes }) => {
 
   const { cartItems, setCartItems, setTotalPrice, setTotalQuantities, totalPrice } = useStateContext()
 
-  const [inputs, setInputs] = useState([
-    {
-      id: 1,
-      name: 'firstName',
-      type: 'text',
-      errorMessage: locale == 'ar-DZ' ? 'يجب ألا يحتوي الاسم على أية أرقام أو حروف خاصة' : locale == 'fr-FR' ? 'Le prénom ne doit comporter aucun caractère spécial' : 'First name should not include any special characters',
-      labelText: locale == 'ar-DZ' ? 'الاسم' : locale == 'fr-FR' ? 'Prénom' : 'First name',
-      error: false
-    },
-    {
-      id: 2,
-      name: 'lastName',
-      type: 'text',
-      errorMessage: locale == 'ar-DZ' ? 'يجب ألا يحتوي اللقب على أية أرقام أو حروف خاصة' : locale == 'fr-FR' ? 'Le nom ne doit comporter aucun caractère spécial' : 'Last name should not include any special characters',
-      labelText: locale == 'ar-DZ' ? 'اللقب' : locale == 'fr-FR' ? 'Nom' : 'Last name',
-      error: false
-    },
-    {
-      id: 3,
-      name: 'address',
-      type: 'text',
-      errorMessage: locale == 'ar-DZ' ? 'يرجى كتابة العنوان' : locale == 'fr-FR' ? "Veuillez entrer l'adresse. longueur minimale 5 caractères" : 'Please enter the address. minimum length 5 characters',
-      labelText: locale == 'ar-DZ' ? 'العنوان' : locale == 'fr-FR' ? 'Adresse' : 'Address',
-      isWide: true,
-      error: false
-    },
-    {
-      id: 4,
-      name: 'phone',
-      type: 'text',
-      errorMessage: locale == 'ar-DZ' ? 'يرجى إدخال رقم هاتف خليوي جزائري ' : locale == 'fr-FR' ? "Veuillez saisir un numéro de téléphone mobile algérien valide" : 'Please enter a valid algerian mobile phone number',
-      labelText: locale == 'ar-DZ' ? 'رقم الهاتف' : locale == 'fr-FR' ? 'Téléphone' : 'Phone',
-      error: false
-    },
-    {
-      id: 5,
-      name: 'email',
-      type: 'email',
-      errorMessage: locale == 'ar-DZ' ? 'يرجى إدخال بريد إلكتروني صالح' : locale == 'fr-FR' ? "Veuillez entrer un email valide" : 'Please enter a vaild email',
-      labelText: locale == 'ar-DZ' ? 'البريد الإلكتروني' : 'Email',
-      error: false
-    },
-    {
-      id: 6,
-      name: 'notes',
-      labelText: locale == 'ar-DZ' ? 'ملاحظات إضافية' : locale == 'fr-FR' ? 'Remarques' : 'Additional notes',
-      isWide: true,
-      textarea: true,
-    }
-  ])
+  const [inputs, setInputs] = useState(orderInputs)
 
   const [values, setValues] = useState({
     firstName: '',
@@ -179,95 +131,106 @@ const MainLayout = ({ imageSrc, deliveryNotes }) => {
           _type: 'order'
         })
 
-        const productsIDs = orderRes.product.map(p => ( p.productID ))
-
-        const modelsKeys = orderRes.product.map(p => ( p.modelKey ))
-
-        const defaultQuantities = orderRes.product.map(p => ( p.quantity ))
-
-        const docs = await client.getDocuments(productsIDs)
-
-        // array of models to update
-        const updatedModels = docs.map((doc, index) => {
-          return doc.models.map(model => {
-            if (model._key == modelsKeys[index]) {
-              return {
-                ...model,
-                quantity: model.quantity - defaultQuantities[index]
+        if(orderRes) {
+          const productsIDs = orderRes.product.map(p => ( p.productID ))
+  
+          const modelsKeys = orderRes.product.map(p => ( p.modelKey ))
+  
+          const defaultQuantities = orderRes.product.map(p => ( p.quantity ))
+  
+          const docs = await client.getDocuments(productsIDs)
+  
+          // array of models to update
+          const updatedModels = docs.map((doc, index) => {
+            return doc.models.map(model => {
+              if (model._key == modelsKeys[index]) {
+                return {
+                  ...model,
+                  quantity: model.quantity - defaultQuantities[index]
+                }
               }
-            }
-            return model
+              return model
+            })
           })
-        })
 
-        // Manipulation the updated models array to choose the minimal quantity, with a help from chatgpt
-
-        // If any repeated models with different quantites, set the quantity to the smallest
-        const quantities = {}
-
-        // First loop through the array and store the quantities of each _key - chatgpt function
-        updatedModels.forEach(subarray => {
-          subarray.forEach(obj => {
-            const { _key, quantity } = obj
-            if (!quantities[_key]) {
-              quantities[_key] = [quantity]
-            } else {
-              quantities[_key].push(quantity)
-            }
-          })
-        })
-
-        // Next, loop through the array again and set the bigger quantity to be equal to the smaller - chatgpt function
-        updatedModels.forEach(subarray => {
-          subarray.forEach(obj => {
-            const { _key, quantity } = obj
-            const quantitiesForKey = quantities[_key];
-            if (quantitiesForKey.length > 1) {
-              const maxQuantity = Math.max(...quantitiesForKey)
-              const minQuantity = Math.min(...quantitiesForKey)
-              if (quantity === maxQuantity) {
-                obj.quantity = minQuantity
-              } else if (quantity === minQuantity) {
-                obj.quantity = minQuantity
+          // Manipulation the updated models array to choose the minimal quantity, with a help from chatgpt
+  
+          // If any repeated models with different quantites, set the quantity to the smallest
+          const quantities = {}
+  
+          // First loop through the array and store the quantities of each _key - chatgpt function
+          updatedModels.forEach(subarray => {
+            subarray.forEach(obj => {
+              const { _key, quantity } = obj
+              if (!quantities[_key]) {
+                quantities[_key] = [quantity]
+              } else {
+                quantities[_key].push(quantity)
               }
-            }
-          })
-        })
-
-        const updatedDocs = docs.map(async(doc, index) => {
-          return await client.patch(doc._id).set({ models: updatedModels[index] }).commit()
-        })
-
-        if (updatedDocs) {
-
-          orderRes.emailLang = locale
-
-          const emailRes = await fetch('/api/order', {
-            method: 'POST',
-            body: JSON.stringify(orderRes),
-            headers: {
-              "Content-type": "application/json",
-              "Accept": "application/json"
-            }
+            })
           })
 
-          console.log(emailRes)
 
-          toast.success('Your order has been issued!, an email with full order details will be sent to you', { 
-            duration: 6000,
-            style: {
-              boxShadow: '1px 2px 5px 1px rgba(0, 0, 0, 0.10)',
-              fontSize: '18px',
-              padding: '10px 15px',
-              margin: '10px'
-            }
+          // Next, loop through the array again and set the bigger quantity to be equal to the smaller - chatgpt function
+          updatedModels.forEach(subarray => {
+            subarray.forEach(obj => {
+              const { _key, quantity } = obj
+              const quantitiesForKey = quantities[_key];
+              if (quantitiesForKey.length > 1) {
+                const maxQuantity = Math.max(...quantitiesForKey)
+                const minQuantity = Math.min(...quantitiesForKey)
+                if (quantity === maxQuantity) {
+                  obj.quantity = minQuantity
+                } else if (quantity === minQuantity) {
+                  obj.quantity = minQuantity
+                }
+              }
+            })
           })
-
-          initializeValues()
+          const updatedDocs = docs.map(async(doc, index) => {
+            return await client.patch(doc._id).set({ models: updatedModels[index] }).commit()
+          })
+          if (updatedDocs) {
+  
+            orderRes.emailLang = locale
+  
+            const emailRes = await fetch('/api/order', {
+              method: 'POST',
+              body: JSON.stringify(orderRes),
+              headers: {
+                "Content-type": "application/json",
+                "Accept": "application/json"
+              }
+            })
+  
+            if (emailRes.ok) {
+              const successText = locale === 'ar-DZ' ? 'تم ايداع طلبك، سوف يصلك قريبا بريد الكتروني يحتوي تفاصيل طلبك' : locale === 'fr-FR' ? 'Votre commande a été émise!, un e-mail avec les détails complets de la commande vous sera envoyé' : 'Your order has been issued!, an email with full order details will be sent to you'
+    
+              toast.success(successText, { 
+                duration: 6000,
+                style: {
+                  boxShadow: '1px 2px 5px 1px rgba(0, 0, 0, 0.10)',
+                  fontSize: '18px',
+                  padding: '10px 15px',
+                  margin: '10px'
+                }
+              })
+              initializeValues()
+            }
+          }
         }
       }
       catch(err) {
         initializeValues()
+        const failureText = locale === 'ar-DZ' ? 'حدث خطأ ما' : locale === 'fr-FR' ? "Quelque chose s'est mal passé" : 'Something went wrong'
+        toast.error(failureText, { 
+          duration: 4000,
+          style: {
+            boxShadow: '1px 2px 5px 1px rgba(0, 0, 0, 0.10)',
+            fontSize: '18px',
+            padding: '5px 10px'
+          }
+        })
         console.log(err)
       }
     }

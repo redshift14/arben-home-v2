@@ -11,6 +11,7 @@
   color: var(--gray-9);
   font-weight: 600;
   font-size: 18px;
+  white-space: nowrap;
 }
 .other_item button {
   background-color: transparent;

@@ -104,6 +104,6 @@ ul {
 }
 @media only screen and (max-width: 500px) {
   :root {
-    --footer-height: 360px;
+    --footer-height: 410px;
   }
 }

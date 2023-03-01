@@ -42,9 +42,13 @@ const ShippingInfo = ({
         <div className={classes.elements}>
           <FormElement
             name='wilaya'
-            labelText={locale == 'ar-DZ' ? 'الولاية' : 'Wilaya'}
+            labelTextAr='الولاية'
+            labelTextFr='Wilaya'
+            labelTextEn='Wilaya'
             error={wilayaError}
-            errorMessage={locale == 'ar-DZ' ? 'يرجى ادخال الولاية' : locale == 'fr-FR' ? 'Veuillez saisir la wilaya' : 'Please enter the wilaya'}
+            errorMessageAr='يرجى ادخال الولاية'
+            errorMessageFr='Veuillez saisir la wilaya'
+            errorMessageEn='Please enter the wilaya'
           >
             <select onChange={handleWilayaChange} value={selectedWilaya} id='wilaya'>
               {
@@ -58,7 +62,9 @@ const ShippingInfo = ({
           </FormElement>
           <FormElement
             name='commune'
-            labelText={locale == 'ar-DZ' ? 'البلدية' : locale == 'fr-FR' ? 'Commune' : 'Town'}
+            labelTextAr='البلدية'
+            labelTextFr='Commune'
+            labelTextEn='Town'
           >
             <select onChange={handleCommuneChange} value={selectedCommune} id='wilaya' disabled={communeList.length === 0}>
               {
@@ -75,7 +81,11 @@ const ShippingInfo = ({
               const { id, name } = input
               return (
                 <FormElement 
-                  key={id} {...input} value={values[name]} onChange={handleChange}
+                  key={id} 
+                  {...input} 
+                  value={values[name]} 
+                  onChange={handleChange} 
+                  locale={locale}
                 />
               )
             })

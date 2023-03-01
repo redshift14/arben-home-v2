@@ -1,12 +1,14 @@
 import classes from './FormElement.module.css'
 
 const FormElement = ({ 
-  textarea, value, children, isWide, labelText, errorMessage, onChange, name, id, type, error, ...inputProps
+  textarea, value, children, isWide, labelTextAr, labelTextFr, labelTextEn, errorMessageAr, errorMessageFr, errorMessageEn, onChange, name, id, type, error, locale, ...inputProps
 }) => {
 
   return (
     <div className={isWide ? `${classes.main} ${classes.main_wide}` : classes.main}>
-      <label htmlFor={name}>{labelText}</label>
+      <label htmlFor={name}>
+        { locale === 'ar-DZ' ? labelTextAr : locale === 'fr-FR' ? labelTextFr : labelTextEn }
+      </label>
       {
         children ? children : 
         textarea ? 
@@ -18,7 +20,9 @@ const FormElement = ({
         />
       }
       {
-        error && <span className={classes.errorMessage}>{errorMessage}</span>
+        error && <span className={classes.errorMessage}>
+          { locale === 'ar-DZ' ? errorMessageAr : locale === 'fr-FR' ? errorMessageFr : errorMessageEn }
+        </span>
       }
     </div>
   )

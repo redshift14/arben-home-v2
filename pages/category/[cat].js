@@ -28,7 +28,7 @@ export const getServerSideProps = async (context) => {
 
   const { sortingOption, sortingDirection } = getSortingOptions(sorting)
 
-  const productsQuery = `*[_type == "product" && "${cat}" in categories[]->.categoryName.en] | order(${sortingOption} ${sortingDirection}){ _id, name, slug, models, images }[0..5]`
+  const productsQuery = `*[_type == "product" && "${cat}" in categories[]->.categoryName.en] | order(${sortingOption} ${sortingDirection}){ _id, name, slug, models, images }`
 
   const products = await client.fetch(productsQuery)
 

@@ -3,6 +3,7 @@ import { useRouter } from 'next/router'
 import Image from 'next/image'
 
 import toast from 'react-hot-toast'
+import { contactInputs } from './inputs'
 
 import FormElement from './FormElement'
 
@@ -18,37 +19,7 @@ const ContactForm = ({ imageSrc }) => {
 
   const [loading, setLoading] = useState(false)
 
-  const [inputs, setInputs] = useState([
-    {
-      id: 1,
-      name: 'name',
-      errorMessage: locale == 'ar-DZ' ? 'يجب ألا يحتوي الاسم على أية أرقام أو حروف خاصة' : locale == 'fr-FR' ? 'Le prénom ne doit comporter aucun caractère spécial' : 'First name should not include any special characters',
-      labelText: locale == 'ar-DZ' ? 'الإسم' : locale == 'fr-FR' ? 'Votre nom' : 'Your name',
-      error: false
-    },
-    {
-      id: 2,
-      name: 'email',
-      errorMessage: locale == 'ar-DZ' ? 'يرجى إدخال بريد إلكتروني صالح' : locale == 'fr-FR' ? "Veuillez entrer un email valide" : 'Please enter a vaild email',
-      labelText: locale == 'ar-DZ' ? 'بريدك الالكتروني' : locale == 'fr-FR' ? 'Votre email' : 'Your email',
-      error: false
-    },
-    {
-      id: 3,
-      name: 'subject',
-      errorMessage: locale == 'ar-DZ' ? 'يرجى إدخال بريد موضوع الرسالة' : locale == 'fr-FR' ? "Veuillez saisir l'objet du message" : 'Please enter the message subject',
-      labelText: locale == 'ar-DZ' ? 'الموضوع' : locale == 'fr-FR' ? 'Objet' : 'Subject',
-      error: false
-    },
-    {
-      id: 4,
-      name: 'message',
-      textArea: true,
-      errorMessage: locale == 'ar-DZ' ? 'يرجى إدخال الرسالة' : locale == 'fr-FR' ? 'Veuillez entrer le message' : 'Please enter the message',
-      labelText: locale == 'ar-DZ' ? 'الرسالة' : 'Message',
-      error: false
-    },
-  ])
+  const [inputs, setInputs] = useState(contactInputs)
 
   const [values, setValues] = useState({
     name: '',
@@ -99,17 +70,32 @@ const ContactForm = ({ imageSrc }) => {
           }
         })
 
-        console.log(res)
         initializeValues()
 
-        toast.success('Your message has been sent!', { 
-          duration: 4000,
-          style: {
-            boxShadow: '1px 2px 5px 1px rgba(0, 0, 0, 0.10)',
-            fontSize: '18px',
-            padding: '5px 10px'
-          }
-        })
+        if (res.ok) {
+
+          const successText = locale === 'ar-DZ' ? 'تم إرسال رسالتك' : locale === 'fr-FR' ? 'Votre message a été envoyé!' : 'Your message has been sent!'
+
+          toast.success(successText, { 
+            duration: 4000,
+            style: {
+              boxShadow: '1px 2px 5px 1px rgba(0, 0, 0, 0.10)',
+              fontSize: '18px',
+              padding: '5px 10px'
+            }
+          })
+        }
+        else {
+          const failureText = locale === 'ar-DZ' ? 'حدث خطأ ما' : locale === 'fr-FR' ? "Quelque chose s'est mal passé" : 'Something went wrong'
+          toast.error(failureText, { 
+            duration: 4000,
+            style: {
+              boxShadow: '1px 2px 5px 1px rgba(0, 0, 0, 0.10)',
+              fontSize: '18px',
+              padding: '5px 10px'
+            }
+          })
+        }
       }
       catch(err) {
         initializeValues()
@@ -130,7 +116,13 @@ const ContactForm = ({ imageSrc }) => {
         <div className={classes.form_elements}>
           {
             inputs.map(input => (
-              <FormElement key={input.id} {...input} value={values[input.name]} onChange={handleChange} />
+              <FormElement 
+                key={input.id} 
+                {...input} 
+                value={values[input.name]} 
+                onChange={handleChange} 
+                locale={locale}
+              />
             ))
           }
         </div>

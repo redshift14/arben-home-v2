@@ -21,6 +21,10 @@ const LanguageSelect = () => {
   const [selectLang, setSelectedLang] = useState('English - EN')
   
   useEffect(() => {
+    if (!localStorage.getItem('lang') && !localStorage.getItem('flag')) {
+      localStorage.setItem('lang', 'English - EN')
+      localStorage.setItem('flag', 0)
+    }
     setSelectedLang(localStorage.getItem('lang'))
     setSelectedFlag(flags[localStorage.getItem('flag')])
   }, [flags])

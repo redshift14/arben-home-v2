@@ -28,9 +28,11 @@ const OtherInfo = ({ categories, styles, materialsUsed, colors, care }) => {
             {locale === 'ar-DZ' ? 'الأصناف: ' : locale === 'fr-FR' ? 'Catégories: ' : 'Categories: '}
           </h4>              
           {
-            addCommasToArrayElements(categories, 'categoryName', locale).map(category => (
+            addCommasToArrayElements(categories, 'categoryName', locale).elementsToWork.map((category, index) => (
               <button key={category} onClick={() => handleNavigation('category', category)}>
-                {capitilizeFirstLetter(category)}
+                {
+                  locale !== 'ar-DZ' ? capitilizeFirstLetter(addCommasToArrayElements(categories, 'categoryName', locale).elementsToDisplay[index]): addCommasToArrayElements(categories, 'categoryName', locale).elementsToDisplay[index]
+                }
               </button>
             ))
           }
@@ -41,15 +43,17 @@ const OtherInfo = ({ categories, styles, materialsUsed, colors, care }) => {
           </h4>      
           {
             styles.map(style => (
-              <button key={style._id} onClick={() => handleNavigation('style', style)}>
+              <button key={style._id} onClick={() => handleNavigation('style', style.styleName.en)}>
                 {locale === 'ar-DZ' ? style.styleName.ar : locale === 'fr-FR' ? capitilizeFirstLetter(style.styleName.fr) : capitilizeFirstLetter(style.styleName.en)}{', '}
               </button>
             ))
           }        
           {
-            addCommasToArrayElements(colors, 'colorName', locale).map(color => (
+            addCommasToArrayElements(colors, 'colorName', locale).elementsToWork.map((color, index) => (
               <button key={color} onClick={() => handleNavigation('color', color)}>
-                {capitilizeFirstLetter(color)}
+                {
+                  locale !== 'ar-DZ' ? capitilizeFirstLetter(addCommasToArrayElements(colors, 'colorName', locale).elementsToDisplay[index]): addCommasToArrayElements(colors, 'colorName', locale).elementsToDisplay[index]
+                }
               </button>
             ))
           }
@@ -59,9 +63,11 @@ const OtherInfo = ({ categories, styles, materialsUsed, colors, care }) => {
             {locale === 'ar-DZ' ? 'المواد المستعملة' : locale === 'fr-FR' ? 'Les matériaux utilisés: ' : 'Materials used: '}  
           </h4>              
           {
-            addCommasToArrayElements(materialsUsed, 'materialName', locale).map(material => (
+            addCommasToArrayElements(materialsUsed, 'materialName', locale).elementsToWork.map((material, index) => (
               <button key={material} onClick={() => handleNavigation('material', material)}>
-                {capitilizeFirstLetter(material)}
+                {
+                  locale !== 'ar-DZ' ? capitilizeFirstLetter(addCommasToArrayElements(materialsUsed, 'materialName', locale).elementsToDisplay[index]): addCommasToArrayElements(materialsUsed, 'materialName', locale).elementsToDisplay[index]
+                }
               </button>
             ))
           }
