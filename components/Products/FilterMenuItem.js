@@ -3,6 +3,7 @@ import { useRouter } from 'next/router'
 import { BiPlus, BiMinus } from 'react-icons/bi'
 
 import { useStateContext } from '../../context/stateContext'
+import { getOptionNameTranslated, getOptionName } from '../../lib/helpers/filterMenuItemsHandlers'
 import classes from './FilterMenuItem.module.css'
 
 const FilterMenuItem = ({ title, options, selectedOptions, handleCheckboxChange, filterName, isPriceItem }) => {
@@ -41,36 +42,6 @@ const FilterMenuItem = ({ title, options, selectedOptions, handleCheckboxChange,
     setSelectedConfirmedMinPrice(selectedMinPrice)
   }
 
-  const getOptionName = (option) => {
-    if (filterName == 'category') return option.categoryName.en
-    else if (filterName == 'material') return option.materialName.en
-    else if (filterName == 'style') return option.styleName.en
-    else if (filterName == 'color') return option.colorName.en
-  }
-
-  const getOptionNameTranslated = (option) => {
-    if (filterName == 'category') {
-      if (locale === 'ar-DZ') return option.categoryName.ar
-      else if (locale == 'fr-FR') return option.categoryName.fr
-      else return option.categoryName.en
-    }
-    else if (filterName == 'material') {
-      if (locale === 'ar-DZ') return option.materialName.ar
-      else if (locale == 'fr-FR') return option.materialName.fr
-      else return option.materialName.en
-    }
-    else if (filterName == 'style') {
-      if (locale === 'ar-DZ') return option.styleName.ar
-      else if (locale == 'fr-FR') return option.styleName.fr
-      else return option.styleName.en
-    }
-    else if (filterName == 'color') {
-      if (locale === 'ar-DZ') return option.colorName.ar
-      else if (locale == 'fr-FR') return option.colorName.fr
-      else return option.colorName.en
-    }
-  }
-
   return (
     <div className={classes.main}>
       <div className={classes.head}>
@@ -106,19 +77,16 @@ const FilterMenuItem = ({ title, options, selectedOptions, handleCheckboxChange,
               ) :
               (
                 options.map(option => (
-                  <label 
-                    className={classes.item} 
-                    key={option._id} 
-                  >
-                    <input 
+                  <label className={classes.item} key={option._id}>
+                    <input
                       type='checkbox' 
-                      value={getOptionName(option)}
-                      name={getOptionNameTranslated(option)}
-                      checked={selectedOptions.includes(getOptionName(option))}
+                      value={getOptionName(option, filterName)}
+                      name={getOptionNameTranslated(option, filterName, locale)}
+                      checked={selectedOptions.includes(getOptionName(option, filterName))}
                       onChange={handleCheckboxChange}
                     />
                     {
-                      capitilizeFirstLetter(getOptionNameTranslated(option))
+                      capitilizeFirstLetter(getOptionNameTranslated(option, filterName, locale))
                     }
                   </label>
                 ))

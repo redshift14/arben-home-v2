@@ -1,25 +1,32 @@
-import { client, urlFor } from '../../lib/client'
-import MainLayout from '../../components/Checkout/MainLayout'
+import useSWR from 'swr'
+import dynamic from 'next/dynamic'
+import { Suspense } from 'react'
 
-const Checkout = ({ layoutInfo }) => {
+import { fetchDocumentByType } from '../../lib/client'
+import Loading from '../../components/Loading'
+
+const MainLayout = dynamic(() => import('../../components/Checkout/MainLayout'), {
+  loading: () => <Loading />
+})
+
+const Checkout = () => {
+
+  const { data, error, isLoading } = useSWR('layout', () => fetchDocumentByType('layout'))
+
   return (
     <>
-      <MainLayout 
-        imageSrc={urlFor(layoutInfo.checkoutPageShowcaseImage).url()}  
-        deliveryNotes={layoutInfo.deliveryNotes}
-      />
+      {
+        error ? ( <div>Failed to fetch the content</div>) : 
+        isLoading ? ( <Loading />) : 
+        <Suspense fallback={<Loading />}>
+          <MainLayout 
+            imageInfo={data.checkoutPageShowcaseImage}  
+            deliveryNotes={data.deliveryNotes}
+          />
+        </Suspense>
+      }
     </>
   )
 }
 
 export default Checkout
-
-export const getStaticProps = async () => {
-  const layoutQuery = '*[_type == "layout"]{checkoutPageShowcaseImage, deliveryNotes}[0]'
-
-  const layoutInfo = await client.fetch(layoutQuery) 
-
-  return {
-    props: { layoutInfo }
-  }
-}

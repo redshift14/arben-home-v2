@@ -4,9 +4,7 @@ import { urlFor } from '../../lib/client'
 
 import classes from './SummaryCard.module.css'
 
-const SummaryCard = ({ cartItems, totalPrice }) => {
-
-  const { locale } = useRouter()
+const SummaryCard = ({ cartItems, totalPrice, locale }) => {
 
   const textDirection = locale == 'ar-DZ' ? 'right' : 'left'
 

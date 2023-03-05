@@ -1,8 +1,31 @@
-.swiperWrapper {
+.slider {
+  position: relative;
   margin-top: var(--nav-height);
+  width: 100%;
+  overflow: hidden;
+  height: calc(100vh - 80px);
 }
-.swiperNavPrev, 
-.swiperNavNext {
+.slide {
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: translateX(100%);
+  transition: transform 0.3s ease;
+}
+.active {
+  display: block;
+  transform: translateX(0);
+  z-index: 1;
+}
+.next {
+  display: block;
+  transform: translateX(100%);
+}
+.prev {
+  display: block;
+  transform: translateX(-100%);
+}
+.arrow {
   top: 50%;
   position: absolute;
   transform: translateY(-50%);
@@ -16,17 +39,17 @@
   opacity: 0;
   transition: opacity 300ms;
 }
-.swiperWrapper:hover .swiperNavNext {
-  opacity: 1;
+.arrow_next {
+  right: 0;
+  transform: rotate(-90deg);
 }
-.swiperWrapper:hover .swiperNavPrev {
-  opacity: 1;
-}
-.swiperNavPrev {
+.arrow_prev {
   left: 0;
   transform: rotate(90deg);
 }
-.swiperNavNext {
-  right: 0;
-  transform: rotate(-90deg);
+.slider:hover .arrow_next {
+  opacity: 1;
+}
+.slider:hover .arrow_prev {
+  opacity: 1;
 }

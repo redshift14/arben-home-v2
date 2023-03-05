@@ -12,7 +12,7 @@ const NotFoundPage = () => {
 
   return (
     <div className={classes.main}>
-      <Image src={errorImage} /> 
+      <Image priority src={errorImage} alt='error 404' /> 
       <h2>
         {
           locale === 'ar-DZ' ? 'يبدو أنك تائه' : locale === 'fr-FR' ? 'On dirait que tu es perdu' : 'Looks like you are lost'

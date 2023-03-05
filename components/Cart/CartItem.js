@@ -23,7 +23,7 @@ const CartItem = ({ product }) => {
   return (
     <div className={classes.main}>
       <div className={classes.image_container}>
-        <Image {...imageProps} alt='product image' />
+        <Image {...imageProps} alt={`${name.en} product`} priority />
       </div>
       <div className={classes.content}>
         <div className={classes.top}>

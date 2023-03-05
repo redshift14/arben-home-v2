@@ -1,25 +1,27 @@
-import { client, urlFor } from '../../lib/client'
+import dynamic from 'next/dynamic'
+import useSWR from 'swr'
+import { Suspense } from 'react'
 
-import FaqsList from '../../components/Faq/FaqsList'
+import { fetchDocumentByType } from '../../lib/client'
+import Loading from '../../components/Loading'
 
-const Faq = ({ layoutInfo }) => {
+const FaqsList = dynamic(() => import('../../components/Faq/FaqsList'))
+
+const Faq = () => {
+
+  const { data, error, isLoading } = useSWR('layout', () => fetchDocumentByType('layout'))
 
   return (
-    <FaqsList
-      data={layoutInfo.faqPage.questionsAndAnswers}
-      imageSrc={urlFor(layoutInfo.faqPage.showcaseImage).url()}
-    />
+    <>
+      {
+        error ? ( <div>Failed to fetch the content</div>) : 
+        isLoading ? ( <Loading />) : 
+        <Suspense fallback={<Loading />}>
+          <FaqsList data={data.faqPage} />
+        </Suspense>
+      }
+    </>
   )
 }
 
 export default Faq
-
-export const getStaticProps = async () => {
-  const layoutQuery = '*[_type == "layout"]{faqPage}[0]'
-
-  const layoutInfo = await client.fetch(layoutQuery) 
-
-  return {
-    props: { layoutInfo }
-  }
-}

@@ -1,13 +1,30 @@
-import CategoryPage from '../../components/Categories/CategoryPage'
+import dynamic from 'next/dynamic'
+import { Suspense } from 'react'
+import useSWR from 'swr'
 
-import { client, urlFor } from '../../lib/client'
+const CategoryPage = dynamic(() => import('../../components/Categories/CategoryPage'))
+
+import Loading from '../../components/Loading'
+
+import { client, fetchDocumentByType } from '../../lib/client'
 import { getSortingOptions } from '../../lib/helpers/backendPropsGetters'
 
-const Category = ({ products, layoutInfo }) => {
+const Category = ({ products, cat }) => {
+
+  const { data, error, isLoading } = useSWR('layout', () => fetchDocumentByType('layout'))
+
   return (
-    <CategoryPage 
-      products={products} imageSrc={urlFor(layoutInfo.aboutPageShowcaseImage).url()}  
-    />
+    <>
+      {
+        error ? ( <div>Failed to fetch the content</div>) : 
+        isLoading ? ( <Loading />) : 
+        <Suspense fallback={<Loading />}>
+          <CategoryPage 
+            products={products} imageData={data.aboutPageShowcaseImage} currentCat={cat} 
+          />
+        </Suspense>
+      }    
+    </>
   )
 }
 
@@ -16,9 +33,7 @@ export default Category
 
 export const getServerSideProps = async (context) => {
 
-  const layoutQuery = '*[_type == "layout"]{aboutPageShowcaseImage}[0]'
-
-  const layoutInfo = await client.fetch(layoutQuery) 
+  context.res.setHeader('Cache-control', 's-maxage=20, stale-while-revalidate=60' )
 
   const { params, query } = context
 
@@ -33,6 +48,6 @@ export const getServerSideProps = async (context) => {
   const products = await client.fetch(productsQuery)
 
   return {
-    props: { products, layoutInfo }
+    props: { products, cat }
   }
 }

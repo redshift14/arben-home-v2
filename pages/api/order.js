@@ -22,14 +22,12 @@ const handler = async (req, res) => {
         ...generateNotificationEmailContent(data),
         subject: 'New order notification'
       })
-
     }
     catch(err) {
       console.log(err.message)
       return res.status(400).json({ message: err.message })  
     }
   }
-
 }
 
 export default handler

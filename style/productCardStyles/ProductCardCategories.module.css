@@ -14,11 +14,12 @@
 .image_part {
   width: 100%;
   height: 600px;
-  background-size: cover;
-  background-position: center;
   border-top-left-radius: 8px;
   border-top-right-radius: 8px;
-  transition: all .8s ease;
+}
+.image_part img {
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
 }
 .state_box {
   position: absolute;

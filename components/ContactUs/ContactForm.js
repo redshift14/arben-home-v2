@@ -1,11 +1,19 @@
 import { useState } from 'react'
 import { useRouter } from 'next/router'
+import { useNextSanityImage } from 'next-sanity-image'
 import Image from 'next/image'
+import dynamic from 'next/dynamic'
 
-import toast from 'react-hot-toast'
-import { contactInputs } from './inputs'
+import Notifier from '../Notifier'
 
-import FormElement from './FormElement'
+import { client } from '../../lib/client'
+import { contactInputs } from '../../lib/data/contactInputs'
+
+import Loading from '../Loading'
+
+const FormElement = dynamic(() => import('./FormElement'), {
+  loading: () => <Loading />
+})
 
 import { checkName, checkValidEmail, checkAddress, checkIndividualInput } from '../../lib/helpers/formCheckers'
 
@@ -13,11 +21,15 @@ import loadingGif from '../../public/assets/icons/Rolling-1s-200px.gif'
 
 import classes from './ContactForm.module.css'
 
-const ContactForm = ({ imageSrc }) => {
+const ContactForm = ({ imageData }) => {
 
   const { locale } = useRouter()
 
-  const [loading, setLoading] = useState(false)
+  const [notifier, setNotifier] = useState({
+    show: false, 
+    success: true,
+    message: ''
+  })
 
   const [inputs, setInputs] = useState(contactInputs)
 
@@ -28,11 +40,12 @@ const ContactForm = ({ imageSrc }) => {
     message: '',
   })
 
+  const [loading, setLoading] = useState(false)
+
   const checkFunctions = [checkName, checkValidEmail, checkAddress, checkAddress]
 
   const initializeValues = () => {
     setLoading(false)
-
     setValues({
       name: '',
       subject: '',
@@ -73,29 +86,17 @@ const ContactForm = ({ imageSrc }) => {
         initializeValues()
 
         if (res.ok) {
-
           const successText = locale === 'ar-DZ' ? 'تم إرسال رسالتك' : locale === 'fr-FR' ? 'Votre message a été envoyé!' : 'Your message has been sent!'
-
-          toast.success(successText, { 
-            duration: 4000,
-            style: {
-              boxShadow: '1px 2px 5px 1px rgba(0, 0, 0, 0.10)',
-              fontSize: '18px',
-              padding: '5px 10px'
-            }
-          })
+          setNotifier({ show: true, success: true, message: successText })
         }
         else {
           const failureText = locale === 'ar-DZ' ? 'حدث خطأ ما' : locale === 'fr-FR' ? "Quelque chose s'est mal passé" : 'Something went wrong'
-          toast.error(failureText, { 
-            duration: 4000,
-            style: {
-              boxShadow: '1px 2px 5px 1px rgba(0, 0, 0, 0.10)',
-              fontSize: '18px',
-              padding: '5px 10px'
-            }
-          })
+          setNotifier({ show: true, success: false, message: failureText})
         }
+
+        setTimeout(() => {
+          setNotifier({...notifier, show: false})
+        }, 4000)
       }
       catch(err) {
         initializeValues()
@@ -104,10 +105,23 @@ const ContactForm = ({ imageSrc }) => {
     }
   } 
 
+  const imageProps = useNextSanityImage(client, imageData)
+
   return (  
     <div className={classes.main}>
-      <div className={classes.showcase_container} style={{ backgroundImage: `url('${imageSrc}')` }}>
-        <h2>{ locale == 'ar-DZ' ? 'تواصلوا معنا' : locale == 'fr-FR' ? 'Contactez-nous' : 'Contact us' }</h2>
+      <div className='showcase-with-bg-image'>
+        <Image 
+          {...imageProps} 			
+          style={{ width: '100%', height: '100%', objectFit:'cover' }} 
+          loader={imageProps.loader}
+          alt='bed sheets black and white'
+          priority
+        />
+        <h2>
+          { 
+            locale == 'ar-DZ' ? 'تواصلوا معنا' : locale == 'fr-FR' ? 'Contactez-nous' : 'Contact us'
+          }
+        </h2>
       </div>
       <form className={classes.form}>
         <h3>
@@ -128,11 +142,14 @@ const ContactForm = ({ imageSrc }) => {
         </div>
         <button type='submit' onClick={handleSubmit}>
           {
-            loading ? <Image src={loadingGif} alt='loading' /> :
+            loading ? <Image src={loadingGif} alt='loading' priority /> :
             locale == 'ar-DZ' ? 'إرسال' : locale == 'fr-FR' ? 'Envoyer le message' : 'Send message'
           }
         </button>
       </form>
+       {
+        notifier.show && <Notifier message={notifier.message} success={notifier.success} />
+       }
     </div>
   )
 }

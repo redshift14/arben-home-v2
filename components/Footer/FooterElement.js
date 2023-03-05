@@ -1,10 +1,7 @@
 import Link from 'next/link'
-import { useRouter } from 'next/router'
 import classes from './FooterElement.module.css'
 
-const FooterElement = ({ title, links }) => {
-
-  const { locale } = useRouter()
+const FooterElement = ({ title, links, locale }) => {
 
   return (
     <div className={classes.main}> 

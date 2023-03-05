@@ -2,8 +2,8 @@ import { useRouter } from 'next/router'
 import { useEffect } from 'react'
 import { BsChevronLeft, BsChevronRight } from 'react-icons/bs'
 
-import { paginate, nextPage, prevPage } from '../../lib/helpers/PaginationFunctions'
-import classes from './Pagination.module.css'
+import { paginate, nextPage, prevPage } from '../lib/helpers/PaginationFunctions'
+import classes from '../style/Pagination.module.css'
 
 const Pagination = ({ productsPerPage, totalProducts, setCurrentPage, currentPage }) => {
 

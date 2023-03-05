@@ -1,9 +1,6 @@
-import { useRouter } from 'next/router'
 import classes from './AboutSection.module.css'
 
-const AboutSection = ({ data }) => {
-
-  const { locale } = useRouter()
+const AboutSection = ({ data, locale }) => {
 
   return (
     <section className={classes.main}>

@@ -1,11 +1,8 @@
-import { useRouter } from 'next/router'
 import classess from './CartQuantityLabel.module.css'
 
 import { useStateContext } from '../../context/stateContext'
 
-const CartQuantityLabel = () => {
-
-  const { locale } = useRouter()
+const CartQuantityLabel = ({ locale }) => {
 
   const { cartItems, totalQuantities } = useStateContext()
 

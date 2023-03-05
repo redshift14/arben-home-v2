@@ -8,7 +8,7 @@ const FilterMenuContent = () => {
   
   const { locale } = useRouter()
 
-  const { handleFilterOptionsChange, selectedCategories, setSelectedCategories,  selectedMaterials, setSelectedMaterials, selectedColors, setSelectedColors, selectedStyles, setSelectedStyles, setSelectedAllFiltersWithTranslation, allCategories, allMaterials, allColors, allStyles } = useStateContext()
+  const { handleFilterOptionsChange, selectedCategories, setSelectedCategories,  selectedMaterials, setSelectedMaterials, selectedColors, setSelectedColors, selectedStyles, setSelectedStyles, allCategories, allMaterials, allColors, allStyles } = useStateContext()
   
   const titles = [
     locale === 'ar-DZ' ? 'الصنف' : locale === 'fr-FR' ? 'Catégorie' : 'Category',

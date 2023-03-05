@@ -1,23 +1,33 @@
 import { useState } from 'react'
 import { useRouter } from 'next/router'
+import dynamic from 'next/dynamic'
 
-import { toast } from 'react-hot-toast'
+import Image from 'next/image'
+import { useNextSanityImage } from 'next-sanity-image'
 
-import ShippingInfo from './ShippingInfo'
-import SummaryCard from './SummaryCard'
-import EmptyCart from './EmptyCart'
+import Notifier from '../Notifier'
+
+const ShippingInfo = dynamic(() => import('./ShippingInfo'))
+const SummaryCard = dynamic(() => import('./SummaryCard'))
+const EmptyCart = dynamic(() => import('./EmptyCart'))
 
 import { client } from '../../lib/client'
 
-import { orderInputs } from './inputs'
+import { orderInputs } from '../../lib/data/orderInputs'
 import { useStateContext } from '../../context/stateContext'
 import { checkName, checkIfAlgerianPhoneNumber, checkValidEmail, checkAddress, checkIndividualInput } from '../../lib/helpers/formCheckers'
 
 import classes from './MainLayout.module.css'
 
-const MainLayout = ({ imageSrc, deliveryNotes }) => {
+const MainLayout = ({ imageInfo, deliveryNotes }) => {
 
   const { locale } = useRouter()
+
+  const [notifier, setNotifier] = useState({
+    show: false, 
+    success: true,
+    message: ''
+  })
 
   const [selectedWilaya, setSelectedWilaya] = useState('0')
   const [selectedCommune, setSelectedCommune] = useState('1')
@@ -47,7 +57,6 @@ const MainLayout = ({ imageSrc, deliveryNotes }) => {
 
   const initializeValues = () => {
     setLoading(false)
-
     setValues({
       firstName: '',
       lastName: '',
@@ -56,7 +65,6 @@ const MainLayout = ({ imageSrc, deliveryNotes }) => {
       email: '',
       notes: '' 
     })
-    
     setCartItems([])
     setTotalPrice(0)
     setTotalQuantities(0)
@@ -66,17 +74,20 @@ const MainLayout = ({ imageSrc, deliveryNotes }) => {
 
     e.preventDefault()
 
+    setLoading(true)
+
     const res = await client.delete({query: '*[_type=="order"]'})
     
     let errors = 0
     
+    // check wilaya only, if no commune it defaults to first one
     if (selectedWilaya == '0') {
       setWilayaError(true)
       setTimeout(() => {
         setWilayaError(false)
       }, 3000)
     }
-
+    // check other inputs starting from the bottom after wilaya
     else {
       for (let i = 0; i < inputs.length-1; i++) {
         if (!checkFunctions[i](values[inputs[i].name], locale)) {
@@ -86,9 +97,8 @@ const MainLayout = ({ imageSrc, deliveryNotes }) => {
       }
     }
 
+    // if no errors 
     if (errors === 0 && selectedWilaya != '0') {
-
-      setLoading(true)
 
       // products in order array to insert in order document
       const productsInOrder = cartItems.map((item, index) => {
@@ -126,16 +136,12 @@ const MainLayout = ({ imageSrc, deliveryNotes }) => {
 
       try {
         // creating order document
-        const orderRes = await client.create({
-          ...newOrder,
-          _type: 'order'
-        })
+        const orderRes = await client.create({...newOrder, _type: 'order'})
 
-        if(orderRes) {
+        if (orderRes) {
+
           const productsIDs = orderRes.product.map(p => ( p.productID ))
-  
           const modelsKeys = orderRes.product.map(p => ( p.modelKey ))
-  
           const defaultQuantities = orderRes.product.map(p => ( p.quantity ))
   
           const docs = await client.getDocuments(productsIDs)
@@ -170,7 +176,6 @@ const MainLayout = ({ imageSrc, deliveryNotes }) => {
             })
           })
 
-
           // Next, loop through the array again and set the bigger quantity to be equal to the smaller - chatgpt function
           updatedModels.forEach(subarray => {
             subarray.forEach(obj => {
@@ -187,9 +192,11 @@ const MainLayout = ({ imageSrc, deliveryNotes }) => {
               }
             })
           })
+
           const updatedDocs = docs.map(async(doc, index) => {
             return await client.patch(doc._id).set({ models: updatedModels[index] }).commit()
           })
+
           if (updatedDocs) {
   
             orderRes.emailLang = locale
@@ -204,17 +211,10 @@ const MainLayout = ({ imageSrc, deliveryNotes }) => {
             })
   
             if (emailRes.ok) {
-              const successText = locale === 'ar-DZ' ? 'تم ايداع طلبك، سوف يصلك قريبا بريد الكتروني يحتوي تفاصيل طلبك' : locale === 'fr-FR' ? 'Votre commande a été émise!, un e-mail avec les détails complets de la commande vous sera envoyé' : 'Your order has been issued!, an email with full order details will be sent to you'
+
+              const successText = locale === 'ar-DZ' ? 'تم ايداع طلبك، سوف يصلك قريبا بريد الكتروني يحتوي تفاصيل طلبك' : locale === 'fr-FR' ? 'Votre commande a été émise! un e-mail avec les détails complets de la commande vous sera envoyé' : 'Your order has been issued! an email with full order details will be sent to you'
     
-              toast.success(successText, { 
-                duration: 6000,
-                style: {
-                  boxShadow: '1px 2px 5px 1px rgba(0, 0, 0, 0.10)',
-                  fontSize: '18px',
-                  padding: '10px 15px',
-                  margin: '10px'
-                }
-              })
+              setNotifier({ show: true, success: true, message: successText })
               initializeValues()
             }
           }
@@ -223,33 +223,31 @@ const MainLayout = ({ imageSrc, deliveryNotes }) => {
       catch(err) {
         initializeValues()
         const failureText = locale === 'ar-DZ' ? 'حدث خطأ ما' : locale === 'fr-FR' ? "Quelque chose s'est mal passé" : 'Something went wrong'
-        toast.error(failureText, { 
-          duration: 4000,
-          style: {
-            boxShadow: '1px 2px 5px 1px rgba(0, 0, 0, 0.10)',
-            fontSize: '18px',
-            padding: '5px 10px'
-          }
-        })
+        setNotifier({ show: true, success: false, message: failureText})
         console.log(err)
       }
     }
+    setTimeout(() => {
+      setNotifier({...notifier, show: false})
+    }, 7000)
   }
+
+  const imageProps = useNextSanityImage(client, imageInfo)
 
   return (
     <div className={classes.main}>
       {
         cartItems.length <= 0 ? <EmptyCart /> :
         <>
-          <div 
-            className={classes.showcase_container} 
-            style={{ backgroundImage: `url('${imageSrc}')` }}
-          >
-            <h2>
-              {
-                locale == 'ar-DZ' ? 'الدفع' : locale == 'fr-FR' ? 'Caisse' : 'Checkout'
-              }
-            </h2>
+          <div className='showcase-with-bg-image'>
+            <Image 
+              {...imageProps} 			
+              style={{ width: '100%', height: '100%', objectFit:'cover' }} 
+              loader={imageProps.loader}
+              alt='bed sheets black and white'
+              priority
+            />
+            <h2>{locale == 'ar-DZ' ? 'الدفع' : locale == 'fr-FR' ? 'Caisse' : 'Checkout'}</h2>
           </div>
           <div className={classes.layout}>
             <ShippingInfo 
@@ -263,8 +261,9 @@ const MainLayout = ({ imageSrc, deliveryNotes }) => {
               wilayaError={wilayaError}
               setSelectedCommune={setSelectedCommune}
               setSelectedWilaya={setSelectedWilaya}
+              locale={locale}
             />
-            <SummaryCard cartItems={cartItems} totalPrice={totalPrice} />
+            <SummaryCard cartItems={cartItems} totalPrice={totalPrice} locale={locale} />
           </div>
           <div className={classes.content}>
             <div className={classes.shipping_notes_container}>
@@ -281,6 +280,9 @@ const MainLayout = ({ imageSrc, deliveryNotes }) => {
             </div>
           </div>
         </>
+      }
+      {
+        notifier.show && <Notifier message={notifier.message} success={notifier.success} />
       }
     </div>
   )

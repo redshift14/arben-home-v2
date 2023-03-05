@@ -1,31 +1,77 @@
+import { useState, useEffect, useRef } from 'react'
 import { useRouter } from 'next/router'
 
+import { HiOutlineFilter } from 'react-icons/hi' 
+
 import ProductCard from './ProductCard'
-import CustomSortingSelect from './Products/CustomSortingSelect'
+import CustomSortingSelect from './CustomSortingSelect'
+import FiltersSidebar from './Products/FiltersSidebar'
 
 import searchClasses from '../style/productsCardsStyles/ProductsCardsSearch.module.css'
 import categoriesClasses from '../style/productsCardsStyles/ProductsCardsCategories.module.css'
 
 import { getPageTitle } from '../lib/helpers/generalFunctions'
 
-const ProductsCards = ({searchPage, categoryPage, relatedPage, products, totalItems}) => {
+const ProductsCards = ({searchPage, categoryPage, relatedPage, products, totalItems, currentCat}) => {
   
-  const { main, head, search_options_container, search_options_text, cards } = categoryPage ? categoriesClasses : searchClasses
+  const { main, head, search_options_container, search_options_text, cards, sidebar_icon_container, sidebar_icon, sidebar_container, sidebar_container_ar, sidebar_container_hidden, sidebar_container_hidden_ar, overlay, title } = categoryPage ? categoriesClasses : searchClasses
 
   const { locale, asPath } = useRouter()
+
+  const [windowWidth, setWindowWidth] = useState()
+
+  useEffect(() => {
+    setWindowWidth(window.innerWidth)
+    const handleResize = () => {
+      setWindowWidth(window.innerWidth)
+    }
+    window.addEventListener('resize', handleResize)
+    return _ => {
+      window.removeEventListener('resize', handleResize)
+    }
+  },[windowWidth])
+
+  const [showSidebar, setShowSidebar] = useState(false)
+
+  const handleCloseSidebar = () => {
+    setShowSidebar(false)
+  }
+  const handleShowSidebar = () => {
+    setShowSidebar(true)
+  }
 
   return (
     <div className={main}>
       <div className={head}>
-        <h1>
-          { getPageTitle(categoryPage, asPath, locale) }
-        </h1>
+        { 
+          !searchPage && 
+          <h1 className={title}>
+            { getPageTitle(categoryPage, asPath, locale) }
+          </h1> }
+        { 
+          searchPage && windowWidth > 1000 && 
+          <h1 className={title}>{ getPageTitle(categoryPage, asPath, locale) }</h1> 
+        }
+        {
+          searchPage && windowWidth < 1000 &&
+          <div className={sidebar_icon_container}>
+            <HiOutlineFilter className={sidebar_icon} onClick={handleShowSidebar} />
+          </div>
+        }
+        {
+          searchPage &&
+          <div
+            className={locale === 'ar-DZ' ? (showSidebar ? sidebar_container_ar : `${sidebar_container_hidden_ar} ${sidebar_container_ar}`) : (showSidebar ?sidebar_container : `${sidebar_container} ${sidebar_container_hidden}`)} 
+          >
+            <FiltersSidebar locale={locale} handleCloseSidebar={handleCloseSidebar} />
+          </div>
+        }
         <div className={search_options_container}>
           <p className={search_options_text}>
             { totalItems }
             { locale === 'ar-DZ' ? ' عناصر' : locale === 'fr-FR' ? ' éléments' : ' items' }
           </p>
-          <CustomSortingSelect categoryPage={categoryPage} />
+          <CustomSortingSelect categoryPage={categoryPage} currentCat={currentCat} />
         </div>
       </div>
       <div className={cards}>
@@ -43,11 +89,13 @@ const ProductsCards = ({searchPage, categoryPage, relatedPage, products, totalIt
                 categoryPage={categoryPage}  
                 relatedPage={relatedPage}
                 searchPage={searchPage}
+                locale={locale}
               />
             )
           })
         }
       </div>
+      { showSidebar && <div className={overlay}></div> }
     </div>
   )
 }

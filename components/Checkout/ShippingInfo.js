@@ -1,22 +1,20 @@
 import { useState, useEffect } from 'react'
-import { useRouter } from 'next/router'
 import Image from 'next/image'
+import dynamic from 'next/dynamic'
 
-import wilayas from './wilayaAlgeria.json'
-import communes from './communeAlgeria.json'
+import wilayas from '../../lib/data/wilayaAlgeria.json'
+import communes from '../../lib/data/communeAlgeria.json'
 
-import FormElement from './FormElement'
+const FormElement = dynamic(() => import('./FormElement'))
 
 import loadingGif from '../../public/assets/icons/Rolling-1s-200px.gif'
 
 import classes from './ShippingInfo.module.css'
 
 const ShippingInfo = ({ 
-  selectedWilaya, wilayaError, selectedCommune, setSelectedWilaya, setSelectedCommune, inputs, values, handleChange, handleSubmit, loading
+  selectedWilaya, wilayaError, selectedCommune, setSelectedWilaya, setSelectedCommune, inputs, values, handleChange, handleSubmit, loading, locale
 }) => {
   
-  const { locale } = useRouter()
-
   const [communeList, setCommuneList] = useState([])
 
   const handleWilayaChange = (e) => {

@@ -1,38 +1,12 @@
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
 
-import classes from './CustomSortingSelect.module.css'
+import { sortingOptions } from '../lib/data/sortingOptions'
+import classes from '../style/CustomSortingSelect.module.css'
 
-const options = [
-  {
-    id: 'newest',
-    ar: 'الأحدث',
-    fr: 'Les plus récent',
-    en: 'Newest'
-  },
-  {
-    id: 'alphabetically',
-    ar: 'أبجدياً',
-    fr: 'Alphabétiquement',
-    en: 'Alphabetically'
-  },
-  {
-    id: 'priceDecroissant',
-    ar: 'السعر الأعلى الى الأدنى',
-    fr: 'Prix : décroissant',
-    en: 'Price: high to low'
-  },
-  {
-    id: 'priceCroissant',
-    ar: 'السعر الأدنى الى الأعلى',
-    fr: 'Prix: ​​croissant',
-    en: 'Price: low to high'
-  }
-]
+const CustomSortingSelect = ({ categoryPage, currentCat }) => {
 
-const CustomSortingSelect = ({ categoryPage }) => {
-
-  const { locale, query, asPath } = useRouter()
+  const { locale, query } = useRouter()
 
   const router = useRouter()
 
@@ -40,7 +14,7 @@ const CustomSortingSelect = ({ categoryPage }) => {
   const [selectedOption, setSelectedOption] = useState('')
 
   useEffect(() => {
-    const defaultOption = locale === 'ar-DZ' ? options[0].ar : locale === 'fr-FR' ? options[0].fr : options[0].en
+    const defaultOption = locale === 'ar-DZ' ? sortingOptions[0].ar : locale === 'fr-FR' ? sortingOptions[0].fr : sortingOptions[0].en
     setSelectedOption(defaultOption)
   }, [ locale ])
 
@@ -58,7 +32,7 @@ const CustomSortingSelect = ({ categoryPage }) => {
         showList && (
           <ul className={classes.list}> 
             {
-              options.map((option) => (
+              sortingOptions.map((option) => (
                 <li 
                   className={classes.item} 
                   key={option.id} 
@@ -66,7 +40,7 @@ const CustomSortingSelect = ({ categoryPage }) => {
                     setSelectedOption(locale === 'ar-DZ' ? option.ar : locale === 'fr-FR' ? option.fr : option.en)
                     setShowList(false)
                     if (categoryPage) {
-                      router.push({ pathname: asPath, query: { ...query, sorting: option.id } })
+                      router.push({ pathname: `/category/${currentCat}`, query: { sorting: option.id } })
                     } else {
                       router.push({ pathname: '/products', query: { ...query, sorting: option.id } })
                     }

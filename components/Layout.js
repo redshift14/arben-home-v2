@@ -1,18 +1,14 @@
 import { useRouter } from 'next/router'
+import dynamic from 'next/dynamic'
+
 import Head from 'next/head'
 
-import Cart from './Cart/Cart'
-import Navbar from './Navbar/Navbar'
-import Sidebar from './Navbar/Sidebar'
-import FiltersSidebar from './Products/FiltersSidebar'
-
-import Bottombar from './Navbar/Bottombar'
-import Footer from './Footer/Footer'
-import CartQuantityLabel from './Cart/CartQuantityLabel'
+const Navbar = dynamic(() => import('./Navbar/Navbar'))
+const Footer = dynamic(() => import('./Footer/Footer'))
 
 const Layout = ({ children }) => {
 
-  const { locale, pathname } = useRouter()
+  const { locale } = useRouter()
 
   return (
     <div dir={ locale == 'ar-DZ' ? 'rtl' : 'ltr' }>
@@ -20,12 +16,7 @@ const Layout = ({ children }) => {
         <title>Arben Home</title>
       </Head>
       <header>
-        <Cart />
-        <CartQuantityLabel />
-        <Sidebar />
-        { pathname === '/products' && <FiltersSidebar /> }
         <Navbar />
-        <Bottombar />
       </header>
       <main>
         { children }

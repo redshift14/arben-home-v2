@@ -2,18 +2,20 @@
   margin-top: var(--nav-height);
   min-height: calc(100vh - var(--footer-height) - var(--nav-height));
 }
-.showcase_container {
+.showcase {
   height: 280px;
-  background-size: cover;
-  background-position: center;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  position: relative;
 }
-.showcase_container h2 {
+.showcase h2 {
   color: white;
   font-size: 38px;
   font-weight: 600;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: max-content;
+  height: auto;
+  transform: translate(-50%, -50%);
 }
 .content {
   padding: 40px 60px;
@@ -33,7 +35,7 @@
   }
 }
 @media only screen and (max-width: 500px) {
-  .showcase_container h2 {
+  .showcase h2 {
     color: white;
     font-size: 28px;
   }

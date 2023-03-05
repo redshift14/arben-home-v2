@@ -1,41 +1,10 @@
-import { useRef, useState, useEffect } from 'react'
-
 import { useRouter } from 'next/router'
-import { Swiper, SwiperSlide } from 'swiper/react'
-import { Navigation, Autoplay, Pagination } from 'swiper'
-
-import 'swiper/css'
-import 'swiper/css/pagination'
-
+import ProductCard from '../ProductCard'
 import classes from './RelatedProducts.module.css'
 
-import ProductCard from '../ProductCard'
-
-import arrowIcon from '../../public/assets/icons/arrow.png'
-
-const RelatedProducts = ({ products }) => {
+const RelatedProducts1 = ({ products }) => {
 
   const { locale } = useRouter()
-
-  const [windowWidth, setWindowWidth] = useState()
-
-  useEffect(() => {
-    setWindowWidth(window.innerWidth)
-
-    const handleResize = () => {
-      setWindowWidth(window.innerWidth)
-    }
-
-    window.addEventListener('resize', handleResize)
-
-    return _ => {
-      window.removeEventListener('resize', handleResize)
-    }
-
-  },[windowWidth])
-
-  const swiperPrevRef = useRef(null)
-  const swiperNextRef = useRef(null)
 
   return (
     products.length > 0 &&
@@ -47,56 +16,27 @@ const RelatedProducts = ({ products }) => {
         }
       </h2>
       <hr className={classes.seperator} />
-      <Swiper 
-        slidesPerView={
-          windowWidth > 3500 ? 6 : 
-          windowWidth > 1750 && windowWidth < 3500 ? 5 : 
-          windowWidth < 1750 && windowWidth > 1250 ? 4 : 
-          windowWidth < 1250 && windowWidth > 850 ? 3 : 
-          windowWidth < 850 && windowWidth > 540 ? 2 : 1
-        }
-        centeredSlides={windowWidth <= 400}
-        modules={[Navigation, Autoplay]}
-        navigation={{
-          prevEl: swiperPrevRef.current,
-          nextEl: swiperNextRef.current
-        }}
-        className={classes.swiper_main_wrapper}
-        onInit={(swiper) => {
-          swiper.params.navigation.prevEl = swiperPrevRef.current
-          swiper.params.navigation.nextEl = swiperNextRef.current
-          swiper.navigation.init()
-          swiper.navigation.update()
-        }}
-        dir='ltr'
-      >
+      <div className={classes.cards}>
         {
           products.map(product =>  {
-
             const { _id, slug, name, models, images } = product
-
             return (
-              <SwiperSlide key={_id} className={classes.swiperSlide}>
-                <ProductCard 
-                  slug={slug}
-                  title={locale == 'fr-FR' ? name.fr : locale == 'ar-DZ' ? name.ar : name.en}
-                  models={models}
-                  coverImage1={images[0]}
-                  coverImage2={images[1]}
-                  searchPage={false}
-                  relatedPage={true}
-                  categoriesPage={false}
-                />
-              </SwiperSlide>
+              <ProductCard 
+                key={_id}
+                slug={slug}
+                title={locale == 'fr-FR' ? name.fr : locale == 'ar-DZ' ? name.ar : name.en}
+                models={models}
+                coverImage1={images[0]}
+                coverImage2={images[1]}
+                relatedPage={true}
+                locale={locale}
+              /> 
             )
           }) 
         }
-
-        <div className={classes.swiperNavPrev} ref={swiperPrevRef} style={{ backgroundImage: `url(${arrowIcon.src})` }}></div>
-        <div className={classes.swiperNavNext} ref={swiperNextRef} style={{ backgroundImage: `url(${arrowIcon.src})` }}></div>
-      </Swiper>
+      </div>
     </div>
   )
 }
 
-export default RelatedProducts
+export default RelatedProducts1

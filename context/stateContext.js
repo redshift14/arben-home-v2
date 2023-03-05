@@ -111,9 +111,6 @@ export const StateContext = ({ children }) => {
 
   const addProductToCart = (product, quantity, price, size) => {
 
-    setTotalPrice(prevPrice => prevPrice + price * quantity)
-    setTotalQuantities(prevTotalQuantities => prevTotalQuantities + quantity)
-
     const checkProductInCartAndSameSize = cartItems.find(item => item.id === product.id && item.size === size)
 
     if (checkProductInCartAndSameSize) {
@@ -133,6 +130,8 @@ export const StateContext = ({ children }) => {
       product.size = size
       product.quantity = quantity
       setCartItems([...cartItems, { ...product }])
+      setTotalPrice(prevPrice => prevPrice + price * quantity)
+      setTotalQuantities(prevTotalQuantities => prevTotalQuantities + quantity)
     }
   }
 

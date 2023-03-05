@@ -1,23 +1,27 @@
-import { client, urlFor } from '../../lib/client'
+import dynamic from 'next/dynamic'
+import useSWR from 'swr'
+import { Suspense } from 'react'
 
-import ContactForm from '../../components/ContactUs/ContactForm'
+import { fetchDocumentByType } from '../../lib/client'
+import Loading from '../../components/Loading'
 
-const Contact = ({ layoutInfo }) => {
+const ContactForm = dynamic(() => import('../../components/ContactUs/ContactForm'))
+
+const Contact = () => {
+
+  const { data, error, isLoading } = useSWR('layout', () => fetchDocumentByType('layout'))
+
   return (
     <>
-      <ContactForm imageSrc={urlFor(layoutInfo.contactPageShowcaseImage).url()} />
+      {
+        error ? ( <div>Failed to fetch the content</div>) : 
+        isLoading ? ( <Loading />) : 
+        <Suspense fallback={<Loading />}>
+          <ContactForm imageData={data.contactPageShowcaseImage} />
+        </Suspense>
+      }
     </>
   )
 }
 
 export default Contact
-
-export const getStaticProps = async () => {
-  const layoutQuery = '*[_type == "layout"]{contactPageShowcaseImage}[0]'
-
-  const layoutInfo = await client.fetch(layoutQuery) 
-
-  return {
-    props: { layoutInfo }
-  }
-}

@@ -1,20 +1,27 @@
-import { urlFor, client } from "../../lib/client"
-import AboutPage from "../../components/About/AboutPage"
+import dynamic from 'next/dynamic'
+import useSWR from 'swr'
+import { Suspense } from 'react'
 
-const About = ({ layoutInfo }) => {
+import { fetchDocumentByType } from '../../lib/client'
+import Loading from '../../components/Loading'
+
+const AboutPage = dynamic(() => import('../../components/About/AboutPage'))
+
+const About = () => {
+
+  const { data, error, isLoading } = useSWR('layout', () => fetchDocumentByType('layout'))
+
   return (
-    <AboutPage imageSrc={urlFor(layoutInfo.aboutPageShowcaseImage).url()} />
+    <>    
+      {
+        error ? ( <div>Failed to fetch the content</div>) : 
+        isLoading ? ( <Loading />) : 
+        <Suspense fallback={<Loading />}>
+          <AboutPage data={data.aboutPageShowcaseImage} />
+        </Suspense>
+      }
+    </>
   )
 }
 
 export default About
-
-export const getStaticProps = async () => {
-  const layoutQuery = '*[_type == "layout"]{aboutPageShowcaseImage}[0]'
-
-  const layoutInfo = await client.fetch(layoutQuery) 
-
-  return {
-    props: { layoutInfo }
-  }
-}

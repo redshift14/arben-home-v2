@@ -1,20 +1,16 @@
-import { useRouter } from 'next/router'
-
 import { FaTruck } from 'react-icons/fa'
 import { GiCash } from 'react-icons/gi'
 import { MdOutlinePublishedWithChanges } from 'react-icons/md'
 
 import classes from './Intro.module.css'
 
-const Intro = ({ data }) => {
+const Intro = ({ data, locale }) => {
 
   const iconsArray = [
     <FaTruck className={classes.icon} key={0} />,
     <MdOutlinePublishedWithChanges  className={classes.icon} key={1} />,
     <GiCash className={classes.icon} key={2} />
   ]
-
-  const { locale } = useRouter()
 
   return (
     <section className={classes.main}>

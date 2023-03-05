@@ -13,7 +13,7 @@ This is a complete to the e-commerce website that can be used in production, it 
 
 ## Overview
 
-### Main-owner-functionalities
+### Main owner functionalities
 
 The owner of this wesite should be able to:
 
@@ -23,7 +23,7 @@ The owner of this wesite should be able to:
 - Orders when triggered the quantity and availability of products is managed automatically, with a notification email too
 - Recieve also emails from clients with a contact form
 
-### Main-owner-functionalities
+### Main users functionalities
 
 The user of this wesite should be able to:
 
@@ -35,7 +35,7 @@ The user of this wesite should be able to:
 
 ## Links 
 
-- Live URL: [Vercel]()
+- Live URL: [Vercel](https://arben-home-v2.vercel.app/)
 
 ## Technologies used
 

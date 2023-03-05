@@ -1,13 +1,9 @@
-import { useRouter } from 'next/router'
-
+import dynamic from 'next/dynamic'
 import classes from './Categories.module.css'
-import CategoryCard from './CategoryCard'
 
-import { urlFor } from '../../lib/client'
+const CategoryCard = dynamic(() => import('./CategoryCard'))
 
-const Categories = ({ data }) => {
-
-  const { locale } = useRouter()
+const Categories = ({ data, locale }) => {
 
   const links = ['/category/quilt cover', '/category/pillowcase', '/category/bed sheet']
 
@@ -27,7 +23,8 @@ const Categories = ({ data }) => {
             return (
               <CategoryCard 
                 key={_key}
-                image={urlFor(interfaceCategoryImage).url()} 
+                bgImage={interfaceCategoryImage} 
+                titleEn={interfaceCategoryName.en}
                 title={locale == 'fr-FR' ? interfaceCategoryName.fr : locale == 'ar-DZ' ? interfaceCategoryName.ar : interfaceCategoryName.en} 
                 wide={index === 2}
                 to={links[index]}

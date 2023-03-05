@@ -1,7 +1,7 @@
 import classes from './LanguageSelect.module.css'
 import Image from 'next/image'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useMemo } from 'react'
 import { useRouter } from 'next/router'
 
 import enFlag from '../../public/assets/icons/united.svg'
@@ -10,7 +10,7 @@ import arFlag from '../../public/assets/icons/algeria.svg'
 
 const LanguageSelect = () => {
 
-  const flags = [enFlag, frFlag, arFlag]
+  const flags = useMemo(() => [enFlag, frFlag, arFlag], []) 
 
   const router = useRouter()
   const { pathname, asPath, query } = router

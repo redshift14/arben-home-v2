@@ -6,36 +6,31 @@ import { VscChevronDown } from 'react-icons/vsc'
 import navClasses from './NavItem.module.css'
 import sideClasses from './NavItemSidebar.module.css'
 
-const NavItem = ({ children, linkName, withDropDown, sidebar, to, clickFunction }) => {
+const NavItem = ({ children, linkName, withDropDown, sidebar, to, handleClose, locale }) => {
 
-  const { locale } = useRouter()
-
-  const router = useRouter()
-
-  const { wrapper, wrapper_ar, main, menu_ar, link, chevron, menu, hidden, rotated } = sidebar ? sideClasses : navClasses
+  const { wrapper, wrapper_ar, main, link, chevron, menu, hidden, rotated } = sidebar ? sideClasses : navClasses
 
   const [openMenuSidebar, setOpenMenuSidebar] = useState(false)
 
+  const router = useRouter()
+
   const handleOpenMenuSidebar = () => {
-    if (sidebar) {
-      setOpenMenuSidebar(value => value = !value)
-    }
+    if (sidebar) setOpenMenuSidebar(value => value = !value) 
   }
 
-  const handleRouterPush = (to) => {
-    if (to !== undefined) {
-      if((!sidebar) || (sidebar && !withDropDown) ) {
-        router.push(to)
-      }
-      if (sidebar) {
-        clickFunction()
-      }
+  const handleRouterPush = () => {
+    if (to !== undefined && !withDropDown && sidebar) {
+      router.push(to)
+      handleClose()
+    } 
+    else if(!sidebar && to !== undefined && !withDropDown) {
+      router.push(to)
     }
   }
 
   return (
-    <div className={locale == 'ar-DZ' ? `${wrapper} ${wrapper_ar}` : wrapper} onClick={() => handleRouterPush(to)}>
-      <div className={main}>
+    <div className={locale == 'ar-DZ' ? `${wrapper} ${wrapper_ar}` : wrapper}>
+      <div className={main} onClick={handleRouterPush}>
         <button className={link} onClick={handleOpenMenuSidebar}>
           { linkName }
           { withDropDown && <VscChevronDown className={openMenuSidebar  ? `${chevron} ${rotated}` : chevron } /> }

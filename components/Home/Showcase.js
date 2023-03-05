@@ -1,72 +1,79 @@
-import { Swiper, SwiperSlide } from 'swiper/react'
-import { Navigation, Pagination, Autoplay } from 'swiper'
-import { useRef } from 'react'
-import { useRouter } from 'next/router'
-
-import { urlFor } from '../../lib/client'
-
-import 'swiper/css'
-import 'swiper/css/navigation'
-import 'swiper/css/pagination'
-import 'swiper/css/scrollbar'
+import { useState } from 'react'
+import dynamic from 'next/dynamic'
 
 import arrowIcon from '../../public/assets/icons/arrow.png'
-
-import ShowcaseSlide from './ShowcaseSlide'
 import classes from './Showcase.module.css'
 
-const Showcase = ({ data }) => {
+const ShowcaseSlide = dynamic(() => import('./ShowcaseSlide'))
 
-  const { locale } = useRouter()
+const Showcase = ({ data, locale }) => {
 
-  const swiperPrevRef = useRef(null)
-  const swiperNextRef = useRef(null)
+  const [activeSlide, setActiveSlide] = useState(0)
+
+  const slidesToShow = (data) => {
+    if (data.length === 2) return [...data, ...data]
+    else return data
+  }
+
+  const totalSlides = slidesToShow(data).length
+
+  const handleNextSlide = () => {
+    if (activeSlide < totalSlides - 1) setActiveSlide(prev => prev + 1)
+    else setActiveSlide(0)
+  }
+
+  const handlePrevSlide = () => {
+    if (activeSlide === 0) setActiveSlide(totalSlides-1)
+    else setActiveSlide(prev => prev - 1)
+  }
+
 
   return (
-    <Swiper
-      modules={[Navigation, Pagination, Autoplay]}
-      spaceBetween={0}
-      slidesPerView={1}
-      pagination={{ clickable: true }}
-      loop={true}
-      navigation={{
-        prevEl: swiperPrevRef.current,
-        nextEl: swiperNextRef.current
-      }}
-      className={classes.swiperWrapper}
-      onInit={(swiper) => {
-        swiper.params.navigation.prevEl = swiperPrevRef.current
-        swiper.params.navigation.nextEl = swiperNextRef.current
-        swiper.navigation.init()
-        swiper.navigation.update()
-      }}
-      dir='ltr'
-    >
-      {
-        data.map(slideInfo => {
-          const { _key, coverImage, mainText, secondaryText, } = slideInfo
-          return (
-            <SwiperSlide key={_key}>
-              <ShowcaseSlide 
-                imageSrc={urlFor(coverImage).url()} 
-                titleText={
-                  locale == 'fr-FR' ? mainText.fr : 
-                  locale == 'ar-DZ' ? mainText.ar :
-                  mainText.en
-                }
-                subtitleText={
-                  locale == 'fr-FR' ? secondaryText.fr : 
-                  locale == 'ar-DZ' ? secondaryText.ar :
-                  secondaryText.en
-                }
-              />
-            </SwiperSlide>
-          )
-        })
-      }
-      <div className={classes.swiperNavPrev} ref={swiperPrevRef} style={{ backgroundImage: `url(${arrowIcon.src})` }}></div>
-      <div className={classes.swiperNavNext} ref={swiperNextRef} style={{ backgroundImage: `url(${arrowIcon.src})` }}></div>
-    </Swiper>
+    <div className={classes.main}>
+      <div className={classes.slider}>
+        <div className={classes.slides}>
+          {
+            slidesToShow(data).map((slideInfo, index) => {
+              const { _key, coverImage, mainText, secondaryText, buttonText, withButton } = slideInfo
+              return (
+                <div 
+                  className={`
+                    ${classes.slide} 
+                    ${index === activeSlide && classes.active}
+                    ${index === activeSlide-1 && classes.prev}
+                    ${activeSlide === 0 && index === totalSlides-1 ? classes.prev : ''}
+                    ${activeSlide === totalSlides-1 && index === 0 ? classes.next : ''}
+                  `} 
+                  key={_key+index}
+                >
+                  <ShowcaseSlide
+                    image={coverImage} 
+                    titleText={
+                      locale == 'fr-FR' ? mainText.fr : 
+                      locale == 'ar-DZ' ? mainText.ar :
+                      mainText.en
+                    }
+                    subtitleText={
+                      locale == 'fr-FR' ? secondaryText.fr : 
+                      locale == 'ar-DZ' ? secondaryText.ar :
+                      secondaryText.en
+                    }
+                    buttonText={ withButton && (
+                      locale == 'fr-FR' ? buttonText.en : 
+                      locale == 'ar-DZ' ? buttonText.ar : 
+                      buttonText.en  
+                    )}
+                    isButton={withButton}
+                  />
+                </div>
+              )
+            })
+          }
+        </div>
+        <div className={`${classes.arrow} ${classes.arrow_next}`} style={{ backgroundImage: `url(${arrowIcon.src})` }} onClick={handleNextSlide}></div>
+        <div style={{ backgroundImage: `url(${arrowIcon.src})` }} className={`${classes.arrow} ${classes.arrow_prev}`} onClick={handlePrevSlide} ></div>
+      </div>
+    </div>
   )
 }
 

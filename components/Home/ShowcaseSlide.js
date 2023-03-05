@@ -1,21 +1,35 @@
 import { useRouter } from 'next/router'
+import Image from 'next/image'
+import { useNextSanityImage } from 'next-sanity-image'
+
+import { client } from '../../lib/client'
 import classes from './ShowcaseSlide.module.css'
 
-const ShowcaseSlide = ({ imageSrc, titleText, subtitleText }) => {
-
-  const { locale } = useRouter()
+const ShowcaseSlide = ({ image, titleText, subtitleText, isButton, buttonText }) => {
 
   const router = useRouter()
 
+  const imageProps = useNextSanityImage(client, image)
+
   return (
-    <div className={classes.main} style={{ backgroundImage: `url('${imageSrc}')` }}>
-      <h1 className={classes.title}>{titleText}</h1>
-      <h2 className={classes.subtitle}>{subtitleText}</h2>
-      <button className={classes.button} onClick={() => router.push('/products')}>
+    <div className={classes.main}>
+      <Image 
+        {...imageProps} 			
+        style={{ width: '100%', height: '100%', objectFit: 'cover' }} 
+        loader={imageProps.loader}
+        alt='showcase image of bed sheets'
+        priority
+      />
+      <div className={classes.content}>
+        <h1 className={classes.title}>{titleText}</h1>
+        <h2 className={classes.subtitle}>{subtitleText}</h2>
         {
-          locale == 'fr-FR' ? 'Achetez Maintenant' : locale == 'ar-DZ' ? 'تسوق الآن' : 'Shop Now'
-        } 
-      </button>
+          isButton &&
+          <button className={classes.button} onClick={() => router.push('/products')}>
+            { buttonText } 
+          </button>
+        }
+      </div>
     </div>
   )
 }

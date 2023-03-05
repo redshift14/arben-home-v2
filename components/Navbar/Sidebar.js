@@ -1,82 +1,33 @@
-import { slide as Menu } from 'react-burger-menu'
-import { BiMenu } from 'react-icons/bi'
-import { VscClose } from 'react-icons/vsc'
-import { FaFacebook, FaInstagram } from 'react-icons/fa'
+import dynamic from 'next/dynamic'
 
 import Image from 'next/image'
 import Link from 'next/link'
-import { useRouter } from 'next/router'
-import { useState } from 'react'
 
-import NavItem from './NavItem'
-import Dropdown from './Dropdown'
-import Logo from '../../public/assets/logoSmall.webp'
-import { aboutLinks, shopLinks } from './navLinks'
+import { FaFacebook, FaInstagram } from 'react-icons/fa'
+import { VscClose } from 'react-icons/vsc'
+
 import classes from './Sidebar.module.css'
+import Logo from '../../public/assets/logoSmall.webp'
 
-const Sidebar = () => {
+const NavItems = dynamic(() => import('./NavItems'))
 
-  const { locale } = useRouter()
-
-  const [open, setOpen] = useState(false)
-
-  const handleLinkClick = () => {
-    console.log('clicked')
-    setOpen(false)
-  }
-
+const Sidebar = ({ handleClose }) => {
   return (
-    <Menu
-      className={!open ? `${classes.menu} ${classes.menu_hidden}` : classes.menu}
-      customBurgerIcon={<BiMenu />}
-      burgerButtonClassName={locale == 'ar-DZ' ? `${classes.burger_icon} ${classes.burger_icon_ar}` : classes.burger_icon} 
-      customCrossIcon={<VscClose />}
-      crossButtonClassName={locale == 'ar-DZ' ? `${classes.close_icon_ar}` : classes.close_icon}
-      morphShapeClassName={classes.morph_shape}
-      overlayClassName={classes.overlay}
-      right={locale == 'ar-DZ' ? true : false}
-      onOpen={() => setOpen(true)}
-      onClose={() => setOpen(false)}
-      isOpen={open}
-    >
-      <div className={classes.content}>
-        <div className={classes.head}>
-          <Link href={'/'} onClick={handleLinkClick}>
-            <Image src={Logo} width={150} height={'auto'} alt='Logo' />
-          </Link>
-        </div>
-        <div className={classes.main}>
-          <NavItem 
-            sidebar={true} 
-            linkName={locale == 'fr-FR' ? 'Accueil' : locale == 'ar-DZ' ? 'الرئيسة' : 'Home' } 
-            to={'/'}
-            clickFunction={handleLinkClick}
-          />
-          <NavItem 
-            sidebar={true} 
-            withDropDown={true} 
-            linkName={locale == 'fr-FR' ? 'Boutique' : locale == 'ar-DZ' ? 'المتجر' : 'Shop' }
-            to={undefined}
-            clickFunction={handleLinkClick}
-          >
-            <Dropdown links={shopLinks} sidebar={true} clickFunction={handleLinkClick} />
-          </NavItem>
-          <NavItem 
-            sidebar={true} 
-            withDropDown={true} 
-            linkName={locale == 'fr-FR' ? 'A propos' : locale == 'ar-DZ' ? 'حول' : 'About'}
-            to={undefined}
-            clickFunction={handleLinkClick}
-          >
-            <Dropdown links={aboutLinks} sidebar={true} handleLinkClick={handleLinkClick} />
-          </NavItem>
-        </div>
-        <div className={classes.icons}>
-          <FaFacebook className={classes.icon} />
-          <FaInstagram className={classes.icon} />
-        </div>
+    <div className={classes.content}>
+      <div className={classes.head}>
+        <Link href={'/'}>
+          <Image src={Logo} width={150} height={'auto'} alt='Logo' priority />
+        </Link>
+        <VscClose onClick={handleClose} className={classes.close_icon} />
       </div>
-    </Menu>
+      <div className={classes.main}>
+        <NavItems sidebar={true} handleClose={handleClose} />
+      </div>
+      <div className={classes.icons}>
+        <FaFacebook className={classes.icon} />
+        <FaInstagram className={classes.icon} />
+      </div>
+    </div>
   )
 }
 

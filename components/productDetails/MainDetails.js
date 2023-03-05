@@ -1,14 +1,13 @@
-import ImageGallery from 'react-image-gallery'
 import { useRouter } from 'next/router'
 import { useState, useEffect } from 'react'
 
 import { BsPlus } from 'react-icons/bs'
 import { BiMinus } from 'react-icons/bi'
 
+import ImageGallery from 'react-image-gallery'
 import 'react-image-gallery/styles/css/image-gallery.css'
 
 import { useStateContext } from '../../context/stateContext'
-
 import { urlFor } from '../../lib/client'
 
 import OtherInfo from './OtherInfo'
@@ -24,27 +23,20 @@ const MainDetails = ({ images, name, subtitle, models, title, slug, _id, styles,
 
   useEffect(() => {
     setWindowWidth(window.innerWidth)
-
     const handleResize = () => {
       setWindowWidth(window.innerWidth)
     }
-
     window.addEventListener('resize', handleResize)
-
     return _ => {
       window.removeEventListener('resize', handleResize)
     }
-
   },[windowWidth])
 
   const { locale } = useRouter()
 
   const sizes = models.map(model => ( model.size))
-
   const prices = models.map(model => (model.price))
-
   const quantities = models.map(model => (model.quantity))
-
   const modelsKeys = models.map(model => (model._key)) 
 
   const [selectedPrice, setSelectedPrice] = useState(0)
@@ -55,23 +47,17 @@ const MainDetails = ({ images, name, subtitle, models, title, slug, _id, styles,
   const [maxQuantity, setMaxQuantity] = useState(0)
 
   const handleIncreaseQty = () => {
-    if (selectedQuantity < quantities[maxQuantity]) {
-      setSelectedQuantity(v => v+1)
-    }
+    if (selectedQuantity < quantities[maxQuantity]) setSelectedQuantity(v => v+1)
     else return
   }
 
   const handleReduceQty = () => {
-    if (selectedQuantity > 1) {
-      setSelectedQuantity(v => v-1)
-    }
+    if (selectedQuantity > 1) setSelectedQuantity(v => v-1)
     else return
   }
 
   useEffect(() => {
-    if( selectedQuantity > quantities[maxQuantity]) {
-      setSelectedQuantity(quantities[maxQuantity])
-    }
+    if (selectedQuantity > quantities[maxQuantity]) setSelectedQuantity(quantities[maxQuantity])
   }, [maxQuantity])
 
   const imagesLinks = images.map((image) => ({

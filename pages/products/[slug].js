@@ -1,8 +1,18 @@
+import dynamic from 'next/dynamic'
 import { client } from '../../lib/client'
+import { Suspense } from 'react'
 
-import MainDetails from '../../components/productDetails/MainDetails'
-import Tabs from '../../components/productDetails/Tabs'
-import RelatedProducts from '../../components/productDetails/RelatedProducts'
+import Loading from '../../components/Loading'
+
+const MainDetails = dynamic(() => import('../../components/productDetails/MainDetails'), {
+  loading: () => <Loading />
+})
+const RelatedProducts = dynamic(() => import('../../components/productDetails/RelatedProducts'), {
+  loading: () => <Loading />
+})
+const Tabs = dynamic(() => import('../../components/productDetails/Tabs'), {
+  loading: () => <Loading />
+})
 
 const ProductDetails = ({ product, relatedProducts }) => {
   
@@ -11,7 +21,7 @@ const ProductDetails = ({ product, relatedProducts }) => {
   } = product
 
   return (
-    <div>
+    <Suspense fallback={<Loading />}>
       <MainDetails 
         styles={styles}
         colors={colors}
@@ -34,22 +44,28 @@ const ProductDetails = ({ product, relatedProducts }) => {
       <RelatedProducts
         products={relatedProducts}
       />
-    </div>
+    </Suspense>
   )
 }
 
 export default ProductDetails
 
-export const getStaticProps = async ({ params: { slug } }) => {
+export const getServerSideProps = async (context) => {
 
-  const query = `
+  context.res.setHeader('Cache-control', 's-maxage=20, stale-while-revalidate=60' )
+
+  const { params } = context
+
+  const { slug } = params
+
+  const productQuery = `
     *[_type == 'product' && slug.current == '${slug}'][0] {
       _createdAt, _type, images, name, subtitle, models, title, slug, 
       _id, care, description, materialsUsed[]->, categories[]->, styles[]->, colors[]->
     }
   `
 
-  const product = await client.fetch(query)
+  const product = await client.fetch(productQuery)
 
   const relatedProductsQuery = `
     *[_type == 'product' && !(_id in path("drafts.**")) && '${product.styles[0].styleName.en}' in styles[]->.styleName.en
@@ -61,21 +77,5 @@ export const getStaticProps = async ({ params: { slug } }) => {
 
   return {
     props: { product, relatedProducts }
-  }
-}
-
-export const getStaticPaths = async () => {
-  const query = `*[_type == 'product' && !(_id in path("drafts.**")) ] { slug { current } }`
-  const products = await client.fetch(query)
-
-  const paths = products.map(product => ({
-    params: {
-      slug: product.slug.current
-    }
-  }))
-
-  return {
-    paths, 
-    fallback: 'blocking'
   }
 }

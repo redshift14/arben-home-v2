@@ -1,83 +1,39 @@
-.burger_icon {
-  position: absolute;
-  left: 30px;
-  top: calc(var(--nav-height) + 48px);
-  bottom: auto;
-  color: var(--gray-7);
-  background-color: white;
-  font-size: 28px;
-  z-index: 0 !important;
-}
-.burger_icon:hover {
-  color: var(--gray-6);
-}
-.burger_icon_ar {
-  left: auto;
-  right: 30px;
-}
-.close_icon {
-  right: auto !important;
-  top: 23px !important;
-  left: 10px !important;
-  height: auto !important;
-  width: auto !important;
-  font-size: 38px;
-  color: var(--gray-9);
-}
-.close_icon_ar {
-  left: auto !important;
-  top: 17px !important;
-  right: 10px !important;
-  height: auto !important;
-  width: auto !important;
-  font-size: 38px;
-  color: var(--gray-9);
-  transform: rotate(180deg);
-}
-.close_icon:hover {
-  color: var(--gray-7);
-}
-.menu {
-  background-color: white;
-  width: 400px !important;
-  max-width: 100%;
-}
-.menu {
-  background: white;
-  width: 400px !important;
-  max-width: 100%;
-}
-.menu_hidden {
-  opacity: 0;
-}
-.overlay {
-  background: rgba(0, 0, 0, 0.3) !important;
-  top: 0;
-}
-
-/* content */
 .content {
   padding: 20px;
   position: relative;
+  height: 100%;
+  overflow: auto;
 } 
-.head {
+.sidebar_head {
   position: fixed;
   top: 0;
   left: 0;
-  width: 400px;
-  padding: 20px;
+  width: var(--sidebar-width);
+  max-width: 100vw;
+  height: 100px;
+  padding: 20px 10px;
   font-size: 20px;
   text-align: center;
   border-bottom: 1px solid var(--gray-3);
   color: var(--gray-9);
   background-color: white;
+  display: flex;
+  align-items: center;
 }
-.head_ar {
-  left: auto;
-  right: 0;
+.sidebar_head h1 {
+  font-size: 32px;
+  flex: 1;
+}
+.close_icon {
+  font-size: 38px;
+  color: var(--gray-9);
+  cursor: pointer;
+}
+.close_icon:hover {
+  color: var(--gray-7);
 }
 .main {
-  margin-top: 90px;
+  margin-top: 100px;
 }
 .content_header {
   display: flex;
@@ -106,27 +62,4 @@
 }
 .content_header_text button:hover {
   color: var(--gray-9);
-}
-
-@media only screen and (min-width: 1000px) {
-  .burger_icon {
-    display: none;
-  }
-}
-
-@media only screen and (max-width: 400px) {
-  .close_icon {
-    font-size: 32px;
-  }
-  .head {
-    font-size: 16px;
-  }
-}
-
-@media only screen and (max-width: 350px) {
-  .burger_icon {
-    top: calc(var(--nav-height) + 50px);
-    left: 20px;
-    font-size: 24px;
-  }
 }

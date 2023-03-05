@@ -23,6 +23,16 @@ export default defineType({
             type: 'localeString'
           },
           {
+            title: 'Button text',
+            name: 'buttonText',
+            type: 'localeString'
+          },
+          {
+            title: 'With button',
+            name: 'withButton',
+            type: 'boolean'
+          },
+          {
             title: 'Cover image',
             name: 'coverImage',
             type: 'image'

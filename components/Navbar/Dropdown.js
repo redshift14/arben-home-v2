@@ -4,7 +4,7 @@ import { useRouter } from 'next/router'
 import navClasses from './Dropdown.module.css'
 import sideClasses from './DropdownSidebar.module.css'
 
-const Dropdown = ({ links, sidebar, clickFunction }) => {
+const Dropdown = ({ links, sidebar, handleClose }) => {
 
   const { locale } = useRouter()
 
@@ -12,7 +12,7 @@ const Dropdown = ({ links, sidebar, clickFunction }) => {
 
   const onClick = () => {
     if (sidebar) {
-      clickFunction()
+      handleClose()
     }
   }
 

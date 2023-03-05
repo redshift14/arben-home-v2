@@ -1,10 +1,15 @@
 import { useEffect, useState } from 'react'
+import dynamic from 'next/dynamic'
 
 import classes from './MainPage.module.css'
+import Loading from '../Loading'
 
-import FilterMenu from './FilterMenu'
-import ProductsCards from '../ProductsCards'
-import Pagination from './Pagination'
+const ProductsCards = dynamic(() => import('../ProductsCards'), {
+  loading: () => <Loading /> 
+})
+
+const FilterMenu = dynamic(() => import('./FilterMenu'))
+const Pagination = dynamic(() => import('../Pagination'))
 
 import { useStateContext } from '../../context/stateContext'
 import { getPaginationCurrentList } from '../../lib/helpers/PaginationFunctions'
@@ -18,10 +23,9 @@ const MainPage = () => {
 
   const currentProductsList = getPaginationCurrentList(currentPage,productsPerPage,productsList)
 
+  // set current paginated page to the first one if the current products are zero
   useEffect(() => {
-    if (currentProductsList.length == 0 ) {
-      setCurrentPage(1)
-    }
+    if (currentProductsList.length == 0 ) setCurrentPage(1)
   }, [currentProductsList, currentPage])
 
   return (

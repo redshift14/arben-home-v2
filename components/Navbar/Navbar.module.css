@@ -20,6 +20,15 @@
   align-items: center;
   gap: 50px;
 }
+.sidebar_icon {
+  display: none;
+  font-size: 32px;
+  color: var(--gray-9);
+  cursor: pointer;
+}
+.sidebar_icon:hover {
+  color: var(--gray-7);
+}
 .logo_container {
   flex: 1;
   display: flex;
@@ -30,15 +39,115 @@
   height: 55px;
   width: auto;
 }
-.select_container {
+.controllers_container {
   flex: 1;
   display: flex;
   justify-content: flex-end;
-  padding-right: 30px;
+  align-items: center;
+  gap: 10px;
 }
-.select_container_ar {
-  padding-left: 30px;
-  padding-right: 0;
+.cart_icon_container {
+  display: flex;
+  align-items: flex-end;
+}
+.cart_icon {
+  font-size: 25px;
+  color: var(--gray-8);
+  cursor: pointer;
+}
+.cart_icon:hover {
+  color: var(--gray-7);
+}
+.cart_quantity {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  font-size: 12px;
+  font-weight: 500;
+  color: white;
+  background-color: var(--gray-8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 5px;
+  margin-right: -7px;
+  margin-left: -7px;
+}
+/* sidebar and cart menu */
+.sidebar_container, .sidebar_container_ar,
+.cart_menu_container, .cart_menu_container_ar {
+  height: 100%;
+  z-index: 100;
+  background-color: white;
+  position: fixed;
+  top: 0;
+  transition: transform .5s ease;
+  opacity: 1;
+  max-width: 100vw;
+}
+.sidebar_container {
+  left: 0;
+  width: var(--sidebar-width);
+}
+.sidebar_container_ar {
+  right: 0;
+  width: var(--sidebar-width);
+}
+.sidebar_container_hidden {
+  transform: translateX(-100%);
+  opacity: 0;
+}
+.sidebar_container_hidden_ar {
+  transform: translateX(100%);
+  opacity: 0;
+}
+/* ----------------------------------------- */ 
+.cart_menu_container {
+  right: 0;
+  width: var(--cart-menu-with);
+}
+.cart_menu_container_ar {
+  left: 0;
+  width: var(--cart-menu-with);
+}
+.cart_menu_container_hidden {
+  transform: translateX(100%);
+  opacity: 0;
+}
+.cart_menu_container_hidden_ar {
+  transform: translateX(-100%);
+  opacity: 0;
+}
+/* bottom bar */ 
+.bottom_bar {
+  position: fixed;
+  display: none;
+  bottom: 0;
+  width: 100%;
+  height: 40px;
+  padding: 0 10px;
+  background-color: white;
+  z-index: 12;
+  box-shadow: 0 -1px 6px 1px rgba(0, 0, 0, 0.2);
+  align-items: center;
+  justify-content: space-between;
+}
+.bottom_bar_icon {
+  font-size: 24px;
+  color: var(--gray-8);
+  cursor: pointer;
+}
+.bottom_bar_icon:hover {
+  color: var(--gray-7);
+}
+.overlay {
+  height: 100vh;
+  width: 100vw;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: rgba(0,0,0,0.4);
+  pointer-events: none;
 }
 
 @media only screen and (max-width: 2150px) {
@@ -54,51 +163,57 @@
   .nav {
     display: none;
   }
-  .logo_container {
-    padding-left: 60px;
-    justify-content: flex-start;
+  .sidebar_icon {
+    display: block;
   }
-  .logo_container_ar {
-    padding-left: 0;
-    padding-right: 60px;
+  .logo_container {
+    margin-left: 15px;
+    justify-content: flex-start;
   }
 }
 @media only screen and (max-width: 650px) {
   .main {
     padding: 0 20px;
   }
-  .logo_container {
-    padding-left: 35px;
-  }
-  .logo_container_ar {
-    padding-left: 0;
-    padding-right: 35px;
-  }
 }
 @media only screen and (max-width: 500px) {
   .main {
-    padding: 0 10px;
+    padding: 0;
   }
   .logo_container {
-    padding-left: 0;
+    margin: 0 15px;
   }
-  .logo_container_ar {
-    padding-right: 0;
+  .sidebar_icon {
+    font-size: 28px;
+  }
+  .cart_icon {
+    font-size: 22px;
+  }
+  .controllers_container {
+    margin: 0 15px;
   }
   .logo_container img {
     height: 50px;
     width: auto;
   }
-  .select_container {
-    padding-right: 0;
+  .navbar_icon {
+    display: none;
   }
-  .select_container_ar{
-    padding-left: 0;
+  .cart_quantity {
+    font-size: 10px;
+    width: 18px;
+    height: 18px;
+  }
+  .bottom_bar {
+    display: flex;
   }
 }
 @media only screen and (max-width: 330px) {
-  .main {
-    padding: 0 5px;
+  .logo_container {
+    margin: 0 5px;
+  }
+  .controllers_container {
+    margin: 0 5px;
   }
   .logo_container img {
     height: 45px;
