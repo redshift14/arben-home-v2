@@ -16,6 +16,7 @@
     "@sanity/block-content-to-react": "^3.0.0",
     "@sanity/client": "^3.4.1",
     "@sanity/image-url": "^1.0.1",
+    "@vercel/analytics": "^0.1.11",
     "next": "^13.0.3",
     "next-sanity-image": "^5.0.0",
     "nodemailer": "^6.9.1",
