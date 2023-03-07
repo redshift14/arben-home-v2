@@ -19,6 +19,7 @@ import { useStateContext } from '../../context/stateContext'
 import { checkName, checkIfAlgerianPhoneNumber, checkValidEmail, checkAddress, checkIndividualInput } from '../../lib/helpers/formCheckers'
 
 import classes from './MainLayout.module.css'
+import { setLazyProp } from 'next/dist/server/api-utils'
 
 const MainLayout = ({ imageInfo, deliveryNotes }) => {
   
@@ -75,8 +76,6 @@ const MainLayout = ({ imageInfo, deliveryNotes }) => {
     e.preventDefault()
 
     setLoading(true)
-
-    const res = await client.delete({query: '*[_type=="order"]'})
     
     let errors = 0
     
@@ -97,8 +96,12 @@ const MainLayout = ({ imageInfo, deliveryNotes }) => {
       }
     }
 
+    if (errors !== 0) {
+      setLoading(false)
+    }
+
     // if no errors 
-    if (errors === 0 && selectedWilaya != '0') {
+    if (errors === 0 && selectedWilaya !== '0') {
 
       // products in order array to insert in order document
       const productsInOrder = cartItems.map((item, index) => {
@@ -224,6 +227,7 @@ const MainLayout = ({ imageInfo, deliveryNotes }) => {
         const failureText = locale === 'ar-DZ' ? 'حدث خطأ ما' : locale === 'fr-FR' ? "Quelque chose s'est mal passé" : 'Something went wrong'
         setNotifier({ show: true, success: false, message: failureText})
         console.log(err)
+        setLoading(false)
       }
     }
     setTimeout(() => {

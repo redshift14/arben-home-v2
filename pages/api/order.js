@@ -13,15 +13,14 @@ const handler = async (req, res) => {
         ...getClientMailOptions(data),
         ...generateClientEmailContent(data),
         subject: 'Order confirmed'
-      })
-      res.status(200).json({ success: true })
-
+      })      
       // Notification email to us
       await transporder.sendMail({
         ...mailOptions,
         ...generateNotificationEmailContent(data),
         subject: 'New order notification'
       })
+      res.status(200).json({ success: true })
     }
     catch(err) {
       console.log(err.message)

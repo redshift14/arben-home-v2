@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router'
-import { useState, useEffect, lazy } from 'react'
+import { useState, useEffect } from 'react'
 
 import dynamic from 'next/dynamic'
 
@@ -10,7 +10,7 @@ const ImageGallery = dynamic(() => import('react-image-gallery'))
 import 'react-image-gallery/styles/css/image-gallery.css'
 
 import { useStateContext } from '../../context/stateContext'
-import { urlFor, client } from '../../lib/client'
+import { urlFor } from '../../lib/client'
 
 const OtherInfo = dynamic(() => import('./OtherInfo'))
 
@@ -18,7 +18,7 @@ import classes from './MainDetails.module.css'
 
 const MainDetails = ({ images, name, subtitle, models, title, slug, _id, styles, colors, categories, materialsUsed, care }) => {
 
-  const { addProductToCart } = useStateContext()
+  const { addProductToCart, cartItems } = useStateContext()
 
   const THRESHOLD = 1000
   const [windowWidth, setWindowWidth] = useState()
@@ -35,6 +35,8 @@ const MainDetails = ({ images, name, subtitle, models, title, slug, _id, styles,
   },[windowWidth])
 
   const { locale } = useRouter()
+
+  const router = useRouter()
 
   const sizes = models.map(model => ( model.size))
   const prices = models.map(model => (model.price))
@@ -143,9 +145,19 @@ const MainDetails = ({ images, name, subtitle, models, title, slug, _id, styles,
             }
             disabled={selectedQuantity == 0}
           >
-            {locale === 'ar-DZ' ? 'أضف إلى السلة' : locale === 'fr-FR' ? 'Ajouter au Panier' : 'Add to Cart'}
+            {
+              locale === 'ar-DZ' ? 'أضف إلى السلة' : locale === 'fr-FR' ? 'Ajouter au Panier' : 'Add to Cart'
+            }
           </button>
         </div>
+        {
+          cartItems.length > 0 &&
+          <button className={classes.toCheckOut} onClick={() => router.push('/checkout')}>
+            {
+              locale === 'ar-DZ' ? 'الدفع' : locale === 'fr-FR' ? 'Passer à la caisse' : 'Proceed to checkout'
+            }
+          </button>
+        }
         <OtherInfo 
           styles={styles} 
           categories={categories} 

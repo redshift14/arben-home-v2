@@ -5,6 +5,7 @@
   flex-direction: column;
   gap: 20px;
   min-height: calc(100vh - var(--footer-height) - var(--nav-height));
+  padding: 50px 20px;
 }
 .icon_container {
   font-size: 70px;
