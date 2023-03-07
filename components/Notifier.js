@@ -4,10 +4,15 @@ import classes from '../style/Notifier.module.css'
 const Notifier = ({ success, message }) => {
   return (
     <div className={classes.main}>
-      {
-        success ? <MdOutlineDone className={classes.icon_success} /> :
-        <MdClose className={classes.icon_error} />
-      }
+        {
+          success ? 
+          <span className={classes.icon_success_container}>
+            <MdOutlineDone className={classes.icon_success} /> 
+          </span> :
+          <span className={classes.icon_error_container}>
+            <MdClose className={classes.icon_error} />
+          </span>
+        }
       <p>{message}</p>
     </div>
   )

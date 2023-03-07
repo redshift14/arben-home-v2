@@ -16,6 +16,7 @@
   gap: 15px;  
   padding: 0 15px;
   white-space: normal;
+  text-align: center;
 }
 .title {
   font-size: 58px;
@@ -56,23 +57,22 @@
 }
 
 @media only screen and (max-width: 750px) {
+  .content {
+    width: 600px;
+  }
   .title {
     font-size: 48px;
   }
   .subtitle {
-    font-size: 28px;
-  }
-  .button {
-    font-size: 15px;
-    padding: 8px 10px;
+    font-size: 32px;
   }
 }
 @media only screen and (max-width: 620px) {
   .title {
-    font-size: 38px;
+    font-size: 42px;
   }
   .subtitle {
-    font-size: 22px;
+    font-size: 26px;
   }
   .button {
     font-size: 15px;
@@ -80,30 +80,26 @@
   }
 }
 @media only screen and (max-width: 500px) {
+  .content {
+    width: 450px;
+  }
+}
+@media only screen and (max-width: 380px) {
+  .content {
+    width: 350px;
+  }
   .title {
     font-size: 32px;
   }
   .subtitle {
-    font-size: 18px;
-  }
-}
-@media only screen and (max-width: 380px) {
-  .title {
-    font-size: 26px;
-  }
-  .subtitle {
-    font-size: 16px;
-  }
-  .button {
-    font-size: 12px;
-    padding: 5px 10px;
-  }
-}
-@media only screen and (max-width: 300px) {
-  .title {
     font-size: 22px;
   }
-  .subtitle {
+  .button {
     font-size: 14px;
+  }
+}
+@media only screen and (max-width: 323px) {
+  .content {
+    width: 280px;
   }
 }

@@ -115,9 +115,9 @@ button {
   position: relative;
 }
 .showcase-with-bg-image h2 {
-  color: white;
   font-size: 38px;
   font-weight: 600;
+  color: white;
   position: absolute;
   top: 50%;
   left: 50%;
@@ -171,5 +171,13 @@ button {
 @media only screen and (max-width: 500px) {
   :root {
     --footer-height: 410px;
+  }
+  .showcase-with-bg-image h2 {
+    font-size: 32px;
+  }
+}
+@media only screen and (max-width: 380px) {
+  .showcase-with-bg-image h2 {
+    font-size: 24px;
   }
 }

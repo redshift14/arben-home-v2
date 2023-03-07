@@ -6,26 +6,60 @@
   width: max-content;
   height: max-content;
   background-color: white;
-  padding: 10px 15px;
+  padding: 15px 15px;
   z-index: 999;
   border-radius: 10px;
+  box-shadow: 0 2px 6px 2px rgba(0, 0, 0, 0.3);
+  align-items: center;
+  display: grid;
+  grid-template-columns: auto auto;
+  gap: 10px;
+}
+.icon_success_container, .icon_error_container {
+  border-radius: 50%;
+  height: 25px;
+  width: 25px ;
   display: flex;
   align-items: center;
-  gap: 10px;
-  box-shadow: 0 2px 6px 2px rgba(0, 0, 0, 0.3);
+  justify-content: center;
+}
+.icon_success_container {
+  background-color: green;
+}
+.icon_error_container {
+  background-color: red;
 }
 .icon_success, .icon_error {
   color: white;
-  padding: 4px;
-  font-size: 24px;
-  border-radius: 50%;
-}
-.icon_success {
-  background-color: green;
-}
-.icon_error {
-  background-color: red;
+  font-size: 18px;
 }
 .main p {
   font-size: 18px;
+}
+
+@media only screen and (max-width: 650px) {
+  .main {
+    width: 500px;
+  }
+}
+@media only screen and (max-width: 550px) {
+  .main {
+    width: 400px;
+  }
+}
+@media only screen and (max-width: 440px) {
+  .main {
+    width: 300px;
+  }
+  .main p {
+    font-size: 16px;
+  }
+}
+@media only screen and (max-width: 320px) {
+  .main {
+    width: 250px;
+  }
+  .main p {
+    font-size: 14px;
+  }
 }

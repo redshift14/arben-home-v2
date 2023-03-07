@@ -53,3 +53,9 @@
 .slider:hover .arrow_prev {
   opacity: 1;
 }
+@media only screen and (max-width: 400px) {
+  .arrow {
+    width: 30px;
+    height: 30px;
+  }
+}
