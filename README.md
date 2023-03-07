@@ -6,7 +6,7 @@ This is a complete to the e-commerce website that can be used in production, it 
 
 - [Overview](#overview)
   - [Main owner functionalities](#main-owner-functionalities)
-  - [Main user functionalities](#main-user-functionalities)
+  - [Main users functionalities](#main-users-functionalities)
 - [Links](#links)
 - [Technologies used](#technologies-used)
 - [Author](#author)
