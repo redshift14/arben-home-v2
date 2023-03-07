@@ -9,7 +9,8 @@ import Notifier from '../Notifier'
 
 const ShippingInfo = dynamic(() => import('./ShippingInfo'))
 const SummaryCard = dynamic(() => import('./SummaryCard'))
-const EmptyCart = dynamic(() => import('./EmptyCart'))
+
+import EmptyCart from './EmptyCart'
 
 import { client } from '../../lib/client'
 
@@ -20,7 +21,7 @@ import { checkName, checkIfAlgerianPhoneNumber, checkValidEmail, checkAddress, c
 import classes from './MainLayout.module.css'
 
 const MainLayout = ({ imageInfo, deliveryNotes }) => {
-
+  
   const { locale } = useRouter()
 
   const [notifier, setNotifier] = useState({
@@ -29,8 +30,7 @@ const MainLayout = ({ imageInfo, deliveryNotes }) => {
     message: ''
   })
 
-  const [selectedWilaya, setSelectedWilaya] = useState('0')
-  const [selectedCommune, setSelectedCommune] = useState('1')
+  const [selectedWilaya, setSelectedWilaya] = useState('1')
 
   const [loading, setLoading] = useState(false)
 
@@ -49,7 +49,7 @@ const MainLayout = ({ imageInfo, deliveryNotes }) => {
     notes: '' 
   })
 
-  const checkFunctions = [checkName, checkName, checkAddress, checkIfAlgerianPhoneNumber, checkValidEmail]
+  const checkFunctions = [checkAddress, checkName, checkName, checkIfAlgerianPhoneNumber, checkValidEmail]
 
   const handleChange = (e) => {
     setValues({ ...values, [e.target.name]: e.target.value })
@@ -58,9 +58,9 @@ const MainLayout = ({ imageInfo, deliveryNotes }) => {
   const initializeValues = () => {
     setLoading(false)
     setValues({
+      address: '',
       firstName: '',
       lastName: '',
-      address: '',
       phone: '',
       email: '',
       notes: '' 
@@ -80,7 +80,7 @@ const MainLayout = ({ imageInfo, deliveryNotes }) => {
     
     let errors = 0
     
-    // check wilaya only, if no commune it defaults to first one
+    // check wilaya 
     if (selectedWilaya == '0') {
       setWilayaError(true)
       setTimeout(() => {
@@ -122,7 +122,6 @@ const MainLayout = ({ imageInfo, deliveryNotes }) => {
           firstName: values.firstName,
           lastName: values.lastName,
           wilaya: selectedWilaya,
-          commune: selectedCommune,
           address: values.address,
           phone: values.phone,
           email: values.email,
@@ -249,6 +248,7 @@ const MainLayout = ({ imageInfo, deliveryNotes }) => {
             />
             <h2>{locale == 'ar-DZ' ? 'الدفع' : locale == 'fr-FR' ? 'Caisse' : 'Checkout'}</h2>
           </div>
+          
           <div className={classes.layout}>
             <ShippingInfo 
               values={values}
@@ -256,15 +256,14 @@ const MainLayout = ({ imageInfo, deliveryNotes }) => {
               handleChange={handleChange}
               handleSubmit={handleSubmitOrder}
               loading={loading}
-              selectedCommune={selectedCommune} 
               selectedWilaya={selectedWilaya}
               wilayaError={wilayaError}
-              setSelectedCommune={setSelectedCommune}
               setSelectedWilaya={setSelectedWilaya}
               locale={locale}
             />
             <SummaryCard cartItems={cartItems} totalPrice={totalPrice} locale={locale} />
           </div>
+          
           <div className={classes.content}>
             <div className={classes.shipping_notes_container}>
               <h4>

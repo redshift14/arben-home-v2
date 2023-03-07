@@ -42,11 +42,17 @@ const FilterMenuItem = ({ title, options, selectedOptions, handleCheckboxChange,
     setSelectedConfirmedMinPrice(selectedMinPrice)
   }
 
+  const showSubMenuAriaLabel = locale == 'ar-DZ' ? 'اخفاء او اظهار خيارات التصفية التابعة' : locale == 'fr-FR' ? 'Afficher ou masquer les options de sous-filtre' : 'Show or hide sub filter options'
+
+  const maxPriceAriaLabel = locale == 'ar-DZ' ? 'أقصى سعر' : locale == 'fr-FR' ? 'Prix max' : 'Max price'
+
+  const minPriceAriaLabel =  locale == 'ar-DZ' ? 'أدنى سعر' : locale == 'fr-FR' ? 'Prix min' : 'Min price'
+
   return (
     <div className={classes.main}>
       <div className={classes.head}>
-        <h4>{title}</h4>
-        <button onClick={() => setOpen(v => v = !v)}>
+        <label>{title}</label>
+        <button aria-label={showSubMenuAriaLabel} onClick={() => setOpen(v => v = !v)}>
           { open ? <BiMinus /> : <BiPlus /> }
         </button>
       </div>
@@ -58,6 +64,7 @@ const FilterMenuItem = ({ title, options, selectedOptions, handleCheckboxChange,
                 <div className={classes.price_filter_container}>
                   <div className={classes.top_part}>
                     <input 
+                      aria-label={maxPriceAriaLabel}
                       type='number' 
                       onChange={handleMinPriceInputChange} 
                       value={selectedMinPrice} 
@@ -66,6 +73,7 @@ const FilterMenuItem = ({ title, options, selectedOptions, handleCheckboxChange,
                       { locale === 'ar-DZ' ? 'إلى' : locale === 'fr-FR' ? 'à' : 'to' }
                     </span>
                     <input 
+                      aria-label={minPriceAriaLabel}
                       type='number' 
                       onChange={handleMaxPriceInputChange} 
                       value={selectedMaxPrice} />

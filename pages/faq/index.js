@@ -1,24 +1,27 @@
 import dynamic from 'next/dynamic'
 import useSWR from 'swr'
-import { Suspense } from 'react'
+import { useRouter } from 'next/router'
 
 import { fetchDocumentByType } from '../../lib/client'
 import Loading from '../../components/Loading'
+import FaqHead from '../../html-heads/FaqHead'
 
-const FaqsList = dynamic(() => import('../../components/Faq/FaqsList'))
+import FaqsList from '../../components/Faq/FaqsList'
 
 const Faq = () => {
 
-  const { data, error, isLoading } = useSWR('layout', () => fetchDocumentByType('layout'))
+  const { data, isLoading } = useSWR('layout', () => fetchDocumentByType('layout'))
+
+  const { locale } = useRouter()
 
   return (
     <>
       {
-        error ? ( <div>Failed to fetch the content</div>) : 
         isLoading ? ( <Loading />) : 
-        <Suspense fallback={<Loading />}>
-          <FaqsList data={data.faqPage} />
-        </Suspense>
+        <>  
+          <FaqHead locale={locale} />        
+          <FaqsList data={data.faqPage} locale={locale} />
+        </>
       }
     </>
   )

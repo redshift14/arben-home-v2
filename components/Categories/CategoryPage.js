@@ -1,5 +1,4 @@
 import dynamic from 'next/dynamic'
-import { useRouter } from 'next/router'
 import { useState } from 'react'
 import { useNextSanityImage } from 'next-sanity-image'
 import Image from 'next/image'
@@ -8,20 +7,20 @@ import Loading from '../Loading'
 const ProductsCards = dynamic(() => import('../ProductsCards'), {
   loading: () => <Loading />
 })
+const Pagination = dynamic(() => import('../Pagination'), {
+  loading: () => <Loading />
+})
 
-import Pagination from '../Pagination'
 import { getPaginationCurrentList } from '../../lib/helpers/PaginationFunctions'
 
 import { client } from '../../lib/client'
 
 import classes from './CategoryPage.module.css'
 
-const CategoryPage = ({ products, imageData, currentCat }) => {
+const CategoryPage = ({ products, imageData, currentCat, locale, currentCategoryName }) => {
 
   const imageProps = useNextSanityImage(client, imageData)
   
-  const { locale } = useRouter()
-
   const [currentPage, setCurrentPage] = useState(1)
   const [productsPerPage] = useState(12)
   
@@ -33,6 +32,7 @@ const CategoryPage = ({ products, imageData, currentCat }) => {
           style={{ width: '100%', height: '100%', objectFit:'cover' }} 
           loader={imageProps.loader}
           alt='bed sheets black and white'
+          sizes='100vw'
           priority
         />
         <h2>
@@ -47,6 +47,7 @@ const CategoryPage = ({ products, imageData, currentCat }) => {
           totalItems={products.length} 
           categoryPage={true} 
           currentCat={currentCat}
+          currentCategoryName={currentCategoryName}
         />
         {
           products.length >= productsPerPage && 

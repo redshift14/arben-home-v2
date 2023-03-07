@@ -5,7 +5,7 @@ const FooterElement = ({ title, links, locale }) => {
 
   return (
     <div className={classes.main}> 
-      <h5>{title}</h5>
+      <label>{title}</label>
       <div className={classes.links}>
         {
           links.map((link, index) => (

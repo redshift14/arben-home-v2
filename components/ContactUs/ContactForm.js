@@ -1,19 +1,13 @@
 import { useState } from 'react'
-import { useRouter } from 'next/router'
 import { useNextSanityImage } from 'next-sanity-image'
 import Image from 'next/image'
 import dynamic from 'next/dynamic'
 
-import Notifier from '../Notifier'
-
 import { client } from '../../lib/client'
 import { contactInputs } from '../../lib/data/contactInputs'
 
-import Loading from '../Loading'
-
-const FormElement = dynamic(() => import('./FormElement'), {
-  loading: () => <Loading />
-})
+const Notifier = dynamic(() => import('../Notifier'))
+const FormElement = dynamic(() => import('./FormElement'))
 
 import { checkName, checkValidEmail, checkAddress, checkIndividualInput } from '../../lib/helpers/formCheckers'
 
@@ -21,9 +15,9 @@ import loadingGif from '../../public/assets/icons/Rolling-1s-200px.gif'
 
 import classes from './ContactForm.module.css'
 
-const ContactForm = ({ imageData }) => {
+const ContactForm = ({ imageData, locale }) => {
 
-  const { locale } = useRouter()
+  const imageProps = useNextSanityImage(client, imageData)
 
   const [notifier, setNotifier] = useState({
     show: false, 
@@ -105,16 +99,15 @@ const ContactForm = ({ imageData }) => {
     }
   } 
 
-  const imageProps = useNextSanityImage(client, imageData)
-
   return (  
-    <div className={classes.main}>
+    <section className={classes.main}>
       <div className='showcase-with-bg-image'>
         <Image 
           {...imageProps} 			
           style={{ width: '100%', height: '100%', objectFit:'cover' }} 
           loader={imageProps.loader}
           alt='bed sheets black and white'
+          sizes='100vw'
           priority
         />
         <h2>
@@ -142,7 +135,7 @@ const ContactForm = ({ imageData }) => {
         </div>
         <button type='submit' onClick={handleSubmit}>
           {
-            loading ? <Image src={loadingGif} alt='loading' priority /> :
+            loading ? <Image src={loadingGif} alt='loading' /> :
             locale == 'ar-DZ' ? 'إرسال' : locale == 'fr-FR' ? 'Envoyer le message' : 'Send message'
           }
         </button>
@@ -150,7 +143,7 @@ const ContactForm = ({ imageData }) => {
        {
         notifier.show && <Notifier message={notifier.message} success={notifier.success} />
        }
-    </div>
+    </section>
   )
 }
 

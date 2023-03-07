@@ -17,6 +17,7 @@ const CategoryCard = ({ bgImage, title, wide, to, titleEn }) => {
           style={{ width: '100%', height: '100%', objectFit: 'cover' }} 
           loader={imageProps.loader}
           alt={`${titleEn} describing image`}
+          sizes={wide ? '100vw' : '(max-width: 500) 50vw'}
           priority
         />
         <h3>{title}</h3>

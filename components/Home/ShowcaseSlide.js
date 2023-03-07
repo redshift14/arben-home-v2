@@ -12,12 +12,13 @@ const ShowcaseSlide = ({ image, titleText, subtitleText, isButton, buttonText })
   const imageProps = useNextSanityImage(client, image)
 
   return (
-    <div className={classes.main}>
+    <section className={classes.main}>
       <Image 
         {...imageProps} 			
         style={{ width: '100%', height: '100%', objectFit: 'cover' }} 
         loader={imageProps.loader}
         alt='showcase image of bed sheets'
+        sizes='100vw'
         priority
       />
       <div className={classes.content}>
@@ -30,7 +31,7 @@ const ShowcaseSlide = ({ image, titleText, subtitleText, isButton, buttonText })
           </button>
         }
       </div>
-    </div>
+    </section>
   )
 }
 

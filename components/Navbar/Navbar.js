@@ -10,8 +10,10 @@ import { AiOutlineHome } from 'react-icons/ai'
 
 import Logo from '../../public/assets/logoSmall.webp'
 
+import LanguageSelect from './LanguageSelect'
+
 const NavItems = dynamic(() => import('./NavItems'))
-const LanguageSelect = dynamic(() => import('./LanguageSelect'))
+// const LanguageSelect = dynamic(() => import('./LanguageSelect'))
 const Sidebar = dynamic(() => import('./Sidebar'))
 const CustomCart = dynamic(() => import('../Cart/Cart'))
 

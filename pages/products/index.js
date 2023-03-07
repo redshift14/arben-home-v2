@@ -1,10 +1,8 @@
 import { useEffect } from 'react'
-import dynamic from 'next/dynamic'
-import { Suspense } from 'react'
+import { useRouter } from 'next/router'
 
-const MainPage = dynamic(() => import('../../components/Products/MainPage'))
-
-import Loading from '../../components/Loading'
+import MainPage from '../../components/Products/MainPage'
+import SearchProductsHead from '../../html-heads/SearchProductsHead'
 
 import { useStateContext } from '../../context/stateContext'
 import { client } from '../../lib/client'
@@ -25,11 +23,13 @@ const Products = ({ products, allCategories, allColors, allMaterials, allStyles 
     setProductsList(products)
   }, [products])
 
+  const { locale } = useRouter()
+
   return (
-    <Suspense fallback={<Loading />}>
-      {/* <div>Products</div> */}
+    <>
+      <SearchProductsHead locale={locale} />
       <MainPage />
-    </Suspense>
+    </>
   )
 }
 
@@ -37,7 +37,7 @@ export default Products
 
 export const getServerSideProps = async (context) => {
 
-  context.res.setHeader('Cache-control', 's-maxage=20, stale-while-revalidate=60' )
+  context.res.setHeader('Cache-control', 's-maxage=10, stale-while-revalidate=20' )
 
   const allCategoriesQuery = '*[_type=="category"]{_id, categoryName}'
   const allColorsQuery = '*[_type=="color"]{_id, colorName}'

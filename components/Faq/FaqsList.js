@@ -21,7 +21,7 @@ const FaqsList = ({ data }) => {
   const imageProps = useNextSanityImage(client, showcaseImage)
 
   return (
-    <div className={classes.main}>
+    <section className={classes.main}>
       <div className='showcase-with-bg-image'>
         <Image 
           {...imageProps} 			
@@ -47,7 +47,7 @@ const FaqsList = ({ data }) => {
           ))
         }
       </div>
-    </div>
+    </section>
   )
 }
 

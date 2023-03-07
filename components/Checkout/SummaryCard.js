@@ -1,5 +1,3 @@
-import { useRouter } from 'next/router'
-
 import { urlFor } from '../../lib/client'
 
 import classes from './SummaryCard.module.css'
@@ -7,6 +5,10 @@ import classes from './SummaryCard.module.css'
 const SummaryCard = ({ cartItems, totalPrice, locale }) => {
 
   const textDirection = locale == 'ar-DZ' ? 'right' : 'left'
+
+  const currencyLabel =  locale == 'ar-DZ' ? ' دينار ' : ' DZD'  
+
+  const deliveryCost = totalPrice > 2999 ? 0 : 500
 
   return (
     <div className={classes.main}>
@@ -58,8 +60,11 @@ const SummaryCard = ({ cartItems, totalPrice, locale }) => {
             }
           </h4>
           <h4>
-            500 
-            { locale == 'ar-DZ' ? ' دينار ' : ' DZD' }
+            {
+              deliveryCost === 0 ?
+              (locale == 'ar-DZ' ? 'مجاني' :  locale == 'fr-FR' ? 'Gratuit' : 'Free') : 
+              ( deliveryCost + currencyLabel )
+            } 
           </h4>
         </div>
         <hr className={classes.seperator} />
@@ -70,7 +75,7 @@ const SummaryCard = ({ cartItems, totalPrice, locale }) => {
             }
           </h4>
           <h4>
-            { 500 + totalPrice } 
+            { deliveryCost + totalPrice } 
             { locale == 'ar-DZ' ? ' دينار ' : ' DZD' }
           </h4>
         </div>

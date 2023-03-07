@@ -7,7 +7,7 @@ const FormElement = ({
   return (
     <div className={isWide ? `${classes.main} ${classes.main_wide}` : classes.main}>
       <label htmlFor={name}>
-        { locale === 'ar-DZ' ? labelTextAr : locale === 'fr-FR' ? labelTextFr : labelTextEn }
+        { locale == 'ar-DZ' ? labelTextAr : locale == 'fr-FR' ? labelTextFr : labelTextEn }
       </label>
       {
         children ? children : 

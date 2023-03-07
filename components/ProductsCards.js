@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
 
 import { HiOutlineFilter } from 'react-icons/hi' 
@@ -10,13 +10,11 @@ import FiltersSidebar from './Products/FiltersSidebar'
 import searchClasses from '../style/productsCardsStyles/ProductsCardsSearch.module.css'
 import categoriesClasses from '../style/productsCardsStyles/ProductsCardsCategories.module.css'
 
-import { getPageTitle } from '../lib/helpers/generalFunctions'
-
-const ProductsCards = ({searchPage, categoryPage, relatedPage, products, totalItems, currentCat}) => {
+const ProductsCards = ({ searchPage, categoryPage, relatedPage, products, totalItems, currentCat, currentCategoryName }) => {
   
   const { main, head, search_options_container, search_options_text, cards, sidebar_icon_container, sidebar_icon, sidebar_container, sidebar_container_ar, sidebar_container_hidden, sidebar_container_hidden_ar, overlay, title } = categoryPage ? categoriesClasses : searchClasses
 
-  const { locale, asPath } = useRouter()
+  const { locale } = useRouter()
 
   const [windowWidth, setWindowWidth] = useState()
 
@@ -44,13 +42,11 @@ const ProductsCards = ({searchPage, categoryPage, relatedPage, products, totalIt
     <div className={main}>
       <div className={head}>
         { 
-          !searchPage && 
-          <h1 className={title}>
-            { getPageTitle(categoryPage, asPath, locale) }
-          </h1> }
+          !searchPage && <h1 className={title}>{currentCategoryName}</h1> 
+        }
         { 
           searchPage && windowWidth > 1000 && 
-          <h1 className={title}>{ getPageTitle(categoryPage, asPath, locale) }</h1> 
+          <h1 className={title}>{currentCategoryName}</h1> 
         }
         {
           searchPage && windowWidth < 1000 &&

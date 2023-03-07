@@ -1,12 +1,11 @@
+import { useRouter } from 'next/router'
 import dynamic from 'next/dynamic'
 import { client } from '../../lib/client'
-import { Suspense } from 'react'
 
+import ProductHead from '../../html-heads/ProductHead'
 import Loading from '../../components/Loading'
+import MainDetails from '../../components/productDetails/MainDetails'
 
-const MainDetails = dynamic(() => import('../../components/productDetails/MainDetails'), {
-  loading: () => <Loading />
-})
 const RelatedProducts = dynamic(() => import('../../components/productDetails/RelatedProducts'), {
   loading: () => <Loading />
 })
@@ -20,8 +19,11 @@ const ProductDetails = ({ product, relatedProducts }) => {
     images, name, subtitle, models, title, slug, _id, care, description, materialsUsed, styles, colors, categories
   } = product
 
+  const { locale } = useRouter()
+
   return (
-    <Suspense fallback={<Loading />}>
+    <>
+      <ProductHead locale={locale} category={categories[0]} productName={name} />
       <MainDetails 
         styles={styles}
         colors={colors}
@@ -44,7 +46,7 @@ const ProductDetails = ({ product, relatedProducts }) => {
       <RelatedProducts
         products={relatedProducts}
       />
-    </Suspense>
+    </>
   )
 }
 
@@ -52,7 +54,7 @@ export default ProductDetails
 
 export const getServerSideProps = async (context) => {
 
-  context.res.setHeader('Cache-control', 's-maxage=20, stale-while-revalidate=60' )
+  context.res.setHeader('Cache-control', 's-maxage=10, stale-while-revalidate=20' )
 
   const { params } = context
 

@@ -47,6 +47,7 @@ const ProductCard = ({ title, slug, models, coverImage1, coverImage2, searchPage
             width={imageProps.width}	
             height={imageProps.height}
             loader={imageProps.loader}
+            sizes={'(max-width: 500) 80vw, (max-width: 1000) 40vw, (max-width: 1920) 30vw, 15'}
             style={{ width: '100%', height: '100%', objectFit:'cover' }} 
             alt={title}
             priority

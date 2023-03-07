@@ -29,6 +29,7 @@
   outline: none;
   background-color: transparent;
   font-size: 18px;
+  font-family: inherit;
   color: var(--gray-9);
   cursor: pointer;
   display: flex;

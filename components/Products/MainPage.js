@@ -7,9 +7,12 @@ import Loading from '../Loading'
 const ProductsCards = dynamic(() => import('../ProductsCards'), {
   loading: () => <Loading /> 
 })
-
-const FilterMenu = dynamic(() => import('./FilterMenu'))
-const Pagination = dynamic(() => import('../Pagination'))
+const FilterMenu = dynamic(() => import('./FilterMenu'), {
+  loading: () => <Loading /> 
+})
+const Pagination = dynamic(() => import('../Pagination'), {
+  loading: () => <Loading /> 
+})
 
 import { useStateContext } from '../../context/stateContext'
 import { getPaginationCurrentList } from '../../lib/helpers/PaginationFunctions'

@@ -1,29 +1,29 @@
 import useSWR from 'swr'
-import dynamic from 'next/dynamic'
-import { Suspense } from 'react'
+import { useRouter } from 'next/router'
 
 import { fetchDocumentByType } from '../../lib/client'
 import Loading from '../../components/Loading'
 
-const MainLayout = dynamic(() => import('../../components/Checkout/MainLayout'), {
-  loading: () => <Loading />
-})
+import MainLayout from '../../components/Checkout/MainLayout'
+import CheckoutHead from '../../html-heads/CheckoutHead'
 
 const Checkout = () => {
 
-  const { data, error, isLoading } = useSWR('layout', () => fetchDocumentByType('layout'))
+  const { data, isLoading } = useSWR('layout', () => fetchDocumentByType('layout'))
+
+  const { locale } = useRouter()
 
   return (
     <>
       {
-        error ? ( <div>Failed to fetch the content</div>) : 
         isLoading ? ( <Loading />) : 
-        <Suspense fallback={<Loading />}>
+        <>
+          <CheckoutHead locale={locale} />
           <MainLayout 
             imageInfo={data.checkoutPageShowcaseImage}  
             deliveryNotes={data.deliveryNotes}
           />
-        </Suspense>
+        </>
       }
     </>
   )

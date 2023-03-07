@@ -19,11 +19,16 @@ const Pagination = ({ productsPerPage, totalProducts, setCurrentPage, currentPag
 
   const { locale } = useRouter()
 
+  const nextAriaLabel = locale == 'ar-DZ' ? 'الى صفحة المنتجات التالية' : locale == 'fr-FR' ? 'Vers la page de produits suivante' : 'To next products page'
+  const byNumberAriaLabel = locale == 'ar-DZ' ? 'الى صفحة المنتجات ذات الرقم' : locale == 'fr-FR' ? 'Vers la page des produits avec le numéro' : 'To products page with the number'
+  const prevAriaLabel = locale == 'ar-DZ' ? 'الى صفحة المنتجات السابقة' : locale == 'fr-FR' ? 'Vers la page des produits précédents' : 'To previous products page'
+
   return (
     <nav className={classes.nav}>
       <ul className={classes.list}>
         <li>
           <button 
+            aria-label={nextAriaLabel}
             className={locale === 'ar-DZ' ? `${classes.icon_btn} ${classes.icon_btn_ar}` : classes.icon_btn} 
             onClick={() => prevPage(currentPage, setCurrentPage)}
           >
@@ -34,6 +39,7 @@ const Pagination = ({ productsPerPage, totalProducts, setCurrentPage, currentPag
           pageNumbers.map(number => (
             <li key={number}>
               <button 
+                aria-label={byNumberAriaLabel}
                 className={currentPage === number ? classes.current_btn : ''} 
                 onClick={() => paginate(number, setCurrentPage)}
               >
@@ -44,6 +50,7 @@ const Pagination = ({ productsPerPage, totalProducts, setCurrentPage, currentPag
         }
         <li>
           <button 
+            aria-label={prevAriaLabel}
             className={locale === 'ar-DZ' ? `${classes.icon_btn} ${classes.icon_btn_ar}` : classes.icon_btn} 
             onClick={() => nextPage(pageNumbers.length, currentPage, setCurrentPage)}
           >

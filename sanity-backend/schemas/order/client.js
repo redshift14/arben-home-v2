@@ -21,11 +21,6 @@ export default defineType({
       type: 'string'
     },
     {
-      title: 'Commune',
-      name: 'commune',
-      type: 'string'
-    },
-    {
       title: 'Address',
       name: 'address',
       type: 'string'

@@ -1,9 +1,6 @@
-import { useState, useEffect } from 'react'
 import Image from 'next/image'
 import dynamic from 'next/dynamic'
-
 import wilayas from '../../lib/data/wilayaAlgeria.json'
-import communes from '../../lib/data/communeAlgeria.json'
 
 const FormElement = dynamic(() => import('./FormElement'))
 
@@ -12,22 +9,12 @@ import loadingGif from '../../public/assets/icons/Rolling-1s-200px.gif'
 import classes from './ShippingInfo.module.css'
 
 const ShippingInfo = ({ 
-  selectedWilaya, wilayaError, selectedCommune, setSelectedWilaya, setSelectedCommune, inputs, values, handleChange, handleSubmit, loading, locale
+  selectedWilaya, wilayaError, setSelectedWilaya, inputs, values, handleChange, handleSubmit, loading, locale
 }) => {
-  
-  const [communeList, setCommuneList] = useState([])
 
   const handleWilayaChange = (e) => {
     setSelectedWilaya(e.target.value)
   }
-
-  const handleCommuneChange = (e) => {
-    setSelectedCommune(e.target.value)
-  } 
-
-  useEffect(() => {
-    setCommuneList(communes.filter(commune => commune.wilaya_id === selectedWilaya))
-  }, [selectedWilaya])
 
   return (
     <div className={classes.main}>
@@ -35,7 +22,7 @@ const ShippingInfo = ({
         {
           locale == 'ar-DZ' ? 'معلومات التوصيل' : locale == 'fr-FR' ? 'Adresse de livraison' : 'Delivery address'
         }
-      </h3>
+      </h3>      
       <form className={classes.form} onSubmit={handleSubmit}>
         <div className={classes.elements}>
           <FormElement
@@ -53,22 +40,6 @@ const ShippingInfo = ({
                 wilayas.map(wilaya => (
                   <option key={wilaya.id} value={wilaya.id}>
                     { locale == 'ar-DZ' ? wilaya.ar_name : wilaya.name }
-                  </option>
-                ))
-              }
-            </select>
-          </FormElement>
-          <FormElement
-            name='commune'
-            labelTextAr='البلدية'
-            labelTextFr='Commune'
-            labelTextEn='Town'
-          >
-            <select onChange={handleCommuneChange} value={selectedCommune} id='wilaya' disabled={communeList.length === 0}>
-              {
-                communeList?.map(commune => (
-                  <option key={commune.id} value={commune.id}>
-                    { locale == 'ar-DZ' ? commune.ar_name : commune.name }
                   </option>
                 ))
               }
@@ -96,6 +67,7 @@ const ShippingInfo = ({
           }
         </button>
       </form>
+      
     </div>
   )
 }

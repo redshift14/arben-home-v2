@@ -1,10 +1,11 @@
 import { useState } from 'react'
-import dynamic from 'next/dynamic'
+// import dynamic from 'next/dynamic'
 
 import arrowIcon from '../../public/assets/icons/arrow.png'
 import classes from './Showcase.module.css'
 
-const ShowcaseSlide = dynamic(() => import('./ShowcaseSlide'))
+import ShowcaseSlide from './ShowcaseSlide'
+// const ShowcaseSlide = dynamic(() => import('./ShowcaseSlide'))
 
 const Showcase = ({ data, locale }) => {
 
@@ -59,7 +60,7 @@ const Showcase = ({ data, locale }) => {
                       secondaryText.en
                     }
                     buttonText={ withButton && (
-                      locale == 'fr-FR' ? buttonText.en : 
+                      locale == 'fr-FR' ? buttonText.fr : 
                       locale == 'ar-DZ' ? buttonText.ar : 
                       buttonText.en  
                     )}

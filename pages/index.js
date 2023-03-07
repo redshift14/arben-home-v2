@@ -1,16 +1,24 @@
 import dynamic from 'next/dynamic'
-import { Suspense } from 'react'
 import { useRouter } from 'next/router'
 import useSWR from 'swr'
 
+import HomeHead from '../html-heads/HomeHead'
 import Loading from '../components/Loading'
 
-const Showcase = dynamic(() => import('../components/Home/Showcase'))
+import Showcase from '../components/Home/Showcase'
 
-const Intro = dynamic(() => import('../components/Home/Intro'))
-const RecentProducts = dynamic(() => import('../components/Home/RecentProducts'))
-const Categories = dynamic(() => import('../components/Home/Categories'))
-const AboutSection = dynamic(() => import('../components/Home/AboutSection'))
+const Intro = dynamic(() => import('../components/Home/Intro'), {
+  loading: () => <Loading />
+})
+const RecentProducts = dynamic(() => import('../components/Home/RecentProducts'), {
+  loading: () => <Loading />
+})
+const Categories = dynamic(() => import('../components/Home/Categories'), {
+  loading: () => <Loading />
+})
+const AboutSection = dynamic(() => import('../components/Home/AboutSection'), {
+  loading: () => <Loading />
+})
 
 import { client, fetchDocumentByType } from '../lib/client'
 
@@ -22,16 +30,16 @@ const Home = ({ products }) => {
   
   return (
     <>
+      <HomeHead locale={locale} />
       {
-        error ? ( <div>Failed to fetch the content</div>) : 
         isLoading ? ( <Loading />) : 
-        <Suspense fallback={<Loading />}>
+        <>
           <Showcase data={data.homePage.headerSection} locale={locale} />
           <Intro data={data.homePage.introSection} locale={locale} />
           <RecentProducts products={products} locale={locale} />
           <Categories data={data.homePage.categoriesSection} locale={locale} />
           <AboutSection data={data.homePage.aboutSectionText} locale={locale} />
-        </Suspense>
+        </>
       }
     </>
   )

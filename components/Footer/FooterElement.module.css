@@ -3,7 +3,7 @@
   flex-direction: column;
   gap: 10px;
 }
-.main h5 {
+.label {
   font-size: 18px;
   font-weight: 500;
   color: var(--gray-9);

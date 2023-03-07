@@ -1,9 +1,10 @@
 import dynamic from 'next/dynamic'
 import useSWR from 'swr'
-import { Suspense } from 'react'
+import { useRouter } from 'next/router'
 
 import { fetchDocumentByType } from '../../lib/client'
 import Loading from '../../components/Loading'
+import ContactUsHead from '../../html-heads/ContactusHead'
 
 const ContactForm = dynamic(() => import('../../components/ContactUs/ContactForm'))
 
@@ -11,14 +12,16 @@ const Contact = () => {
 
   const { data, error, isLoading } = useSWR('layout', () => fetchDocumentByType('layout'))
 
+  const { locale } = useRouter()
+
   return (
     <>
       {
-        error ? ( <div>Failed to fetch the content</div>) : 
         isLoading ? ( <Loading />) : 
-        <Suspense fallback={<Loading />}>
-          <ContactForm imageData={data.contactPageShowcaseImage} />
-        </Suspense>
+        <>
+          <ContactUsHead locale={locale} />
+          <ContactForm imageData={data.contactPageShowcaseImage} locale={locale} />
+        </>
       }
     </>
   )

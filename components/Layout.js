@@ -1,10 +1,16 @@
 import { useRouter } from 'next/router'
 import dynamic from 'next/dynamic'
+import Loading from './Loading'
 
-import Head from 'next/head'
+import Navbar from './Navbar/Navbar'
 
-const Navbar = dynamic(() => import('./Navbar/Navbar'))
-const Footer = dynamic(() => import('./Footer/Footer'))
+// const Navbar = dynamic(() => import('./Navbar/Navbar'), {
+//   loading: () => <Loading />
+// })
+
+const Footer = dynamic(() => import('./Footer/Footer'), {
+  loading: () => <Loading />
+})
 
 const Layout = ({ children }) => {
 
@@ -12,11 +18,8 @@ const Layout = ({ children }) => {
 
   return (
     <div dir={ locale == 'ar-DZ' ? 'rtl' : 'ltr' }>
-      <Head>
-        <title>Arben Home</title>
-      </Head>
       <header>
-        <Navbar />
+        <Navbar/>
       </header>
       <main>
         { children }

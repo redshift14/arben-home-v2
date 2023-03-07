@@ -1,10 +1,16 @@
 import dynamic from 'next/dynamic'
-import { Suspense } from 'react'
+import { useRouter } from 'next/router'
 import useSWR from 'swr'
-
-const CategoryPage = dynamic(() => import('../../components/Categories/CategoryPage'))
-
 import Loading from '../../components/Loading'
+import CategoriesHead from '../../html-heads/CategoriesHead'
+
+import { getPageTitle } from '../../lib/helpers/generalFunctions'
+
+// const CategoryPage = dynamic(() => import('../../components/Categories/CategoryPage'), {
+//   loading: () => <Loading />
+// })
+
+import CategoryPage from '../../components/Categories/CategoryPage'
 
 import { client, fetchDocumentByType } from '../../lib/client'
 import { getSortingOptions } from '../../lib/helpers/backendPropsGetters'
@@ -13,16 +19,24 @@ const Category = ({ products, cat }) => {
 
   const { data, error, isLoading } = useSWR('layout', () => fetchDocumentByType('layout'))
 
+  const { locale, asPath } = useRouter()
+
+  const currentCategoryName = getPageTitle(asPath, locale)
+
   return (
     <>
       {
-        error ? ( <div>Failed to fetch the content</div>) : 
         isLoading ? ( <Loading />) : 
-        <Suspense fallback={<Loading />}>
+        <>
+          <CategoriesHead locale={locale} cat={currentCategoryName} />
           <CategoryPage 
-            products={products} imageData={data.aboutPageShowcaseImage} currentCat={cat} 
+            products={products} 
+            imageData={data.aboutPageShowcaseImage} 
+            currentCategoryName={currentCategoryName}
+            currentCat={cat} 
+            locale={locale}
           />
-        </Suspense>
+        </>
       }    
     </>
   )
