@@ -4,6 +4,7 @@ import { useRouter } from 'next/router'
 
 import { fetchDocumentByType } from '../../lib/client'
 import Loading from '../../components/Loading'
+import ContactUsHead from '../../html-heads/ContactUsHead'
 
 const ContactForm = dynamic(() => import('../../components/ContactUs/ContactForm'))
 
@@ -18,6 +19,7 @@ const Contact = () => {
       {
         isLoading ? ( <Loading />) : 
         <>
+          <ContactUsHead locale={locale} />
           <ContactForm imageData={data.contactPageShowcaseImage} locale={locale} />
         </>
       }
